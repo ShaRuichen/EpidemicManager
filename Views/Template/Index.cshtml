@@ -1,0 +1,15 @@
+﻿@model TemplateModel
+@{
+    ViewBag.Ref = "template";
+    ViewBag.Title = "模板";
+}
+
+<div class="text-center">
+    <h1>Hi</h1>
+    <div id="button" class="button" onclick="click1('World')">按钮</div>
+    @foreach(var id in Model.Ids)
+    {
+        <p>@id</p>
+    }
+    <a asp-area="" asp-controller="template" asp-action="modify">链接</a>
+</div>
