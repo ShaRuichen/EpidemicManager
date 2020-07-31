@@ -12,7 +12,7 @@ namespace EpidemicManager.Controllers
 
         public IActionResult Index()
         {
-            var people = sql.Read("SELECT * FROM people");
+            var people = sql.Read("SELECT id FROM people");
             var list = new List<string>();
             foreach (DataRow person in people)
             {
