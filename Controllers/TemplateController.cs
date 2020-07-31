@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Data;
 
 using Microsoft.AspNetCore.Mvc;
-
 using EpidemicManager.Models;
-using System.Data;
 
 namespace EpidemicManager.Controllers
 {
