@@ -4,11 +4,11 @@ using MySql.Data.MySqlClient;
 
 namespace EpidemicManager
 {
-    public class MySql
+    public class Sql
     {
         private readonly MySqlConnection connection;
 
-        public MySql()
+        public Sql()
         {
             const string ConnectionString = "server=localhost;database=infectious_disease;uid=root;pwd=123456";
             connection = new MySqlConnection(ConnectionString);
@@ -57,7 +57,7 @@ namespace EpidemicManager
             return table.Rows;
         }
 
-        ~MySql()
+        ~Sql()
         {
             connection?.Close();
             connection?.Dispose();

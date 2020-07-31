@@ -8,11 +8,11 @@ namespace EpidemicManager.Controllers
 {
     public class TemplateController : Controller
     {
-        private readonly MySql mysql = new MySql();
+        private readonly Sql sql = new Sql();
 
         public IActionResult Index()
         {
-            var people = mysql.Read("SELECT * FROM people");
+            var people = sql.Read("SELECT * FROM people");
             var list = new List<string>();
             foreach (DataRow person in people)
             {
@@ -31,11 +31,11 @@ namespace EpidemicManager.Controllers
         {
             if (id != null)
             {
-                mysql.Execute("INSERT INTO people VALUES(@0, 'name', 'address', 'tel', 'sex', 'password')", id);
+                sql.Execute("INSERT INTO people VALUES(@0, 'name', 'address', 'tel', 'sex', 'password')", id);
             }
             else
             {
-                mysql.Execute("DELETE FROM people");
+                sql.Execute("DELETE FROM people");
             }
 
             var model = new TemplateModel
