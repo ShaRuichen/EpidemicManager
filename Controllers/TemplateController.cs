@@ -15,7 +15,7 @@ namespace EpidemicManager.Controllers
             using var conn = new MySqlConnection(Program.ConnString);
             conn.Open();
             using var cmd = new MySqlCommand("SELECT * FROM people", conn);
-            var reader = cmd.ExecuteReader();
+            using var reader = cmd.ExecuteReader();
             var list = new List<string>();
             while (reader.Read())
             {
