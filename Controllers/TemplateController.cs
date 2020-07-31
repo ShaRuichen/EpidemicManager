@@ -3,23 +3,21 @@
 using Microsoft.AspNetCore.Mvc;
 
 using EpidemicManager.Models;
-using MySql.Data.MySqlClient;
-using Microsoft.Extensions.Logging;
+using System.Data;
 
 namespace EpidemicManager.Controllers
 {
     public class TemplateController : Controller
     {
+        private readonly MySql mysql = new MySql();
+
         public IActionResult Index()
         {
-            using var conn = new MySqlConnection(Program.ConnString);
-            conn.Open();
-            using var cmd = new MySqlCommand("SELECT * FROM people", conn);
-            using var reader = cmd.ExecuteReader();
+            var people = mysql.Read("SELECT * FROM people");
             var list = new List<string>();
-            while (reader.Read())
+            foreach (DataRow person in people)
             {
-                list.Add(reader.GetString(0));
+                list.Add(person[0].ToString());
             }
 
             var model = new TemplateModel
@@ -34,22 +32,11 @@ namespace EpidemicManager.Controllers
         {
             if (id != null)
             {
-                using var conn = new MySqlConnection(Program.ConnString);
-                conn.Open();
-                using var cmd = new MySqlCommand
-                {
-                    Connection = conn,
-                    CommandText = $"INSERT INTO people VALUES(@id, 'name', 'address', 'tel', 'sex', 'password')",
-                };
-                cmd.Parameters.Add(new MySqlParameter("@id", id));
-                cmd.ExecuteNonQuery();
+                mysql.Execute("INSERT INTO people VALUES(@0, 'name', 'address', 'tel', 'sex', 'password')", id);
             }
             else
             {
-                using var conn = new MySqlConnection(Program.ConnString);
-                conn.Open();
-                using var cmd = new MySqlCommand("DELETE FROM people", conn);
-                cmd.ExecuteNonQuery();
+                mysql.Execute("DELETE FROM people");
             }
 
             var model = new TemplateModel
