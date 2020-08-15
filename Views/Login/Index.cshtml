@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Ref = "login";
+    ViewBag.Title = "登录";
+}
+
+<div class="text-center">
+    <form name="mainForm">
+        <p id="errorMessage"></p>
+        <p>ID：<input id="userId" type="text" /></p>
+        <p>密码：<input id="userPassword" type="password" /></p>
+        <p>
+            <label><input type="radio" name="userKind" value="people" checked="checked" /> 民众</label>
+            <label><input type="radio" name="userKind" value="doctor" /> 医生</label>
+            <label><input type="radio" name="userKind" value="manager" /> 管理员</label>
+        </p>
+        <p>
+            <div class="btn btn-primary" onclick="loginClick()">登录</div>
+            <div class="btn btn-secondary">注册</div>
+        </p>
+    </form>
+</div>
