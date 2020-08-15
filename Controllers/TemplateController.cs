@@ -3,6 +3,8 @@ using System.Data;
 
 using Microsoft.AspNetCore.Mvc;
 using EpidemicManager.Models;
+using System.Diagnostics;
+using System.Threading;
 
 namespace EpidemicManager.Controllers
 {
@@ -10,6 +12,8 @@ namespace EpidemicManager.Controllers
     {
         public IActionResult Index()
         {
+            TestSql();
+
             var people = Sql.Read("SELECT id FROM people");
             var list = new List<string>();
             foreach (DataRow person in people)
@@ -52,6 +56,20 @@ namespace EpidemicManager.Controllers
                 name,
                 num = number + 1,
             });
+        }
+
+        [Conditional("DebugSql")]
+        private void TestSql()
+        {
+            for (var i = 0; i < 40; i++)
+            {
+                if (i == 20) Thread.Sleep(500);
+                var thread = new Thread(() =>
+                {
+                    Sql.Read("SELECT id FROM people");
+                });
+                thread.Start();
+            }
         }
     }
 }
