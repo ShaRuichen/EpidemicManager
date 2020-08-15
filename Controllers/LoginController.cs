@@ -7,8 +7,6 @@ namespace EpidemicManager.Controllers
 {
     public class LoginController : Controller
     {
-        private readonly Sql sql = new Sql();
-
         public IActionResult Index()
         {
             return View();
@@ -19,9 +17,9 @@ namespace EpidemicManager.Controllers
         {
             var person = kind switch
             {
-                "people" => sql.Read("SELECT password FROM people WHERE id = @0", id),
-                "doctor" => sql.Read("SELECT password FROM doctor WHERE id = @0", id),
-                "manager" => sql.Read("SELECT password FROM manager WHERE id = @0", id),
+                "people" => Sql.Read("SELECT password FROM people WHERE id = @0", id),
+                "doctor" => Sql.Read("SELECT password FROM doctor WHERE id = @0", id),
+                "manager" => Sql.Read("SELECT password FROM manager WHERE id = @0", id),
                 _ => throw new InvalidOperationException()
             };
             if (person.Count == 0) return Json(new

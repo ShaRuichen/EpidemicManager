@@ -8,11 +8,9 @@ namespace EpidemicManager.Controllers
 {
     public class TemplateController : Controller
     {
-        private readonly Sql sql = new Sql();
-
         public IActionResult Index()
         {
-            var people = sql.Read("SELECT id FROM people");
+            var people = Sql.Read("SELECT id FROM people");
             var list = new List<string>();
             foreach (DataRow person in people)
             {
@@ -31,11 +29,11 @@ namespace EpidemicManager.Controllers
         {
             if (id != null)
             {
-                sql.Execute("INSERT INTO people VALUES(@0, 'name', 'address', 'tel', 'sex', 'password')", id);
+                Sql.Execute("INSERT INTO people VALUES(@0, 'name', 'address', 'tel', 'sex', 'password')", id);
             }
             else
             {
-                sql.Execute("DELETE FROM people");
+                Sql.Execute("DELETE FROM people");
             }
 
             var model = new TemplateModel

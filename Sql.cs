@@ -4,11 +4,11 @@ using MySql.Data.MySqlClient;
 
 namespace EpidemicManager
 {
-    public class Sql
+    public static class Sql
     {
-        private readonly MySqlConnection connection;
+        private static readonly MySqlConnection connection;
 
-        public Sql()
+        static Sql()
         {
             const string ConnectionString = "server=localhost;database=infectious_disease;uid=root;pwd=123456";
             connection = new MySqlConnection(ConnectionString);
@@ -24,7 +24,7 @@ namespace EpidemicManager
         }
 
         /// <exception cref="MySqlException" />
-        public void Execute(string sql, params object[] args)
+        public static void Execute(string sql, params object[] args)
         {
             using var transaction = connection.BeginTransaction();
             using var command = new MySqlCommand(sql, connection);
@@ -44,7 +44,7 @@ namespace EpidemicManager
         }
 
         /// <exception cref="MySqlException" />
-        public DataRowCollection Read(string sql, params object[] args)
+        public static DataRowCollection Read(string sql, params object[] args)
         {
             using var command = new MySqlCommand(sql, connection);
             for (var i = 0; i < args.Length; i++)
@@ -55,12 +55,6 @@ namespace EpidemicManager
             using var table = new DataTable();
             reader.Fill(table);
             return table.Rows;
-        }
-
-        ~Sql()
-        {
-            connection?.Close();
-            connection?.Dispose();
         }
     }
 }
