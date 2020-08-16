@@ -1,4 +1,4 @@
-﻿@*
+@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
@@ -42,7 +42,7 @@
                     <option selected="selected" value="000000">请选择</option>
                     @foreach (var id in Model.Idsmon)
                     {
-                        <option id=@id.id value="@id.id">id:@id.id 时间:@id.time 数量:@id.number</option>
+                        <option id=@id.id value="@id.id">id:@id.id 日期:@id.date 时间:@id.time 数量:@id.number</option>
                     }
                 </select>
             </div>
@@ -68,7 +68,7 @@
                     <option selected="selected">请选择</option>
                     @foreach (var id in Model.Idsmat)
                     {
-                        <option id=@id.id value="@id.id">id:@id.id 时间:@id.time 类型:@id.type 数量:@id.amount</option>
+                        <option id=@id.id value="@id.id">id:@id.id 日期:@id.date 时间:@id.time 类型:@id.type 数量:@id.amount</option>
                     }
                 </select>
             </div>
