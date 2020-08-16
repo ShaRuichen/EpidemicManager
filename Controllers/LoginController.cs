@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Data;
 
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,6 +7,11 @@ namespace EpidemicManager.Controllers
     public class LoginController : Controller
     {
         public IActionResult Index()
+        {
+            return View();
+        }
+
+        public IActionResult Register()
         {
             return View();
         }
@@ -37,6 +41,39 @@ namespace EpidemicManager.Controllers
             {
                 isSucceeded = true,
             });
+        }
+
+        [HttpPost]
+        public bool RegisterPeople(string id, string password, string name, string sex,
+            string tel, string address)
+        {
+            var person = Sql.Read("SELECT id FROM people WHERE id = @0", id);
+            if (person.Count > 0) return false;
+            Sql.Execute("INSERT INTO people VALUES(@0, @1, @2, @3, @4, @5)", id, name, address,
+                tel, sex, password);
+            return true;
+        }
+
+        [HttpPost]
+        public string RegisterDoctor(string id, string name, string password, string hospital)
+        {
+            var person = Sql.Read("SELECT id FROM doctor WHERE id = @0", id);
+            if (person.Count > 0) return bool.FalseString;
+            var hospitals = Sql.Read("SELECT hospital_name FROM hospital WHERE hospital_name = @0", hospital);
+            if (hospitals.Count == 0) return "医院不存在";
+            Sql.Execute("INSERT INTO doctor VALUES(@0, @1, @2, @3)", id, name, hospital, password);
+            return bool.TrueString;
+        }
+
+        [HttpPost]
+        public bool RegisterManager(string id, string password, string name, string sex,
+            string tel, string address, string unit)
+        {
+            var person = Sql.Read("SELECT id FROM manager WHERE id = @0", id);
+            if (person.Count > 0) return false;
+            Sql.Execute("INSERT INTO manager VALUES(@0, @1, @2, @3, @4, @5, @6)", id, name,
+                sex, unit, tel, address, password);
+            return true;
         }
     }
 }
