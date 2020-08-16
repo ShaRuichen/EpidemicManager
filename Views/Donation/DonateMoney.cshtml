@@ -1,0 +1,33 @@
+﻿@model DonateMoneyModel
+@{
+    ViewBag.Ref = "Donation";
+    ViewBag.Title = "捐献现金";
+}
+    <form class="form-horizontal" role="form" method="post" action="DonateMoney">
+        <div class="form-group">
+            <label for="id" class="col-sm-2 control-label">身份证号</label>
+            <div class="col-sm-10">
+                @Html.TextBox("people_id", null, new { @class = " form-control ", placeholder = "请输入身份证号" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="number" class="col-sm-2 control-label">金额</label>
+            <div class="col-sm-10">
+                @Html.TextBox("number", null, new { @class = " form-control ", placeholder = "请输入捐款金额" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox">我已确认无误
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-light">提交</button>
+            </div>
+        </div>
+    </form>
