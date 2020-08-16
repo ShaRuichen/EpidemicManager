@@ -10,13 +10,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Views\Home\Home.cshtml" />
+    <Content Remove="Views\Settings\Settings.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.6" />
     <PackageReference Include="MySql.Data" Version="8.0.21" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Home\" />
-    <Folder Include="Views\Settings\" />
     <Folder Include="Views\Treatment\" />
     <Folder Include="Views\Report\" />
     <Folder Include="Views\Travel\" />
@@ -26,6 +29,11 @@
     <Folder Include="Views\Communication\" />
     <Folder Include="Views\Questionnaire\" />
     <Folder Include="wwwroot\res\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Views\Home\Home.cshtml" />
+    <None Include="Views\Settings\Settings.cshtml" />
   </ItemGroup>
 
 </Project>

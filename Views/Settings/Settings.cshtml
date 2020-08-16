@@ -1,0 +1,20 @@
+﻿@model TemplateModel
+@{ ViewBag.Ref = "template";
+                ViewBag.Title = "修改"; }
+
+<div class="text-center">
+    在此处输入您的用户id<input type="text" name="setting_id" />
+    <br /><br />
+    在此处键入您的要修改的信息:
+    <br />
+    姓名：<input type="text" name="setting_name" />
+    <br />
+    地址：<input type="text" name="setting_address" />
+    <br />
+    电话：<input type="text" name="setting_tel" />
+    <br />
+    性别：<input type="text" name="setting_sex" />
+    <br />
+    <div id="button_insert" class="button" onclick="click1('World')">删除</div>
+    <input type="submit" value="修改" />
+</div>
