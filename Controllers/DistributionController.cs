@@ -7,6 +7,7 @@ using EpidemicManager.Models;
 public struct Dongroupmon
 {
     public string id;
+    public string date;
     public string time;
     public string number;
 };
@@ -14,6 +15,7 @@ public struct Dongroupmon
 public struct Dongroupmat
 {
     public string id;
+    public string date;
     public string time;
     public string type;
     public string amount;
@@ -22,7 +24,9 @@ public struct Dongroupmat
 public struct Dongroupdocmon
 {
     public string id;
+    public string datet;
     public string timet;
+    public string dated;
     public string timed;
     public string number;
 };
@@ -30,7 +34,9 @@ public struct Dongroupdocmon
 public struct Dongroupdocmat
 {
     public string id;
+    public string datet;
     public string timet;
+    public string dated;
     public string timed;
     public string type;
     public string amount;
@@ -52,19 +58,22 @@ namespace EpidemicManager.Controllers
 
         public IActionResult Doctor()
         {
-            var donsmonid = Sql.Read("SELECT donate_id,time FROM distribute WHERE hospital_name='h3'");
+            var docid = 654321;
+            var donsmonid = Sql.Read("SELECT donate_id,date,time FROM distribute WHERE hospital_name=(SELECT hospital_name FROM doctor WHERE ID=@0)",docid);
             var list = new List<Dongroupdocmon>();
             foreach (DataRow don in donsmonid)
             {
-                var dons1 = Sql.Read("SELECT donate_id,time,number FROM donate_money WHERE donate_id=@0", don[0]);
+                var dons1 = Sql.Read("SELECT donate_id,date,time,number FROM donate_money WHERE donate_id=@0", don[0]);
 
                 foreach (DataRow don01 in dons1)
                 {
                     Dongroupdocmon temp;
                     temp.id = don01[0].ToString();
-                    temp.timet = don[1].ToString();
-                    temp.timed = don01[1].ToString();
-                    temp.number = don01[2].ToString();
+                    temp.dated = Convert.ToDateTime(don[1]).ToString("yyyy-MM-dd");
+                    temp.timed = don[2].ToString();
+                    temp.datet = Convert.ToDateTime(don01[1]).ToString("yyyy-MM-dd");
+                    temp.timet = don01[2].ToString();
+                    temp.number = don01[3].ToString();
                     list.Add(temp);
                 }
 
@@ -74,16 +83,18 @@ namespace EpidemicManager.Controllers
             var list02 = new List<Dongroupdocmat>();
             foreach (DataRow don in donsmonid)
             {
-                var dons1 = Sql.Read("SELECT donate_id,time,type,amount FROM donate_material WHERE donate_id=@0", don[0]);
+                var dons1 = Sql.Read("SELECT donate_id,date,time,type,amount FROM donate_material WHERE donate_id=@0", don[0]);
 
                 foreach (DataRow don01 in dons1)
                 {
                     Dongroupdocmat temp;
                     temp.id = don01[0].ToString();
-                    temp.timet = don[1].ToString();
-                    temp.timed = don01[1].ToString();
-                    temp.type = don01[2].ToString();
-                    temp.amount = don01[3].ToString();
+                    temp.dated = Convert.ToDateTime(don[1]).ToString("yyyy-MM-dd");
+                    temp.timed = don[2].ToString();
+                    temp.datet = Convert.ToDateTime(don01[1]).ToString("yyyy-MM-dd");
+                    temp.timet = don01[2].ToString();
+                    temp.type = don01[3].ToString();
+                    temp.amount = don01[4].ToString();
                     list02.Add(temp);
                 }
 
@@ -112,27 +123,29 @@ namespace EpidemicManager.Controllers
             //}
 
 
-            var dons1 = Sql.Read("SELECT donate_id,time,number FROM donate_money WHERE is_destributed=0");
+            var dons1 = Sql.Read("SELECT donate_id,date,time,number FROM donate_money WHERE is_destributed=0");
             var list = new List<Dongroupmon>();
             foreach (DataRow don1 in dons1)
             {
                 Dongroupmon temp;
                 temp.id = don1[0].ToString();
-                temp.time = don1[1].ToString();
-                temp.number = don1[2].ToString();
+                temp.date = Convert.ToDateTime(don1[1]).ToString("yyyy-MM-dd");
+                temp.time = don1[2].ToString();
+                temp.number = don1[3].ToString();
                 list.Add(temp);
             }
 
 
-            var dons2 = Sql.Read("SELECT donate_id,time,type,amount FROM donate_material WHERE is_distributed=0");
+            var dons2 = Sql.Read("SELECT donate_id,date,time,type,amount FROM donate_material WHERE is_distributed=0");
             var list02 = new List<Dongroupmat>();
             foreach (DataRow don1 in dons2)
             {
                 Dongroupmat temp;
                 temp.id = don1[0].ToString();
-                temp.time = don1[1].ToString();
-                temp.type = don1[2].ToString();
-                temp.amount = don1[3].ToString();
+                temp.date = Convert.ToDateTime(don1[1]).ToString("yyyy-MM-dd");
+                temp.time = don1[2].ToString();
+                temp.type = don1[3].ToString();
+                temp.amount = don1[4].ToString();
                 list02.Add(temp);
             }
 
@@ -203,7 +216,7 @@ namespace EpidemicManager.Controllers
         {
             if (donid != null && hospname != null)
             {
-                Sql.Execute("INSERT INTO distribute VALUES(@0,@1,@2, '1523')", donid, hospname, DateTime.Now.ToString());
+                Sql.Execute("INSERT INTO distribute VALUES(@0,@1,@2,@3,'123456')", donid, hospname, DateTime.Now.ToString("yyyy-MM-dd"), DateTime.Now.ToLongTimeString().ToString());
                 Sql.Execute("UPDATE donate_money SET is_destributed=1 WHERE donate_id=@0", donid);
             }
             return Json(new
@@ -218,7 +231,7 @@ namespace EpidemicManager.Controllers
         {
             if (donid != null && hospname != null)
             {
-                Sql.Execute("INSERT INTO distribute VALUES(@0, @1, @2, '1523')", donid, hospname, DateTime.Now.ToString());
+                Sql.Execute("INSERT INTO distribute VALUES(@0,@1,@2,@3,'123456')", donid, hospname, DateTime.Now.ToString("yyyy-MM-dd"), DateTime.Now.ToLongTimeString().ToString());
                 Sql.Execute("UPDATE donate_material SET is_distributed=1 WHERE donate_id=@0", donid);
             }
             return Json(new
