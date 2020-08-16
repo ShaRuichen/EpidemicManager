@@ -1,0 +1,18 @@
+@model Travelmodel
+@{
+    ViewBag.Ref = "template";
+    ViewBag.Title = "模板";
+}
+
+<div class="text-center">
+    <a asp-area="" asp-controller="Travel" asp-action="Show">出示行程</a>
+</div>
+<div class="text-center">
+    <form method="post" action="AddtravelInfo">
+        旅行ID：&emsp;@Html.TextBox("ID")<br />
+        旅行日期：@Html.TextBox("date")<br />
+        旅行时间：@Html.TextBox("time")<br />
+        旅行地点：@Html.TextBox("site")<br />
+        <input type="submit" value="添加" />
+    </form>
+</div>
