@@ -1,0 +1,18 @@
+@model ExamineModel
+@{
+    ViewBag.Ref = "write";
+    ViewBag.Title = "修改";
+}
+@{ int n = 0;}
+    <div class="text-center">
+
+
+        <p>检测报告序号@Model.ID_report&emsp;</p>
+        <p>患者姓名：@Model.name_patient&emsp;</p>
+        <p>患者身份证号：@Model.ID_patient&emsp;</p>
+        <p>医生姓名：@Model.name_doctor&emsp;</p>
+        <p>时间：@Model.time</p>
+        <p>报告细节：@Model.detail</p>
+
+        <p><div class="btn btn-primary" id="writeButton">修改</div></p>
+    </div>
