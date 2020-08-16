@@ -1,4 +1,4 @@
-﻿@*
+@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @model DistributionModel
@@ -8,7 +8,7 @@
 <h1>钱</h1>
 @foreach (var id in Model.Idsdocmon)
 {
-    <h5 id=@id.id value="@id.id">id:@id.id 捐献时间:@id.timet 分配时间:@id.timed 数量:@id.number</h5>
+<h5 id=@id.id value="@id.id">id:@id.id 捐献日期:@id.datet 捐献时间:@id.timet 分配日期:@id.dated 分配时间:@id.timed 数量:@id.number</h5>
 }
 <br />
 <br />
@@ -16,5 +16,5 @@
 <h1>物资</h1>
 @foreach (var id in Model.Idsdocmat)
 {
-    <h5 id=@id.id value="@id.id">id:@id.id 捐献时间:@id.timet 分配时间:@id.timed 数量:@id.amount 类型:@id.type </h5>
+    <h5 id=@id.id value="@id.id">id:@id.id 捐献日期:@id.datet 捐献时间:@id.timet 分配日期:@id.dated 分配时间:@id.timed 数量:@id.amount 类型:@id.type </h5>
 }
