@@ -1,0 +1,95 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model DistributionModel
+@{ ViewBag.Ref = "distribution";
+    ViewBag.Title = "hello"; }
+
+
+<script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+<script>
+    var select_item1;
+    var select_item2;
+    var select_item3;
+    var select_item4;
+    function _sel1(val) {
+        select_item1 = val;
+        select_item1 = document.getElementById("select001").options[document.getElementById("select001").options.selectedIndex].value;
+    }
+    function _sel2(val) {
+        select_item2 = val;
+    }
+    function _sel3(val) {
+        select_item1 = val;
+        select_item3 = document.getElementById("select002").options[document.getElementById("select002").options.selectedIndex].value;
+    }
+    function _sel4(val) {
+        select_item4 = val;
+    }
+</script>
+
+<div class="page-header" style="padding: 0px;border: 0px;">
+    <div class="form-horizontal">
+        <div class="control-label col-lg-4">
+            标题
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <h4>请选择钱</h4>
+                <select id="select001" class="form-control" onchange="_sel1(this.options[this.options.selectedIndex])">
+                    <option selected="selected" value="000000">请选择</option>
+                    @foreach (var id in Model.Idsmon)
+                    {
+                        <option id=@id.id value="@id.id">id:@id.id 时间:@id.time 数量:@id.number</option>
+                    }
+                </select>
+            </div>
+            <div class="col-lg-4">
+                <h4>请选择医院</h4>
+                <select class="form-control" onchange="_sel2(this.options[this.options.selectedIndex])">
+                    <option selected="selected">请选择</option>
+                    @foreach (var hop in Model.Hops)
+                    {
+                        <option value="@hop">@hop</option>
+                    }
+                </select>
+            </div>
+            <div class="col-lg-4">
+                <br>
+                <button id="button11" class="button" onclick="click2(select_item1, select_item2.value)">按钮</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <h4>请选择物资</h4>
+                <select id="select002" class="form-control" onchange="_sel3(this.options[this.options.selectedIndex])">
+                    <option selected="selected">请选择</option>
+                    @foreach (var id in Model.Idsmat)
+                    {
+                        <option id=@id.id value="@id.id">id:@id.id 时间:@id.time 类型:@id.type 数量:@id.amount</option>
+                    }
+                </select>
+            </div>
+            <div class="col-lg-4">
+                <h4>请选择医院</h4>
+                <select class="form-control" onchange="_sel4(this.options[this.options.selectedIndex])">
+                    <option selected="selected" >请选择</option>
+                    @foreach (var hop in Model.Hops)
+                    {
+                        <option value="@hop">@hop</option>
+                    }
+                </select>
+            </div>
+            <div class="col-lg-4">
+                <br>
+                <button id="button111" class="button" onclick="click3(select_item3, select_item4.value)">按钮</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

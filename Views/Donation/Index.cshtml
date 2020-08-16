@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Ref = "Donation";
+    ViewBag.Title = "捐献";
+}
+<div class="text-center">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3>功能选择</h3>
+        </div>
+        <div class="panel-body">
+            <div class="btn-group-vertical">
+                <a asp-area="" asp-controller="Donation" asp-action="DonateMaterial">捐献物资</a>
+                <a asp-area="" asp-controller="Donation" asp-action="DonateMoney">捐献资金</a>
+                <a asp-area="" asp-controller="Donation" asp-action="Distribute">查看分配信息</a>
+            </div>
+        </div>
+    </div>
+</div>
