@@ -1,0 +1,21 @@
+@model Travelmodel
+@{
+    ViewBag.Ref = "template";
+    ViewBag.Title = "修改";
+}
+@{ int n = 0;}
+    <div class="text-center">
+        <h1>@ViewBag.Huhaha</h1>
+        <table>
+            @for(int i=0;i<Model.Id;i++)
+            {
+             <tr>
+                <td>@Model.Ids[i]&emsp;</td>
+                <td>@Model.Dates[i]&emsp;</td>
+                <td>@Model.Times[i]&emsp;</td>
+                <td>@Model.Sites[i]&emsp;</td>
+                 
+             </tr>
+            }
+        </table>
+    </div>
