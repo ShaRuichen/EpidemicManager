@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -10,8 +10,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\ExamineControllers.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="Views\Home\Home.cshtml" />
-    <Content Remove="Views\Settings\Settings.cshtml" />
+    <Content Remove="Views\Settings\Index.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,6 +24,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Views\Home\" />
+    <Folder Include="Views\Settings\" />
     <Folder Include="Views\Treatment\" />
     <Folder Include="Views\Report\" />
     <Folder Include="Views\Travel\" />
@@ -31,8 +37,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Controllers\ExamineControllers.cs" />
     <None Include="Views\Home\Home.cshtml" />
-    <None Include="Views\Settings\Settings.cshtml" />
+    <None Include="Views\Settings\Index.cshtml" />
   </ItemGroup>
 
 </Project>

@@ -1,5 +1,5 @@
 ﻿using System;
-
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EpidemicManager.Controllers
@@ -37,6 +37,8 @@ namespace EpidemicManager.Controllers
                 isSucceeded = false,
                 message = "密码错误。",
             });
+            HttpContext.Session.SetString("userKind", kind);
+            HttpContext.Session.SetString("userId", id);
             return Json(new
             {
                 isSucceeded = true,
