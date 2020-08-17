@@ -10,6 +10,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\ExamineControllers.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.6" />
     <PackageReference Include="MySql.Data" Version="8.0.21" />
   </ItemGroup>
@@ -26,6 +30,10 @@
     <Folder Include="Views\Communication\" />
     <Folder Include="Views\Questionnaire\" />
     <Folder Include="wwwroot\res\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Controllers\ExamineControllers.cs" />
   </ItemGroup>
 
 </Project>
