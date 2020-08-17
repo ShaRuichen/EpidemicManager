@@ -6,8 +6,10 @@ namespace EpidemicManager.Controllers
 {
     public class LoginController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Index(string path)
         {
+            path ??= string.Empty;
+            HttpContext.Session.SetString("sourcePath", path);
             return View();
         }
 
@@ -42,6 +44,7 @@ namespace EpidemicManager.Controllers
             return Json(new
             {
                 isSucceeded = true,
+                path = HttpContext.Session.GetString("sourcePath"),
             });
         }
 
