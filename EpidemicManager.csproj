@@ -11,7 +11,7 @@
 
   <ItemGroup>
     <Content Remove="Views\Home\Home.cshtml" />
-    <Content Remove="Views\Settings\Settings.cshtml" />
+    <Content Remove="Views\Settings\Index.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -33,7 +33,7 @@
 
   <ItemGroup>
     <None Include="Views\Home\Home.cshtml" />
-    <None Include="Views\Settings\Settings.cshtml" />
+    <None Include="Views\Settings\Index.cshtml" />
   </ItemGroup>
 
 </Project>
