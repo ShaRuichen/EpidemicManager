@@ -10,10 +10,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Models\TravelModel.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.6" />
     <PackageReference Include="MySql.Data" Version="8.0.21" />
   </ItemGroup>
@@ -30,10 +26,6 @@
     <Folder Include="Views\Communication\" />
     <Folder Include="Views\Questionnaire\" />
     <Folder Include="wwwroot\res\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Models\TravelModel.cs" />
   </ItemGroup>
 
 </Project>
