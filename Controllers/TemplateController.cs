@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using EpidemicManager.Models;
 using System.Diagnostics;
 using System.Threading;
+using Microsoft.AspNetCore.Http;
 
 namespace EpidemicManager.Controllers
 {
@@ -13,6 +14,10 @@ namespace EpidemicManager.Controllers
         public IActionResult Index()
         {
             TestSql();
+
+            var session = HttpContext.Session;
+            var userKind = session.GetString("userKind");
+            var userId = session.GetString("userId");
 
             var people = Sql.Read("SELECT id FROM people");
             var list = new List<string>();
