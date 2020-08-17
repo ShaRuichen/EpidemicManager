@@ -18,7 +18,7 @@ namespace EpidemicManager.Controllers
             var connection = context.Connection;
             var localPort = connection.LocalPort;
             var port = localPort.ToString();
-            var url = $"https://{ip}:{port}/{path}";
+            var url = $"http://{ip}:{port}/{path}";
             using var generator = new QRCodeGenerator();
             using var qrCodeData = generator.CreateQrCode(url, QRCodeGenerator.ECCLevel.H);
             using var qrCode = new QRCode(qrCodeData);
