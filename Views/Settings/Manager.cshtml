@@ -1,0 +1,64 @@
+﻿@model Settingsmanager
+@{
+    ViewBag.Ref = "Settings";
+    ViewBag.Title = "管理员修改信息";
+}
+
+<form class="Settings_form" method="post" action="Changepeople">
+    <div class="form-group">
+        <label for="people_id" class="col-sm-2 control-label">身份证号</label>
+        <div class="col-sm-10">
+            @Html.TextBox("man_id", null, new { @class = " form-control ", placeholder = "身份证号" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="name" class="col-sm-2 control-label">姓名</label>
+        <div class="col-sm-10">
+            @Html.TextBox("name", null, new { @class = " form-control ", placeholder = "姓名" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="hos_name" class="col-sm-2 control-label">地址</label>
+        <div class="col-sm-10">
+            @Html.TextBox("sex", null, new { @class = " form-control ", placeholder = "性别" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="hos_name" class="col-sm-2 control-label">地址</label>
+        <div class="col-sm-10">
+            @Html.TextBox("work_unit", null, new { @class = " form-control ", placeholder = "工作单位" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="hos_name" class="col-sm-2 control-label">地址</label>
+        <div class="col-sm-10">
+            @Html.TextBox("tel", null, new { @class = " form-control ", placeholder = "电话" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="hos_name" class="col-sm-2 control-label">地址</label>
+        <div class="col-sm-10">
+            @Html.TextBox("address", null, new { @class = " form-control ", placeholder = "地址" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="password" class="col-sm-2 control-label">密码</label>
+        <div class="col-sm-10">
+            @Html.TextBox("password", null, new { @class = " form-control ", placeholder = "密码" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox">我已确认无误
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-light">提交</button>
+        </div>
+    </div>
+</form>
