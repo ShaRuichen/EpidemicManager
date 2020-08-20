@@ -62,6 +62,7 @@ namespace EpidemicManager.Controllers
             man_info.tel = Request.Form["tel"];
             man_info.work_unit = Request.Form["work_unit"];
             man_info.password = Request.Form["password"];
+            Sql.Execute("UPDATE manager set name=@1,sex=@2,tel=@3,password=@4 where id=@0", man_info.man_id, man_info.name, man_info.sex, man_info.tel, man_info.password);
             return RedirectToAction("Index");
         }
         [HttpGet]
@@ -78,6 +79,7 @@ namespace EpidemicManager.Controllers
             pat_info.sex = Request.Form["sex"];
             pat_info.hos_name = Request.Form["hos_name"];
             pat_info.password = Request.Form["password"];
+            Sql.Execute("UPDATE patient set name=@1,hos_name=@2,sex=@3,password=@4 where id=@0", pat_info.pat_id, pat_info.name, pat_info.hos_name, pat_info.sex, pat_info.password);
             return RedirectToAction("Index");
         }
         [HttpGet]
