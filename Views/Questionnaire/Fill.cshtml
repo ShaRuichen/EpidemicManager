@@ -1,0 +1,72 @@
+﻿@model QuestionnaireModel
+@{
+    ViewBag.Ref = "Questionnaire";
+    ViewBag.Title = "填写问卷";
+}
+    <div>
+        <h1>当前问卷</h1>
+        <div>
+            @if (Model.questionnaire.Count == 0)
+            {
+                <p style="color:blueviolet">当前没有问卷</p>
+            }
+            else
+            {
+        <form class="form-horizontal" role="form" method="post" action="fillQustionnaire">
+            @for (int i = 0; i < Model.questionnaire.Count; i++)
+            {
+                @if (!Model.questionnaire[i].is_Bridge)
+                {
+                    <p>
+                        @Model.questionnaire[i].question_ID
+                        <strong>.@Model.questionnaire[i].question_Content</strong>
+                        <i style="color:red">--填空</i>
+                        <br />
+                        @Html.TextBox("fillContent", null, new
+                   {
+                       @class = "form-control",
+                       placeholder = "请输入答案"
+                   }
+                            )
+                    </p>
+                    <br />
+                }
+                else
+                {
+                    <p>
+                        @Model.questionnaire[i].question_ID
+                        <strong>.@Model.questionnaire[i].question_Content</strong>
+                        <i style="color:red">--选择</i>
+                    </p>
+                    <div class="radios">
+                        @for (int j = 0; j < Model.questionnaire[i].option_ID.Count; j++)
+                        {
+                            <label>
+                                @Html.RadioButtonFor(model => model.answers[j].choice, j, new { @checked = true })
+                                <b>@Model.questionnaire[i].option_ID[j]</b>
+                                .<i>@Model.questionnaire[i].option_Content[j]</i>
+                            </label>
+
+                        }
+                    </div>
+                    <br />
+                }
+            }
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox">我已确认无误
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-light">提交</button>
+                </div>
+            </div>
+        </form>
+                }
+        </div>
+</div>
