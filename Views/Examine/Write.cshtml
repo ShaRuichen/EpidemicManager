@@ -1,18 +1,45 @@
-@model ExamineModel
+﻿@model ExamineModel
 @{
-    ViewBag.Ref = "write";
-    ViewBag.Title = "修改";
+    ViewBag.Ref = "Examine";
+    ViewBag.Title = "修改报告";
 }
-@{ int n = 0;}
-    <div class="text-center">
-
-
-        <p>检测报告序号@Model.ID_report&emsp;</p>
-        <p>患者姓名：@Model.name_patient&emsp;</p>
-        <p>患者身份证号：@Model.ID_patient&emsp;</p>
-        <p>医生姓名：@Model.name_doctor&emsp;</p>
-        <p>时间：@Model.time</p>
-        <p>报告细节：@Model.detail</p>
-
-        <p><div class="btn btn-primary" id="writeButton">修改</div></p>
+<form class="form-horizontal" method="post" action="Write_">
+    <div class="form-group">
+        <label for="report_id" class="col-sm-2 control-label">报告ID</label>
+        <div class="col-sm-10">
+            @Html.TextBox("report_id", null, new { @class = " form-control ", ReadOnly = true, text = @Model.ID_report })
+        </div>
     </div>
+    <div class="form-group">
+        <label for="patient_id" class="col-sm-2 control-label">患者身份证号</label>
+        <div class="col-sm-10">
+            @Html.TextBox("patient_id", null, new { @class = " form-control ", text = @Model.ID_patient })
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="title" class="col-sm-2 control-label">报告标题</label>
+        <div class="col-sm-10">
+            @Html.TextBox("title", null, new { @class = " form-control ", MaxLength = 30, text = @Model.title })
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="detail" class="col-sm-2 control-label">报告详细内容</label>
+        <div class="col-sm-10">
+            @Html.TextBox("detail", null, new { @class = " form-control ", MaxLength = 500, ScrollBars = true, text = @Model.detail })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox">我已确认无误
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-light">提交</button>
+        </div>
+    </div>
+</form> 
