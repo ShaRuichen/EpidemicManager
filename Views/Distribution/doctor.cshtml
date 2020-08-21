@@ -5,7 +5,7 @@
 @{ ViewBag.Ref = "distribution";
     ViewBag.Title = "hello"; }
 <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
-<h1>钱</h1>
+@*<h1>钱</h1>
 @foreach (var id in Model.Idsdocmon)
 {
 <h5 id=@id.id value="@id.id">id:@id.id 捐献日期:@id.datet 捐献时间:@id.timet 分配日期:@id.dated 分配时间:@id.timed 数量:@id.number</h5>
@@ -17,4 +17,64 @@
 @foreach (var id in Model.Idsdocmat)
 {
     <h5 id=@id.id value="@id.id">id:@id.id 捐献日期:@id.datet 捐献时间:@id.timet 分配日期:@id.dated 分配时间:@id.timed 数量:@id.amount 类型:@id.type </h5>
-}
+}*@
+
+
+<table class="table table-hover table-bordered table-striped">
+    <caption>资金分配情况</caption>
+    <thead>
+        <tr>
+            <th>编号</th>
+            <th>捐献日期</th>
+            <th>捐献时间</th>
+            <th>分配日期</th>
+            <th>分配时间</th>
+            <th>数量</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var id in Model.Idsdocmon)
+        {
+        <tr>
+            <td>@id.id</td>
+            <td>@id.datet</td>
+            <td>@id.timet</td>
+            <td>@id.dated</td>
+            <td>@id.timed</td>
+            <td>@id.number</td>
+        </tr>
+            
+        }
+    </tbody>
+</table>
+
+
+<table class="table table-hover table-bordered table-striped">
+    <caption>物资分配情况</caption>
+    <thead>
+        <tr>
+            <th>编号</th>
+            <th>捐献日期</th>
+            <th>捐献时间</th>
+            <th>分配日期</th>
+            <th>分配时间</th>
+            <th>数量</th>
+            <th>类型</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var id in Model.Idsdocmat)
+        {
+            <tr>
+                <td>@id.id</td>
+                <td>@id.datet</td>
+                <td>@id.timet</td>
+                <td>@id.dated</td>
+                <td>@id.timed</td>
+                <td>@id.amount</td>
+                <td>@id.type</td>
+            </tr>
+
+        }
+    </tbody>
+</table>
