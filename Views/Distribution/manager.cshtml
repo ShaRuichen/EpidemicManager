@@ -6,9 +6,6 @@
 @model DistributionModel
 @{ ViewBag.Ref = "distribution";
     ViewBag.Title = "hello"; }
-
-
-<script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
 <script>
     var select_item1;
     var select_item2;
@@ -32,13 +29,11 @@
 
 <div class="page-header" style="padding: 0px;border: 0px;">
     <div class="form-horizontal">
-        <div class="control-label col-lg-4">
-            标题
-        </div>
+        
         <div class="row">
-            <div class="col-lg-4">
-                <h4>请选择钱</h4>
-                <select id="select001" class="form-control" onchange="_sel1(this.options[this.options.selectedIndex])">
+            <div class="col-lg-6">
+                <h6>请选择待分配的资金</h6>
+                <select id="select001" class="form-control col-lg" onchange="_sel1(this.options[this.options.selectedIndex])">
                     <option selected="selected" value="000000">请选择</option>
                     @foreach (var id in Model.Idsmon)
                     {
@@ -46,8 +41,8 @@
                     }
                 </select>
             </div>
-            <div class="col-lg-4">
-                <h4>请选择医院</h4>
+            <div class="col-lg-3">
+                <h6>请选择医院</h6>
                 <select class="form-control" onchange="_sel2(this.options[this.options.selectedIndex])">
                     <option selected="selected">请选择</option>
                     @foreach (var hop in Model.Hops)
@@ -56,14 +51,16 @@
                     }
                 </select>
             </div>
-            <div class="col-lg-4">
-                <br>
-                <button id="button11" class="button" onclick="click2(select_item1, select_item2.value)">按钮</button>
+            <div class="col-lg-2">
+                <br />
+                <button id="button11" class="btn btn-primary" type="button" onclick="click2(select_item1, select_item2.value)">分配</button>
             </div>
         </div>
+        <br />
+        <br />
         <div class="row">
-            <div class="col-lg-4">
-                <h4>请选择物资</h4>
+            <div class="col-lg-6">
+                <h6>请选择待分配的物资</h6>
                 <select id="select002" class="form-control" onchange="_sel3(this.options[this.options.selectedIndex])">
                     <option selected="selected">请选择</option>
                     @foreach (var id in Model.Idsmat)
@@ -72,19 +69,19 @@
                     }
                 </select>
             </div>
-            <div class="col-lg-4">
-                <h4>请选择医院</h4>
+            <div class="col-lg-3">
+                <h6>请选择医院</h6>
                 <select class="form-control" onchange="_sel4(this.options[this.options.selectedIndex])">
-                    <option selected="selected" >请选择</option>
+                    <option selected="selected">请选择</option>
                     @foreach (var hop in Model.Hops)
                     {
                         <option value="@hop">@hop</option>
                     }
                 </select>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-2">
                 <br>
-                <button id="button111" class="button" onclick="click3(select_item3, select_item4.value)">按钮</button>
+                <button id="button111" class="btn btn-primary" onclick="click3(select_item3, select_item4.value)">分配</button>
             </div>
         </div>
     </div>
