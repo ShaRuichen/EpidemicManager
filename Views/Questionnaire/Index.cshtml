@@ -1,0 +1,14 @@
+﻿@model TemplateModel
+@{
+    ViewBag.Ref = "questionnaire";
+    ViewBag.Title = "问卷管理";
+}
+
+    <div class="text-center">
+        <h1>问卷系统</h1>
+        <b>您可以：</b>
+        <a asp-area="" asp-controller="questionnaire" asp-action="read">查看问卷</a>
+        <a asp-area="" asp-controller="questionnaire" asp-action="create">创建问卷</a>
+        <a asp-area="" asp-controller="questionnaire" asp-action="modify">修改问卷</a>
+        <a asp-area="" asp-controller="questionnaire" asp-action="fill">填写问卷</a>
+    </div>

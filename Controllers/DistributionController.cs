@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System;
 using EpidemicManager.Models;
+using Microsoft.AspNetCore.Http;
 
 public struct Dongroupmon
 {
@@ -46,9 +47,20 @@ namespace EpidemicManager.Controllers
 {
     public class DistributionController : Controller
     {
-
         public IActionResult Index()
         {
+
+            var session = HttpContext.Session;
+            var userKind = session.GetString("userKind");
+            var userId = session.GetString("userId");
+            if (userKind == "doctor")
+            {
+                Doctor();
+            }
+            if (userKind == "manager")
+            {
+                Manager();
+            }
             var model = new DistributionModel
             {
 
@@ -58,8 +70,12 @@ namespace EpidemicManager.Controllers
 
         public IActionResult Doctor()
         {
-            var docid = 654321;
-            var donsmonid = Sql.Read("SELECT donate_id,date,time FROM distribute WHERE hospital_name=(SELECT hospital_name FROM doctor WHERE ID=@0)",docid);
+            var session = HttpContext.Session;
+            var userKind = session.GetString("userKind");
+            var userId = session.GetString("userId");
+            var docid = userId;
+            //var docid = "654321";
+            var donsmonid = Sql.Read("SELECT donate_id,date,time FROM distribute WHERE hospital_name=(SELECT hospital_name FROM doctor WHERE ID=@0)", docid);
             var list = new List<Dongroupdocmon>();
             foreach (DataRow don in donsmonid)
             {
@@ -121,6 +137,10 @@ namespace EpidemicManager.Controllers
             //{
             //    sql.Execute("INSERT INTO donate_material VALUES(@0, @0, @0, @0,'0')", m);
             //}
+
+            var session = HttpContext.Session;
+            var userKind = session.GetString("userKind");
+            var userId = session.GetString("userId");
 
 
             var dons1 = Sql.Read("SELECT donate_id,date,time,number FROM donate_money WHERE is_destributed=0");
@@ -216,7 +236,11 @@ namespace EpidemicManager.Controllers
         {
             if (donid != null && hospname != null)
             {
-                Sql.Execute("INSERT INTO distribute VALUES(@0,@1,@2,@3,'123456')", donid, hospname, DateTime.Now.ToString("yyyy-MM-dd"), DateTime.Now.ToLongTimeString().ToString());
+                var session = HttpContext.Session;
+                var userKind = session.GetString("userKind");
+                var userId = session.GetString("userId");
+                //var userId = "123456";
+                Sql.Execute("INSERT INTO distribute VALUES(@0,@1,@2,@3,@4)", donid, hospname, DateTime.Now.ToString("yyyy-MM-dd"), DateTime.Now.ToLongTimeString().ToString(), userId);
                 Sql.Execute("UPDATE donate_money SET is_destributed=1 WHERE donate_id=@0", donid);
             }
             return Json(new
@@ -231,7 +255,11 @@ namespace EpidemicManager.Controllers
         {
             if (donid != null && hospname != null)
             {
-                Sql.Execute("INSERT INTO distribute VALUES(@0,@1,@2,@3,'123456')", donid, hospname, DateTime.Now.ToString("yyyy-MM-dd"), DateTime.Now.ToLongTimeString().ToString());
+                var session = HttpContext.Session;
+                var userKind = session.GetString("userKind");
+                var userId = session.GetString("userId");
+                //var userId = "123456";
+                Sql.Execute("INSERT INTO distribute VALUES(@0,@1,@2,@3,@4)", donid, hospname, DateTime.Now.ToString("yyyy-MM-dd"), DateTime.Now.ToLongTimeString().ToString(), userId);
                 Sql.Execute("UPDATE donate_material SET is_distributed=1 WHERE donate_id=@0", donid);
             }
             return Json(new

@@ -1,10 +1,6 @@
 ﻿body {
 }
-.button {
-    border: 1px solid green;
-    padding: 5px;
-}
-
-.pa {
-    font-size: xx-large;
+caption {
+    text-align: center;
+    caption-side: top;
 }
