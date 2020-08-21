@@ -3,6 +3,10 @@ using System.Data;
 
 using Microsoft.AspNetCore.Mvc;
 using EpidemicManager.Models;
+using Microsoft.AspNetCore.Http;
+using System.Diagnostics;
+using System.Threading;
+using System;
 
 namespace EpidemicManager.Controllers
 {
@@ -24,17 +28,58 @@ namespace EpidemicManager.Controllers
 
             return View(model);
         }
+        public IActionResult PeopleAdd()
+        {
+            var session = HttpContext.Session;
+            var userKind = session.GetString("userKind");
+            var userId = session.GetString("userId");
+            var model = new Mamodel
+            {
+                maID = userId
+            };
+            return View(model);
+        }
+        public IActionResult ShowQRcode()
+        {
+            var session = HttpContext.Session;
+            var userKind = session.GetString("userKind");
+            var userId = session.GetString("userId");
+            var model = new Mamodel
+            {
+                maID = userId
+            };
+            return View(model);
+        }
         public IActionResult AddtravelInfo()
         {
             Models.Trmodel travelinfo = new Trmodel();
 
             travelinfo.ID = Request.Form["ID"];
-            travelinfo.date = Request.Form["date"];
-            travelinfo.time = Request.Form["time"];
             travelinfo.site = Request.Form["site"];
-            Sql.Execute("INSERT INTO travel_info VALUES(@0, @1, @2, @3)", travelinfo.ID, travelinfo.date, travelinfo.time, travelinfo.site);
+            string date = DateTime.Now.ToString("yyyy-MM-dd");
+            string time = DateTime.Now.ToString("T");
+            Sql.Execute("INSERT INTO travel_info VALUES(@0, @1, @2, @3)", travelinfo.ID, date, time, travelinfo.site);
             return View(travelinfo);
             
+        }
+        public IActionResult ManagerAdd(string id)
+        {
+            var model = new Mamodel
+            {
+                maID = id
+            };
+            return View(model);
+        }
+        public IActionResult ManagerAdd_info()
+        {
+            Models.Trmodel Mtravelinfo = new Trmodel();
+            Mtravelinfo.ID = Request.Form["MID"];
+            Mtravelinfo.site = Request.Form["Msite"];
+            string date = DateTime.Now.ToString("yyyy-MM-dd");
+            string time = DateTime.Now.ToString("T");
+            Sql.Execute("INSERT INTO travel_info VALUES(@0, @1, @2, @3)", Mtravelinfo.ID, date, time, Mtravelinfo.site);
+            return View(Mtravelinfo);
+
         }
         public IActionResult Show(string id)
         {
@@ -42,7 +87,6 @@ namespace EpidemicManager.Controllers
             {
                 Sql.Execute("INSERT INTO people VALUES(@0, 'name', 'address', 'tel', 'sex', 'password')", id);
             }
-            var all = Sql.Read("SELECT * FROM travel_info");
             var ID = Sql.Read("SELECT ID FROM travel_info");
             var date = Sql.Read("SELECT date FROM travel_info"); 
             var time = Sql.Read("SELECT time FROM travel_info"); 
@@ -57,7 +101,7 @@ namespace EpidemicManager.Controllers
             }
             foreach (DataRow travel in date)
             {
-                datelist.Add(travel[0].ToString());
+                datelist.Add(Convert.ToDateTime(travel[0]).ToString("yyyy-MM-dd"));
             }
             foreach (DataRow travel in time)
             {
@@ -79,21 +123,10 @@ namespace EpidemicManager.Controllers
             {
                 num++;
             }
-            model.Id = num;
+            model.info_num = num;
             var fine =new List<Travelmodel>();
             ViewBag.Huhaha = "旅行ID 旅行日期 旅行时间 旅行地点";
             return View(model);
-        }
-        [HttpPost]
-        public JsonResult Click(string name, int number)
-        {
-            string str = Request.Form["iaa"].ToString();
-            Sql.Execute("INSERT INTO people VALUES(@0, 'name', 'address', 'tel', 'sex', 'password')", str);
-            return Json(new
-            {
-                name,
-                num = number + 1,
-            });
         }
     }
 }
