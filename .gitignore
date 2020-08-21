@@ -7,7 +7,7 @@
 custon.*
 Custon.*
 
-*.config
+.config
 
 # User-specific files
 *.rsuser
