@@ -28,11 +28,11 @@
     <Folder Include="Views\Treatment\" />
     <Folder Include="Views\Report\" />
     <Folder Include="Views\Travel\" />
-    <Folder Include="Views\Statistics\" />
     <Folder Include="Views\Donation\" />
     <Folder Include="Views\Distribution\" />
     <Folder Include="Views\Communication\" />
     <Folder Include="Views\Questionnaire\" />
+    <Folder Include="Views\Statistics\" />
     <Folder Include="wwwroot\res\" />
   </ItemGroup>
 
