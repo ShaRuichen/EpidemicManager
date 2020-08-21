@@ -1,0 +1,16 @@
+@model Mamodel
+@{
+    ViewBag.Ref = "template";
+    ViewBag.Title = "模板";
+}
+
+<div class="text-center">
+    <form method="post" class="container" action="ManagerAdd_info">
+        <h4>旅行人ID:</h4>
+        <input name="MID" type="text" class="form-control" value="@Model.maID" readonly />
+        <h4>旅行地点:</h4>
+        <input type="text" class="form-control" id="Msite" placeholder="旅行地点">
+        <input type="submit" class="btn btn-primary" href="/Travel/index" value="添加" />
+        <a class="btn btn-secondary" href="/Travel/index">返回</a>
+    </form>
+</div>
