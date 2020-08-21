@@ -5,17 +5,27 @@
 }
 @{ int n = 0;}
     <div class="text-center">
-        <h1>@ViewBag.Huhaha</h1>
-        <table>
-            @for(int i=0;i<Model.Id;i++)
-            {
-             <tr>
-                <td>@Model.Ids[i]&emsp;</td>
-                <td>@Model.Dates[i]&emsp;</td>
-                <td>@Model.Times[i]&emsp;</td>
-                <td>@Model.Sites[i]&emsp;</td>
-                 
-             </tr>
-            }
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>旅行人ID</th>
+                    <th>旅行日期</th>
+                    <th>旅行时间</th>
+                    <th>旅行地点</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.info_num; i++)
+                {
+                    <tr>
+                        <td>@Model.Ids[i]</td>
+                        <td>@Model.Dates[i]</td>
+                        <td>@Model.Times[i]</td>
+                        <td>@Model.Sites[i]</td>
+
+                    </tr>
+                }
+            </tbody>
         </table>
+        <a class="btn btn-primary" href="/Travel/index">返回</a>
     </div>
