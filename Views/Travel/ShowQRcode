@@ -1,0 +1,11 @@
+@model Mamodel
+@{
+    ViewBag.Ref = "template";
+    ViewBag.Title = "模板";
+}
+
+<div class="text-center">
+    <img src="/QRCode?path=Travel/ManagerAdd?id=@Model.maID" />
+    <h1>@Model.maID</h1>
+    <a class="btn btn-secondary" href="/Travel/index">返回</a>
+</div>
