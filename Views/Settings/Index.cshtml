@@ -1,16 +1,20 @@
-﻿<div class="text-center">
-    在此处输入您的用户id<input type="text" name="setting_id" />
-    <br /><br />
-    在此处键入您的要修改的信息:
-    <br />
-    姓名：<input type="text" name="setting_name" />
-    <br />
-    地址：<input type="text" name="setting_address" />
-    <br />
-    电话：<input type="text" name="setting_tel" />
-    <br />
-    性别：<input type="text" name="setting_sex" />
-    <br />
-    <div id="button_insert" class="button" onclick="click1('World')">删除</div>
-    <input type="submit" value="修改" />
+﻿@{ ViewBag.Ref = "template";
+                ViewBag.Title = "修改"; }
+
+<div class="text-center">
+    <div class="settings_body">
+        <h3>功能选择</h3>
+        <div class="settings_vertical">
+            <a asp-area="" asp-controller="Settings" asp-action="Changepeople">修改个人信息入口</a>
+            <br />
+            <a asp-area="" asp-controller="Settings" asp-action="Doctor">修改个人信息-医生通道</a>
+            <br />
+            <a asp-area="" asp-controller="Settings" asp-action="Patient">修改个人信息-病人通道</a>
+            <br />
+            <a asp-area="" asp-controller="Settings" asp-action="Manager">修改个人信息-管理员通道</a>
+            <br />
+            <a asp-area="" asp-controller="Settings" asp-action="Delete">删除个人信息入口</a>
+            <br />
+        </div>
+    </div>
 </div>

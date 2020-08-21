@@ -4,41 +4,99 @@ using System.Data;
 using System;
 using EpidemicManager.Models;
 
-public struct SettingsPerson
-{
-    public string people_id { get; set; }
-    public string name { get; set; }
-    public string kind { get; set; }
-    public string address { get; set; }
-    public string tel { get; set; }
-    public string sex { get; set; }
-}
-
 namespace EpidemicManager.Controllers
 {
     public class SettingsController : Controller
     {
         public IActionResult Index()
         {
-            var model = new SettingsModel { };
-            return View(model);
+            return View();
         }
-        public JsonResult Settings(string id, string kind, SettingsPerson new_info)
+        [HttpGet]
+        public IActionResult Changepeople()
         {
-            string name = new_info.name;
-            string address = new_info.address;
-            string tel = new_info.tel;
-            string sex = new_info.sex;
-            if (kind == "people")
-                Sql.Execute("UPDATE people set name=@1,address=@2,tel=@3,sex=@4 where id=@0", id, name, address, tel, sex);
-            else if (kind == "doctor")
-                Sql.Execute("UPDATE doctor set name=@1,address=@2,tel=@3,sex=@4 where id=@0", id, name, address, tel, sex);
-            else if (kind == "manager")
-                Sql.Execute("UPDATE manager set name=@1,address=@2,tel=@3,sex=@4 where id=@0", id, name, address, tel, sex);
-            return Json(new
-            {
-                isSucceeded = true,
-            });
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Changepeople(SettingsPeople settingsPeople)
+        {
+            SettingsPeople people_info = new SettingsPeople();
+            people_info.people_id = Request.Form["settings_people_id"];
+            people_info.name = Request.Form["name"];
+            people_info.address = Request.Form["address"];
+            people_info.tel = Request.Form["tel"];
+            people_info.sex = Request.Form["sex"];
+            people_info.password = Request.Form["password"];
+            Sql.Execute("UPDATE people set name=@1,address=@2,tel=@3,sex=@4 where id=@0", people_info.people_id, people_info.name, people_info.address, people_info.tel, people_info.sex);
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult Doctor()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Doctor(Settingsdoctor settingsdoctor)
+        {
+            Settingsdoctor doc_info = new Settingsdoctor();
+            doc_info.doc_id = Request.Form["doc_id"];
+            doc_info.hos_name = Request.Form["hos_name"];
+            doc_info.name = Request.Form["name"];
+            doc_info.password = Request.Form["password"];
+            Sql.Execute("UPDATE doctor set name=@1,hos_name=@2,password=@3 where id=@0", doc_info.doc_id, doc_info.name, doc_info.hos_name, doc_info.password);
+            return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public IActionResult Manager()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Manager(Settingsmanager settingsmanager)
+        {
+            Settingsmanager man_info = new Settingsmanager();
+            man_info.man_id = Request.Form["man_id"];
+            man_info.name = Request.Form["name"];
+            man_info.sex = Request.Form["sex"];
+            man_info.tel = Request.Form["tel"];
+            man_info.work_unit = Request.Form["work_unit"];
+            man_info.password = Request.Form["password"];
+            Sql.Execute("UPDATE manager set name=@1,sex=@2,tel=@3,password=@4 where id=@0", man_info.man_id, man_info.name, man_info.sex, man_info.tel, man_info.password);
+            return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public IActionResult Patient()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Patient(Settingspatient settingspatient)
+        {
+            Settingspatient pat_info = new Settingspatient();
+            pat_info.pat_id = Request.Form["pat_id"];
+            pat_info.name = Request.Form["name"];
+            pat_info.sex = Request.Form["sex"];
+            pat_info.hos_name = Request.Form["hos_name"];
+            pat_info.password = Request.Form["password"];
+            Sql.Execute("UPDATE patient set name=@1,hos_name=@2,sex=@3,password=@4 where id=@0", pat_info.pat_id, pat_info.name, pat_info.hos_name, pat_info.sex, pat_info.password);
+            return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public IActionResult Delete()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Delete(Settingspatient settingspatient)
+        {
+            string person_id = Request.Form["person_id"];
+            string kind = Request.Form["kind"];
+            if (kind == "doctor") Sql.Execute("DELETE from doctor where ID = @0", person_id);
+            else if (kind == "patient") Sql.Execute("DELETE from patient where ID = @0", person_id);
+            else if (kind == "manager") Sql.Execute("DELETE from manager where ID = @0", person_id);
+            else if (kind == "people") Sql.Execute("DELETE from people where ID = @0", person_id);
+            return RedirectToAction("Index");
         }
     }
 }
