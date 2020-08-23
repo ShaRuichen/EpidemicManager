@@ -15,18 +15,18 @@ public class ExamineController : Controller
     public IActionResult Index_doctor()
     {
         
-        if (HttpContext.Session.GetString("userId") == null|| HttpContext.Session.GetString("userKind")!="doctor")
+        if (HttpContext.Session.GetString("userKind")!="doctor")
         {
-            return RedirectToAction("Index", "Login");
+            return RedirectToAction("Index", "Login", new { path = "/Examine/Index_doctor" });
         }
         return View();
     }
     [HttpGet]
     public IActionResult Create()
     {
-        if (HttpContext.Session.GetString("userId") == null || HttpContext.Session.GetString("userKind") != "doctor")
+        if (HttpContext.Session.GetString("userKind") != "doctor")
         {
-            return RedirectToAction("Index", "Login");
+            return RedirectToAction("Index", "Login", new { path = "Examine /Create" });
         }
         return View();
     }
@@ -52,9 +52,9 @@ public class ExamineController : Controller
 
     public IActionResult Read_index()
     {
-        if (HttpContext.Session.GetString("userId") == null || HttpContext.Session.GetString("userKind") != "doctor")
+        if (HttpContext.Session.GetString("userKind") != "doctor")
         {
-            return RedirectToAction("Index", "Login");
+            return RedirectToAction("Index", "Login", new { path = "Exmaine/Read_index" });
         }
         var report = Sql.Read("SELECT report_id,patient_id,title FROM examine_repo ");
         ExamineIndexModel m = new ExamineIndexModel();
@@ -85,9 +85,9 @@ public class ExamineController : Controller
     }
     public IActionResult Write_index()
     {
-        if (HttpContext.Session.GetString("userId") == null || HttpContext.Session.GetString("userKind") != "doctor")
+        if (HttpContext.Session.GetString("userKind") != "doctor")
         {
-            return RedirectToAction("Index", "Login");
+            return RedirectToAction("Index", "Login", new { path = "Examine/Write_index" });
         }
         var report = Sql.Read("SELECT report_id,patient_id,title FROM examine_repo ");
         ExamineIndexModel m = new ExamineIndexModel();
@@ -117,9 +117,9 @@ public class ExamineController : Controller
 
     public IActionResult Index_patient()//病人Id
     {
-        if (HttpContext.Session.GetString("userId") == null || HttpContext.Session.GetString("userKind") != "patient")
+        if (HttpContext.Session.GetString("userKind") != "patient")
         {
-            return RedirectToAction("Index", "Login");
+            return RedirectToAction("Index", "Login", new { path = "Examine/Index_patient" });
         }
         var id_p = HttpContext.Session.GetString("userId");
         var report = Sql.Read("SELECT report_id,title FROM examine_repo WHERE patient_id=@0", id_p);
