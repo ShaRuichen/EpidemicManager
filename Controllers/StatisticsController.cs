@@ -14,6 +14,29 @@ namespace EpidemicManager.Controllers
         public IActionResult Index()
         {
 
+
+            return View(Model);
+        }
+
+        public IActionResult Read()
+        {
+
+
+            return View(Model);
+        }
+
+        public IActionResult PeopleAdd()
+        {
+
+
+            return View(Model);
+        }
+
+        public IActionResult ShowQRcode()
+        {
+
+
+            return View(Model);
         }
     }
 }
