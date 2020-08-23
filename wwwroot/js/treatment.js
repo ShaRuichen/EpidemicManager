@@ -1,7 +1,18 @@
 function click2() {
-    $.post('/Treatment/Click2', {  doc_id: document.getElementById("doctor_id").value, pat_id: document.getElementById("patient_id").value, date: document.getElementById("date").value,time: document.getElementById("time").value, med: document.getElementById("medicine").value, detail: document.getElementById("detail").value }, function (result) {
-        alert("插入完成");
+    $.post('/Treatment/Click2', {  pat_id: document.getElementById("patient_id").value, date: document.getElementById("date").value,time: document.getElementById("time").value, med: document.getElementById("medicine").value, detail: document.getElementById("detail").value }, function (result) {
+        if (result == 1) { alert("插入完成"); }
+        else if (result == 0) {
+            alert("您未登录或身份受限");
+            window.location.href="../Login/Index";
+        }
+        else if (result == 2) {
+            alert("这名病人不存在请核实");
+        }
     })
+}
+
+function login() {
+    window.location.href = "../Login/Index";
 }
 
 function modifi() {
