@@ -5,6 +5,7 @@
 }
     <div>
         <h1>当前问卷统计结果</h1>
+        <a asp-area="" asp-controller="questionnaire" asp-action="index">返回问卷系统</a>
         <div>
             @if (Model.questionnaire.Count == 0)
             {
@@ -24,7 +25,7 @@
                         </p>
                         <small style="color:blue">--由管理员<i>@Model.questionnaire[i].manager_ID</i>编辑</small>
                         <ol>
-                            @for(int x=0;x<Model.questionnaire[i].fills.Count;x++)
+                            @for (int x = 0; x < Model.questionnaire[i].fills.Count; x++)
                             {
                                 <li>
                                     @Model.questionnaire[i].fills[x]
