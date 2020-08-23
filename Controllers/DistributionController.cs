@@ -51,6 +51,10 @@ namespace EpidemicManager.Controllers
         {
 
             var session = HttpContext.Session;
+            if (HttpContext.Session.GetString("userId") == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             var userKind = session.GetString("userKind");
             var userId = session.GetString("userId");
             if (userKind == "doctor")
@@ -71,6 +75,10 @@ namespace EpidemicManager.Controllers
         public IActionResult Doctor()
         {
             var session = HttpContext.Session;
+            if (HttpContext.Session.GetString("userKind") != "doctor")
+            {
+                return RedirectToAction("Index", "Login");
+            }
             var userKind = session.GetString("userKind");
             var userId = session.GetString("userId");
             var docid = userId;
@@ -139,6 +147,10 @@ namespace EpidemicManager.Controllers
             //}
 
             var session = HttpContext.Session;
+            if (HttpContext.Session.GetString("userKind") != "manager")
+            {
+                return RedirectToAction("Index", "Login");
+            }
             var userKind = session.GetString("userKind");
             var userId = session.GetString("userId");
 
