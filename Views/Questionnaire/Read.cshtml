@@ -3,46 +3,47 @@
     ViewBag.Ref = "questionnaire";
     ViewBag.Title = "查看问卷";
 }
-<div >
-    <h1>当前问卷</h1>
     <div>
-        @if (Model.questionnaire.Count == 0)
-        {
-            <p style="color:blueviolet">当前问卷为空，请先创建问卷！</p>
-        }
-        else
-        {
-        @for (int i = 0; i < Model.questionnaire.Count; i++)
-        {
-            @if (!Model.questionnaire[i].is_Bridge)
+        <h1>当前问卷</h1>
+        <a asp-area="" asp-controller="questionnaire" asp-action="index">返回问卷系统</a>
+        <div>
+            @if (Model.questionnaire.Count == 0)
             {
-                <p>
-                    @Model.questionnaire[i].question_ID
-                    <strong>.@Model.questionnaire[i].question_Content</strong>
-                    <i style="color:red">--填空</i>
-                    <br />
-                </p>
-                <small style="color:blue">--由管理员<i>@Model.questionnaire[i].manager_ID</i>编辑</small>
+                <p style="color:blueviolet">当前问卷为空，请先创建问卷！</p>
             }
             else
             {
-                <p>
-                    @Model.questionnaire[i].question_ID
-                    <strong>.@Model.questionnaire[i].question_Content</strong>
-                    <i style="color:red">--选择</i>
-                </p>
-                <ul>
-                    @for (int j = 0; j < Model.questionnaire[i].option_ID.Count; j++)
+                @for (int i = 0; i < Model.questionnaire.Count; i++)
+                {
+                    @if (!Model.questionnaire[i].is_Bridge)
                     {
-                        <li>
-                            <b>@Model.questionnaire[i].option_ID[j]</b>
-                            .<i>@Model.questionnaire[i].option_Content[j]</i>
-                        </li>
+                        <p>
+                            @Model.questionnaire[i].question_ID
+                            <strong>.@Model.questionnaire[i].question_Content</strong>
+                            <i style="color:red">--填空</i>
+                            <br />
+                        </p>
+                        <small style="color:blue">--由管理员<i>@Model.questionnaire[i].manager_ID</i>编辑</small>
                     }
-                </ul>
-                <small style="color:blue">--由管理员<i>@Model.questionnaire[i].manager_ID</i>编辑</small>
+                    else
+                    {
+                        <p>
+                            @Model.questionnaire[i].question_ID
+                            <strong>.@Model.questionnaire[i].question_Content</strong>
+                            <i style="color:red">--选择</i>
+                        </p>
+                        <ul>
+                            @for (int j = 0; j < Model.questionnaire[i].option_ID.Count; j++)
+                            {
+                                <li>
+                                    <b>@Model.questionnaire[i].option_ID[j]</b>
+                                    .<i>@Model.questionnaire[i].option_Content[j]</i>
+                                </li>
+                            }
+                        </ul>
+                        <small style="color:blue">--由管理员<i>@Model.questionnaire[i].manager_ID</i>编辑</small>
+                    }
+                }
             }
-        }
-        }
+        </div>
     </div>
-</div>
