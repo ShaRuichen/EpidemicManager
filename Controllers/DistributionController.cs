@@ -4,6 +4,7 @@ using System.Data;
 using System;
 using EpidemicManager.Models;
 using Microsoft.AspNetCore.Http;
+using System.IO;
 
 public struct Dongroupmon
 {
@@ -51,11 +52,18 @@ namespace EpidemicManager.Controllers
         {
 
             var session = HttpContext.Session;
+            var userKind = session.GetString("userKind");
             if (HttpContext.Session.GetString("userId") == null)
             {
-                return RedirectToAction("Index", "Login");
+
+                return RedirectToAction("Index", "Login", new { path = "distribution/index" });
             }
-            var userKind = session.GetString("userKind");
+            else
+            {
+                if (userKind == "doctor") return RedirectToAction("doctor");
+                else if (userKind == "manager") return RedirectToAction("manager");
+                else return View();
+            }
             var userId = session.GetString("userId");
             if (userKind == "doctor")
             {
@@ -75,11 +83,13 @@ namespace EpidemicManager.Controllers
         public IActionResult Doctor()
         {
             var session = HttpContext.Session;
+            var userKind = session.GetString("userKind");
             if (HttpContext.Session.GetString("userKind") != "doctor")
             {
-                return RedirectToAction("Index", "Login");
+
+                return RedirectToAction("Index", "Login", new { path = "distribution/index" });
             }
-            var userKind = session.GetString("userKind");
+            
             var userId = session.GetString("userId");
             var docid = userId;
             //var docid = "654321";
@@ -147,11 +157,12 @@ namespace EpidemicManager.Controllers
             //}
 
             var session = HttpContext.Session;
+            var userKind = session.GetString("userKind");
             if (HttpContext.Session.GetString("userKind") != "manager")
             {
-                return RedirectToAction("Index", "Login");
+
+                return RedirectToAction("Index", "Login", new { path = "distribution/index" });
             }
-            var userKind = session.GetString("userKind");
             var userId = session.GetString("userId");
 
 
