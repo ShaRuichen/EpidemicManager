@@ -44,7 +44,7 @@ namespace EpidemicManager.Controllers
             return Json(new
             {
                 isSucceeded = true,
-                path = HttpContext.Session.GetString("sourcePath"),
+                path = "/" + HttpContext.Session.GetString("sourcePath"),
             });
         }
 
