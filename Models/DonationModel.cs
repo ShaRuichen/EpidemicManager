@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EpidemicManager.Models
 {
-
+    
     public class DonateMoneyModel
     {
         public string people_id { get; set; }

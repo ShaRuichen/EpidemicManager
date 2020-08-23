@@ -6,7 +6,8 @@
     $.post('/login/Login', { id: id, password: password, kind: kind }, function (result) {
         var isSucceeded = result.isSucceeded
         if (isSucceeded) {
-            $(location).attr('href', '/Home')
+            var path = result.path
+            $(location).attr('href', path)
         }
         else {
             var message = result.message

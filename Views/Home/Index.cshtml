@@ -1,0 +1,36 @@
+﻿< !DOCTYPE html >
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EpidemicManager</title>
+</head>
+<body>
+    <div class="text-center">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3>功能选择</h3>
+            </div>
+            <div class="panel-body">
+                <div class="btn-group-vertical">
+                    <a asp-area="" asp-controller="Communication" asp-action="Index">线上交流</a>
+                    <a asp-area="" asp-controller="Distribution" asp-action="Index">管理员分配/医生检查捐献物资</a>
+                    <a asp-area="" asp-controller="Donation" asp-action="DonateMaterial">捐献物资</a>
+                    <a asp-area="" asp-controller="Donation" asp-action="DonateMoney">捐献资金</a>
+                    <a asp-area="" asp-controller="Donation" asp-action="Distribute">查看分配信息</a>
+                    <a asp-area="" asp-controller="Examine" asp-action="Index">检查</a>
+                    <a asp-area="" asp-controller="Login" asp-action="Index">民众/管理员/医生登录</a>
+                    <a asp-area="" asp-controller="Questionnaire" asp-action="Index">管理员发/统计、民众写调查问卷</a>
+                    <a asp-area="" asp-controller="Report" asp-action="Index">医生读写/病人读检查报告</a>
+                    <a asp-area="" asp-controller="Settings" asp-action="Index">修改信息菜单</a>
+                    <a asp-area="" asp-controller="Shared" asp-action="Index">共享</a>
+                    <a asp-area="" asp-controller="Statistics" asp-action="Index">数据</a>
+                    <a asp-area="" asp-controller="Template" asp-action="Index">模板</a>
+                    <a asp-area="" asp-controller="Travel" asp-action="Index">行程信息</a>
+                    <a asp-area="" asp-controller="Treatment" asp-action="Distribute">医生读写/病人读治疗方案</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

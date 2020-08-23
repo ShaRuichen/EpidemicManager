@@ -1,15 +1,40 @@
+﻿@model ExamineModel
 @{
-    ViewBag.Ref = "create";
-    ViewBag.Title = "创建";
+    ViewBag.Ref = "Examine";
+    ViewBag.Title = "创建检查报告";
 }
 
-    <div class="tab-pane fade show active" id="people" role="tabpanel" aria-labelledby="people-tab">
-        <p />
-        <p>医生编号：<input type="text" id="doctorId"  /></p>
-        <p>患者编号：<input type="text" id="patientId"  /></p>
-        
-        <p>时间：<input type="text" id="time" /></p>
-        <p>细节：<input type="text" id="detail" /></p>
-        
-        <p><div class="btn btn-primary" id="createButton" >创建</div></p>
+<form class="form-horizontal" method="post" action="Create">
+    <div class="form-group">
+        <label for="patient_id" class="col-sm-2 control-label">患者身份证号</label>
+        <div class="col-sm-10">
+            @Html.TextBox("patient_id", null, new { @class = " form-control ", placeholder = "请输入身份证号" })
+        </div>
     </div>
+    <div class="form-group">
+        <label for="title" class="col-sm-2 control-label">报告标题</label>
+        <div class="col-sm-10">
+            @Html.TextBox("title", null, new { @class = " form-control ", MaxLength = 30, placeholder = "请输入检查报告标题" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="detail" class="col-sm-2 control-label">报告详细内容</label>
+        <div class="col-sm-10">
+            @Html.TextBox("detail", null, new { @class = " form-control ", MaxLength = 500, ScrollBars = true, placeholder = "请输入检查报告的详细内容" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox">我已确认无误
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-light">提交</button>
+        </div>
+    </div>
+</form>

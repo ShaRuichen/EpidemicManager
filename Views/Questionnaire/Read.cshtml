@@ -1,0 +1,50 @@
+﻿@model QuestionnaireModel
+@{
+    ViewBag.Ref = "Questionnaire";
+    ViewBag.Title = "查看问卷";
+}
+<div >
+    <h1>当前问卷</h1>
+    <div>
+        @if (Model.questionnaire.Count == 0)
+        {
+            <p style="color:blueviolet">当前问卷为空，请先创建问卷！</p>
+        }
+        else
+        {
+        @for (int i = 0; i < Model.questionnaire.Count; i++)
+        {
+            @if (!Model.questionnaire[i].is_Bridge)
+            {
+                <p>
+                    @Model.questionnaire[i].question_ID
+                    <strong>.@Model.questionnaire[i].question_Content</strong>
+                    <i style="color:red">--填空</i>
+                    <br />
+                </p>
+                <br/>
+                <small style="color:blue">--由管理员<i>@Model.questionnaire[i].manager_ID</i>编辑</small>
+            }
+            else
+            {
+                <p>
+                    @Model.questionnaire[i].question_ID
+                    <strong>.@Model.questionnaire[i].question_Content</strong>
+                    <i style="color:red">--选择</i>
+                </p>
+                <ul>
+                    @for (int j = 0; j < Model.questionnaire[i].option_ID.Count; j++)
+                    {
+                        <li>
+                            <b>@Model.questionnaire[i].option_ID[j]</b>
+                            .<i>@Model.questionnaire[i].option_Content[j]</i>
+                        </li>
+                    }
+                </ul>
+                <br />
+                <small style="color:blue">--由管理员<i>@Model.questionnaire[i].manager_ID</i>编辑</small>
+            }
+        }
+        }
+    </div>
+</div>
