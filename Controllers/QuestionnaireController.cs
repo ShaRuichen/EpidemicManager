@@ -90,7 +90,8 @@ namespace EpidemicManager.Controllers
         [HttpGet]
         public IActionResult Fill()
         {
-            /*var filler_id = HttpContext.Session.GetString("userId");
+            /* var session=HttpContext.Session;
+            var filler_id = HttpContext.Session.GetString("userId");
             var date = DateTime.Now.ToString("yyyy--MM-dd");
             var fill = 0;
             var filled = Sql.Read("SELECT date From answer WHERE people_id=@0 AND date=@1", filler_id, date);
@@ -141,6 +142,7 @@ namespace EpidemicManager.Controllers
         public IActionResult Fill(QuestionnaireModel m)
         {
             var filler_id = "defaultId3";
+            //var session = HttpContext.Session;
             //filler_id = HttpContext.Session.GetString("userId");
             var date = DateTime.Now.ToString("yyyy--MM-dd");
             var ques = Sql.Read("SELECT * FROM questionnaire");
@@ -257,7 +259,9 @@ namespace EpidemicManager.Controllers
             {
                 return false;
             }
-            //managerId=HttpContext.Session.GetString("userId");
+            /*var session = HttpContext.Session;
+             * managerId=HttpContext.Session.GetString("userId");
+             */
             foreach (DataRow at in ids)
             {
                 id = Convert.ToInt32(at[0])+1;
@@ -289,12 +293,13 @@ namespace EpidemicManager.Controllers
             var ids = Sql.Read("SELECT MAX(q_num) FROM questionnaire");
             int id = 0;
             string managerId = "123456";
+            //var session = HttpContext.Session;
             //managerId=HttpContext.Session.GetString("userId");
             if (q_content == null)
             {
                 return false;
             }
-            //managerId=HttpContext.Session.GetString("userId");
+            
             foreach (DataRow at in ids)
             {
                 id = Convert.ToInt32(at[0])+1;
