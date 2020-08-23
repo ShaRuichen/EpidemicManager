@@ -24,26 +24,29 @@ namespace EpidemicManager.Controllers
             var model = new QuestionnaireModel();//问卷模型
             foreach (DataRow question in ques)
             {
-                var now = new Question();
-                if (question[3].ToString() == "选择")//获取题目类型
+                if (Convert.ToInt32(question[4]) == 0)
                 {
-                    now.is_Bridge = true;
-                    var opt = Sql.Read("SELECT optionID,optionContent FROM question_option WHERE q_num=@0", question[0]);
-                    var xuanhao = new List<string>();
-                    var xuanxiang = new List<string>();
-                    foreach (DataRow op in opt)
+                    var now = new Question();
+                    if (question[3].ToString() == "选择")//获取题目类型
                     {
-                        xuanhao.Add(op[0].ToString());
-                        xuanxiang.Add(op[1].ToString());
-                    }
-                    now.option_Content = xuanxiang;
-                    now.option_ID = xuanhao;
+                        now.is_Bridge = true;
+                        var opt = Sql.Read("SELECT optionID,optionContent FROM question_option WHERE q_num=@0", question[0]);
+                        var xuanhao = new List<string>();
+                        var xuanxiang = new List<string>();
+                        foreach (DataRow op in opt)
+                        {
+                            xuanhao.Add(op[0].ToString());
+                            xuanxiang.Add(op[1].ToString());
+                        }
+                        now.option_Content = xuanxiang;
+                        now.option_ID = xuanhao;
 
+                    }
+                    now.question_ID = Convert.ToInt32(question[0]);
+                    now.question_Content = question[1].ToString();
+                    now.manager_ID = question[2].ToString();
+                    list.Add(now);
                 }
-                now.question_ID = Convert.ToInt32(question[0]);
-                now.question_Content = question[1].ToString();
-                now.manager_ID = question[2].ToString();
-                list.Add(now);
             }
             model.questionnaire = list;
             return View(model);
@@ -247,9 +250,9 @@ namespace EpidemicManager.Controllers
         [HttpPost]
         public bool AddRadios(string content, string op1, string op2, string op3, string op4)
         {
-            var ids = Sql.Read("SELECT MAX(id) FROM questionnaire");
+            var ids = Sql.Read("SELECT MAX(q_num) FROM questionnaire");
             int id=0;
-            string managerId = "admin";
+            string managerId = "123456";
             if(content==null)
             {
                 return false;
@@ -257,9 +260,9 @@ namespace EpidemicManager.Controllers
             //managerId=HttpContext.Session.GetString("userId");
             foreach (DataRow at in ids)
             {
-                id = Convert.ToInt32(at[0]);
+                id = Convert.ToInt32(at[0])+1;
             }
-            Sql.Execute("INSERT INTO question VALUES(@0, @1, @2, @3, @4)", id, content,managerId, "选择", 0);
+            Sql.Execute("INSERT INTO questionnaire VALUES(@0, @1, @2, @3, @4)", id, content,managerId, "选择", 0);
             if (op1 != null)
             {
                 Sql.Execute("INSERT INTO question_option VALUES(@0, @1, @2)", 1, op1, id);
@@ -281,21 +284,22 @@ namespace EpidemicManager.Controllers
 
         }
         [HttpPost]
-        public bool AddFill(string content)
+        public bool AddFill(string q_content)
         {
-            var ids = Sql.Read("SELECT MAX(id) FROM questionnaire");
+            var ids = Sql.Read("SELECT MAX(q_num) FROM questionnaire");
             int id = 0;
-            string managerId = "admin";
-            if (content == null)
+            string managerId = "123456";
+            //managerId=HttpContext.Session.GetString("userId");
+            if (q_content == null)
             {
                 return false;
             }
             //managerId=HttpContext.Session.GetString("userId");
             foreach (DataRow at in ids)
             {
-                id = Convert.ToInt32(at[0]);
+                id = Convert.ToInt32(at[0])+1;
             }
-            Sql.Execute("INSERT INTO question VALUES(@0, @1, @2, @3, @4)", id, content, managerId, "填空", 0);
+            Sql.Execute("INSERT INTO questionnaire VALUES(@0, @1, @2, @3, @4)", id, q_content, managerId, "填空", 0);
             return true;
         }
 
