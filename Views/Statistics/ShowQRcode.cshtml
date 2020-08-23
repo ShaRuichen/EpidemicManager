@@ -1,0 +1,9 @@
+﻿@model PepQRcodeModel
+@{
+    ViewBag.Ref = "ShowQRcode";
+    ViewBag.Title = "展示二维码";
+}
+
+<div class="text-center">
+    <img src="/QRcode?path=Statistics/PeopleAdd?id=@Model.PepID" />
+</div>
