@@ -1,6 +1,6 @@
-﻿@model QuestionnaireModel
+@model QuestionnaireModel
 @{
-    ViewBag.Ref = "Questionnaire";
+    ViewBag.Ref = "questionnaire";
     ViewBag.Title = "查看问卷";
 }
 <div >
@@ -22,7 +22,6 @@
                     <i style="color:red">--填空</i>
                     <br />
                 </p>
-                <br/>
                 <small style="color:blue">--由管理员<i>@Model.questionnaire[i].manager_ID</i>编辑</small>
             }
             else
@@ -41,7 +40,6 @@
                         </li>
                     }
                 </ul>
-                <br />
                 <small style="color:blue">--由管理员<i>@Model.questionnaire[i].manager_ID</i>编辑</small>
             }
         }
