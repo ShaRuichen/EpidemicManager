@@ -1,11 +1,4 @@
-﻿< !DOCTYPE html >
-<html lang="zh-cn">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>EpidemicManager</title>
-</head>
-<body>
+﻿<body>
     <div class="text-center">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -20,7 +13,8 @@
                     <a asp-area="" asp-controller="Donation" asp-action="Distribute">查看分配信息</a>
                     <a asp-area="" asp-controller="Examine" asp-action="Index">检查</a>
                     <a asp-area="" asp-controller="Login" asp-action="Index">民众/管理员/医生登录</a>
-                    <a asp-area="" asp-controller="Questionnaire" asp-action="Index">管理员发/统计、民众写调查问卷</a>
+                    <a asp-area="" asp-controller="Questionnaire" asp-action="Index">管理问卷</a>
+                    <a asp-area="" asp-controller="Questionnaire" asp-action="Fill">填写问卷</a>
                     <a asp-area="" asp-controller="Report" asp-action="Index">医生读写/病人读检查报告</a>
                     <a asp-area="" asp-controller="Settings" asp-action="Index">修改信息菜单</a>
                     <a asp-area="" asp-controller="Shared" asp-action="Index">共享</a>
@@ -33,4 +27,3 @@
         </div>
     </div>
 </body>
-</html>
