@@ -6,6 +6,7 @@
 
     <div class="text-center">
         <h1>建立/编辑问卷</h1>
+        <a asp-area="" asp-controller="questionnaire" asp-action="index">返回问卷系统</a>
         <h4>当前问卷</h4>
         <div>
             @if (Model.questionnaire.Count == 0)
@@ -36,7 +37,7 @@
                         <ul>
                             @for (int j = 0; j < Model.questionnaire[i].option_ID.Count; j++)
                             {
-                                <li>
+                                <li class="text-center">
                                     <b>@Model.questionnaire[i].option_ID[j]</b>
                                     .<i>@Model.questionnaire[i].option_Content[j]</i>
                                 </li>
@@ -60,8 +61,8 @@
                 <p>
                     题目内容：<input type="text" id="radioContent" />
                 </p>
-                <p>选项：</p>
-                <ol>
+                <p>选项：(至少设置一个)</p>
+                <ol class="text-center">
                     <li>
                         <input type="text" id="option1" />
                     </li>
