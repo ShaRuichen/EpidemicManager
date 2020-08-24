@@ -12,7 +12,7 @@ namespace EpidemicManager.Controllers
 {
     public class StatisticsController : Controller
     {
-        /*
+        
         public IActionResult Index()
         {
             var session = HttpContext.Session;
@@ -26,7 +26,7 @@ namespace EpidemicManager.Controllers
             return View();
         }
 
-        public IActionResult Read()
+        public IActionResult Read(string id)
         {
             if(id!=null)
             {
@@ -36,22 +36,26 @@ namespace EpidemicManager.Controllers
             var Date = Sql.Read("SELECT date FROM travel_info");
             var Time = Sql.Read("SELECT time FROM travel_info");
             var Site = Sql.Read("SELECT site FROM travel_info");
+            var IDlist = new List<string>();
+            var datelist = new List<string>();
+            var timelist = new List<string>();
+            var sitelist = new List<string>();
 
-            foreach(DataRow travel in ID)
+            foreach (DataRow statistics in ID)
             {
-                IDlist.Add(travel[0].ToString);
+                IDlist.Add(statistics[0].ToString());
             }
-            foreach (DataRow travel in date)
+            foreach (DataRow statistics in Date)
             {
-                datelist.Add(travel[0].ToString);
+                datelist.Add(Convert.ToDateTime(statistics[0]).ToString("yyyy-MM-dd"));
             }
-            foreach (DataRow travel in time)
+            foreach (DataRow statistics in Time)
             {
-                timelist.Add(travel[0].ToString);
+                timelist.Add(statistics[0].ToString());
             }
-            foreach (DataRow travel in site)
+            foreach (DataRow statistics in Site)
             {
-                sitelist.Add(travel[0].ToString);
+                sitelist.Add(statistics[0].ToString());
             }
 
             var model = new StatisticsModel
@@ -106,6 +110,6 @@ namespace EpidemicManager.Controllers
 
             return View(model);
         }
-        */
+        
     }
 }
