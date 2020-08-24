@@ -25,6 +25,7 @@ namespace EpidemicManager.Controllers
             return View();
         }
 
+        /*
         public IActionResult Read()
         {
             if(id!=null)
@@ -63,6 +64,7 @@ namespace EpidemicManager.Controllers
 
             return View(model);
         }
+        */
 
         public IActionResult PeopleAdd()
         {
