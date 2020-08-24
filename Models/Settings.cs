@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,6 +14,8 @@ namespace EpidemicManager.Models
         public string tel { get; set; }
         public string sex { get; set; }
         public string password { get; set; }
+        public string password1 { get; set; }
+        public string password2 { get; set; }
     }
     public class Settingsdoctor
     {
@@ -20,6 +23,8 @@ namespace EpidemicManager.Models
         public string name { get; set; }
         public string hos_name { get; set; }
         public string password { get; set; }
+        public string password1 { get; set; }
+        public string password2 { get; set; }
     }
     public class Settingsmanager
     {
@@ -30,6 +35,9 @@ namespace EpidemicManager.Models
         public string tel { get; set; }
         public string address { get; set; }
         public string password { get; set; }
+        public string password1 { get; set; }
+        public string password2 { get; set; }
+
     }
     public class Settingspatient
     {
@@ -38,5 +46,11 @@ namespace EpidemicManager.Models
         public string sex { get; set; }
         public string hos_name { get; set; }
         public string password { get; set; }
+        public string password1 { get; set; }
+        public string password2 { get; set; }
+    }
+    public class Settingsmessage
+    {
+        public string error { get; set; }
     }
 }
