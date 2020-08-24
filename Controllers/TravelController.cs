@@ -40,9 +40,31 @@ namespace EpidemicManager.Controllers
             var session = HttpContext.Session;
             var userKind = session.GetString("userKind");
             var userId = session.GetString("userId");
+            var realpresite = session.GetString("realpresite");
             var model = new Mamodel
             {
-                maID = userId
+                maID = userId,
+                site = realpresite
+            };
+            if (realpresite == null)
+            {
+                return RedirectPermanent("/Travel/Addpresite");
+            }
+            else
+            {
+                return View(model);
+            }
+        }
+        public IActionResult Addpresite()
+        {
+            var session = HttpContext.Session;
+            var userKind = session.GetString("userKind");
+            var userId = session.GetString("userId");
+            var realpresite = session.GetString("realpresite");
+            var model = new Mamodel
+            {
+                maID = userId,
+                site = realpresite
             };
             return View(model);
         }
@@ -64,16 +86,22 @@ namespace EpidemicManager.Controllers
             {
                 maID = id
             };
-            return View(model);
+            return View("ManagerAdd_info");
         }
-        public IActionResult ManagerAdd_info()
+        public IActionResult ManagerAdd_info(string id,string site)
         {
+            var session = HttpContext.Session;
+            string site2 = session.GetString("realpresite");
+            if (site == null)
+            {
+                string realpresite = Request.Form["realpresite"];
+                HttpContext.Session.SetString("realpresite", realpresite);
+                return View("index");
+            }
             Models.Trmodel Mtravelinfo = new Trmodel();
-            Mtravelinfo.ID = Request.Form["MID"];
-            Mtravelinfo.site = Request.Form["Msite"];
             string date = DateTime.Now.ToString("yyyy-MM-dd");
             string time = DateTime.Now.ToString("T");
-            Sql.Execute("INSERT INTO travel_info VALUES(@0, @1, @2, @3)", Mtravelinfo.ID, date, time, Mtravelinfo.site);
+            Sql.Execute("INSERT INTO travel_info VALUES(@0, @1, @2, @3)", id, date, time, site);
             return View(Mtravelinfo);
 
         }
