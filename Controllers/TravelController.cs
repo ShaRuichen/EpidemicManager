@@ -15,18 +15,14 @@ namespace EpidemicManager.Controllers
 
         public IActionResult Index()
         {
-            var people = Sql.Read("SELECT id FROM people");
-            var list = new List<string>();
-            foreach (DataRow person in people)
+            var session = HttpContext.Session;
+            var userKind = session.GetString("userKind");
+            var userId = session.GetString("userId");
+            if(userId==null)
             {
-                list.Add(person[0].ToString());
+                return RedirectPermanent("/login?path=travel");
             }
-            var model = new Travelmodel
-            {
-                Ids = list,
-            };
-
-            return View(model);
+            return View();
         }
         public IActionResult PeopleAdd()
         {

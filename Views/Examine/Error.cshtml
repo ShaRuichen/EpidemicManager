@@ -1,0 +1,20 @@
+﻿@model ExamineModel
+@{
+    ViewBag.Ref = "Examine";
+    ViewBag.Title = "错误提示";
+}
+<div class="text-center">
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3>患者身份证号输入有误</h3>
+        <h3>操作失败，请重新选择</h3>
+    </div>
+    <div class="panel-body">
+        <div class="btn-group-vertical">
+            <a asp-area="" asp-controller="Examine" asp-action="Create">创建新报告</a>
+            <a asp-area="" asp-controller="Examine" asp-action="Write_index">修改旧报告</a>
+            <a asp-area="" asp-controller="Examine" asp-action="Read_index">查看已有报告</a>
+        </div>
+    </div>
+</div>
+</div> 

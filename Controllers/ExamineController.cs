@@ -14,11 +14,20 @@ public class ExamineController : Controller
 
     public IActionResult Index_doctor()
     {
+        
+        if (HttpContext.Session.GetString("userKind")!="doctor")
+        {
+            return RedirectToAction("Index", "Login", new { path = "/Examine/Index_doctor" });
+        }
         return View();
     }
     [HttpGet]
     public IActionResult Create()
     {
+        if (HttpContext.Session.GetString("userKind") != "doctor")
+        {
+            return RedirectToAction("Index", "Login", new { path = "Examine /Create" });
+        }
         return View();
     }
     [HttpPost]
@@ -31,30 +40,32 @@ public class ExamineController : Controller
         m.title = Request.Form["title"];
         m.date = DateTime.Now.ToString("yyyy-MM-dd");
         m.time = DateTime.Now.ToString("T");
-        var id_r = 0;
-        var report = Sql.Read("SELECT * FROM examine_repo");
-        foreach (DataRow r in report)
-        {
-            id_r++;
+
+        var p = Sql.Read("SELECT name FROM patient where ID=@0", m.ID_patient);
+        if (p.Count == 0) {
+            Error();
         }
-
-        Sql.Execute("INSERT INTO examine_repo(date,time,patient_id,doctor_id,title,detail,report_id)  VALUES(@0,@1,@2,@3,@4,@5,@6)", m.date, m.time, m.ID_patient, m.ID_doctor, m.title, m.detail, id_r);
-
+        Sql.Execute("INSERT INTO examine_repo(date,time,patient_id,doctor_id,title,detail)  VALUES(@0,@1,@2,@3,@4,@5,@6)", m.date, m.time, m.ID_patient, m.ID_doctor, m.title, m.detail);
         return RedirectToAction("Index_doctor");
+
     }
 
     public IActionResult Read_index()
     {
+        if (HttpContext.Session.GetString("userKind") != "doctor")
+        {
+            return RedirectToAction("Index", "Login", new { path = "Exmaine/Read_index" });
+        }
         var report = Sql.Read("SELECT report_id,patient_id,title FROM examine_repo ");
         ExamineIndexModel m = new ExamineIndexModel();
-        var list_r = new List<int>();
+        var list_r = new List<string>();
         var list_p = new List<string>();
         var list_t = new List<string>();
         var list_n = new List<string>();
         var i = 0;
         foreach (DataRow r in report)
         {
-            list_r.Add(Convert.ToInt32(r[0]));
+            list_r.Add(r[0].ToString());
             list_p.Add(r[1].ToString());
             list_t.Add(r[2].ToString());
             var name = Sql.Read("SELECT name FROM patient where ID=@0", r[1]);
@@ -74,15 +85,19 @@ public class ExamineController : Controller
     }
     public IActionResult Write_index()
     {
+        if (HttpContext.Session.GetString("userKind") != "doctor")
+        {
+            return RedirectToAction("Index", "Login", new { path = "Examine/Write_index" });
+        }
         var report = Sql.Read("SELECT report_id,patient_id,title FROM examine_repo ");
         ExamineIndexModel m = new ExamineIndexModel();
-        var list_r = new List<int>();
+        var list_r = new List<string>();
         var list_p = new List<string>();
         var list_t = new List<string>();
         var list_n = new List<string>();
         foreach (DataRow r in report)
         {
-            list_r.Add(Convert.ToInt32(r[0]));
+            list_r.Add(r[0].ToString());
             list_p.Add(r[1].ToString());
             list_t.Add(r[2].ToString());
             var name = Sql.Read("SELECT name FROM patient where ID=@0", r[1]);
@@ -102,21 +117,27 @@ public class ExamineController : Controller
 
     public IActionResult Index_patient()//病人Id
     {
-
+        if (HttpContext.Session.GetString("userKind") != "patient")
+        {
+            return RedirectToAction("Index", "Login", new { path = "Examine/Index_patient" });
+        }
         var id_p = HttpContext.Session.GetString("userId");
         var report = Sql.Read("SELECT report_id,title FROM examine_repo WHERE patient_id=@0", id_p);
-        var list_r = new List<int>();
+        var list_r = new List<string>();
         var list_t = new List<string>();
+        var i = 0;
         foreach (DataRow r in report)
         {
-            list_r.Add(Convert.ToInt32(r[0]));
+            list_r.Add(r[0].ToString());
             list_t.Add(r[1].ToString());
+            i++;
         }
 
         var model = new ExamineIndexModel
         {
             report = list_r,
             title = list_t,
+            n=i,
         };
 
         return View(model);
@@ -240,10 +261,18 @@ public class ExamineController : Controller
         m.time = DateTime.Now.ToString("T");
 
         m.ID_report = Request.Form["report_id"];
+        var p = Sql.Read("SELECT name FROM patient where ID=@0", m.ID_patient);
+        if (p.Count == 0)
+        {
+            Error();
+        }
         Sql.Execute("UPDATE  examine_repo set detail =@0, time =@1 ,date=@2,title=@3,patient_id=@4,doctor_id=@5 WHERE report_id =@6", m.detail, m.time, m.date, m.title, m.ID_patient, m.ID_doctor, Convert.ToInt32(m.ID_report));
-
 
         return RedirectToAction("Index_doctor");
 
+    }
+    private void Error()
+    {
+        View();
     }
 }

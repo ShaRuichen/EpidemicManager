@@ -39,12 +39,15 @@ namespace EpidemicManager.Controllers
                 isSucceeded = false,
                 message = "密码错误。",
             });
-            HttpContext.Session.SetString("userKind", kind);
-            HttpContext.Session.SetString("userId", id);
+            var session = HttpContext.Session;
+            session.SetString("userKind", kind);
+            session.SetString("userId", id);
+            var originPath = session.GetString("sourcePath");
+            var path = originPath.StartsWith("/") ? originPath : "/" + originPath;
             return Json(new
             {
                 isSucceeded = true,
-                path = HttpContext.Session.GetString("sourcePath"),
+                path,
             });
         }
 

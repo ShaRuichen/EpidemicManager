@@ -21,7 +21,7 @@ namespace EpidemicManager.Controllers
             var id = HttpContext.Session.GetString("userId");
             if (HttpContext.Session.GetString("userId")==null)
             {
-                return RedirectToAction("Index", "Login");
+                return RedirectToAction("Index", "Login",new { path="/Donation/DonateMaterial"});
             }
             else
             {
@@ -49,8 +49,8 @@ namespace EpidemicManager.Controllers
                 {
                     donate_id = Convert.ToInt32(id[0]);
                 }
-                Sql.Execute("INSERT INTO donate_material VALUES(@0,@1,@2,@3,@4,@5)",donate_id, date, time, material.type, material.amount, is_distributed);
-                return RedirectToAction("Index","Home");
+            Sql.Execute("INSERT INTO donate_material VALUES(@0,@1,@2,@3,@4,@5)", donate_id, date, time, material.type, material.amount, is_distributed);
+                return RedirectToAction("Index","Home" );
         }
         [HttpPost]
         public IActionResult DonateMoney(DonateMoneyModel Money)
@@ -79,7 +79,7 @@ namespace EpidemicManager.Controllers
             var id = HttpContext.Session.GetString("userId");
             if (HttpContext.Session.GetString("userId") == null)
             {
-                return RedirectToAction("Index", "Login");
+                return RedirectToAction("Index", "Login",new { path="/Donation/DonateMoney"});
             }
             else
             {

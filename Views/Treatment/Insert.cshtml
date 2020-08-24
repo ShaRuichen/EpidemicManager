@@ -7,12 +7,11 @@
 
     <h1>insert</h1>
     <form>
-        医生ID：<input type="text" value="null" id="doctor_id" /><br />
-        病人ID：<input type="text" value="null" id="patient_id" /><br />
-        日期：<input type="text" value="null" id="date" /><br />
-        时间：<input type="text" value="null" id="time" /><br />
-        药物：<input type="text" value="null" id="medicine" /><br />
-        备注：<input type="text" value="null" id="detail" /><br />
+        病人ID：<input type="text" value="" id="patient_id" oninput="value=value.replace(/[^\d]/g,'')"/><br />
+        日期：<input type="date" value="" id="date" /><br />
+        时间：<input type="time" value="" id="time" /><br />
+        药物：<input type="text" value="" id="medicine" /><br />
+        备注：<input type="text" value="" id="detail" /><br />
         <div id="button1" class="button" onclick="click2('World')">提交</div>
     </form>
 </div>

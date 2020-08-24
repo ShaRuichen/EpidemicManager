@@ -4,7 +4,7 @@ using System.Data;
 using System;
 using EpidemicManager.Models;
 using Microsoft.AspNetCore.Http;
-
+using System.Xml.Schema;
 
 namespace EpidemicManager.Controllers
 {
@@ -21,19 +21,41 @@ namespace EpidemicManager.Controllers
             var kind = HttpContext.Session.GetString("userKind");
             if (HttpContext.Session.GetString("userId") == null)
             {
-                return RedirectToAction("Index", "Login");
+                return RedirectToAction("Index", "Login", new { path = "Settings" });
             }
-            else if(HttpContext.Session.GetString("userKind") != null)
+            else if (HttpContext.Session.GetString("userKind") != null)
             {
                 if (kind == "doctor") return RedirectToAction("Doctor");
                 else if (kind == "manager") return RedirectToAction("Manager");
-                else if (kind == "patient") return RedirectToAction("Patient");
-                else return View();
+                else
+                {
+                    var peo_info = Sql.Read("SELECT name,address,tel,sex,password from people where ID=@0", id);
+                    var PEO_name = new List<string>();
+                    var PEO_address = new List<string>();
+                    var PEO_tel = new List<string>();
+                    var PEO_sex = new List<string>();
+                    var PEO_password = new List<string>();
+                    foreach (DataRow peoi in peo_info)
+                    {
+                        PEO_name.Add(peoi[0].ToString());
+                        PEO_address.Add(peoi[1].ToString());
+                        PEO_tel.Add(peoi[2].ToString());
+                        PEO_sex.Add(peoi[3].ToString());
+                        PEO_password.Add(peoi[4].ToString());
+                    }
+                    var model = new SettingsPeople
+                    {
+                        people_id = id,
+                        name = PEO_name[0],
+                        address = PEO_address[0],
+                        tel = PEO_tel[0],
+                        sex = PEO_sex[0],
+                        password = PEO_password[0],
+                    };
+                    return View(model);
+                }
             }
-            else
-            {
-                return View();
-            }
+            else return View();
         }
         [HttpPost]
         public IActionResult Changepeople(SettingsPeople settingsPeople)
@@ -46,7 +68,7 @@ namespace EpidemicManager.Controllers
             people_info.sex = Request.Form["sex"];
             people_info.password = Request.Form["password"];
             Sql.Execute("UPDATE people set name=@1,address=@2,tel=@3,sex=@4 where id=@0", id, people_info.name, people_info.address, people_info.tel, people_info.sex);
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]
@@ -55,13 +77,26 @@ namespace EpidemicManager.Controllers
             var id = HttpContext.Session.GetString("userId");
             if (HttpContext.Session.GetString("userId") == null)
             {
-                return RedirectToAction("Index","Login");
+                return RedirectToAction("Index", "Login");
             }
             else
             {
+                var doc_info = Sql.Read("SELECT name,hos_name,password from doctor where id=@0", id);
+                var DOC_hos_name = new List<string>();
+                var DOC_name = new List<string>();
+                var DOC_password = new List<string>();
+                foreach (DataRow doci in doc_info)
+                {
+                    DOC_name.Add(doci[0].ToString());
+                    DOC_hos_name.Add(doci[1].ToString());
+                    DOC_password.Add(doci[2].ToString());
+                }
                 var model = new Settingsdoctor
                 {
                     doc_id = id,
+                    name = DOC_name[0],
+                    hos_name = DOC_hos_name[0],
+                    password = DOC_password[0],
                 };
                 return View(model);
             }
@@ -80,7 +115,31 @@ namespace EpidemicManager.Controllers
         [HttpGet]
         public IActionResult Manager()
         {
-            return View();
+            var id = HttpContext.Session.GetString("userId");
+            var man_info = Sql.Read("SELECT name,sex,tel,work_unit,password from manager where id=@0", id);
+            var MAN_name = new List<string>();
+            var MAN_sex = new List<string>();
+            var MAN_tel = new List<string>();
+            var MAN_work_unit = new List<string>();
+            var MAN_password = new List<string>();
+            foreach (DataRow man in man_info)
+            {
+                MAN_name.Add(man[0].ToString());
+                MAN_sex.Add(man[1].ToString());
+                MAN_tel.Add(man[0].ToString());
+                MAN_work_unit.Add(man[0].ToString());
+                MAN_password.Add(man[0].ToString());
+            }
+            var model = new Settingsmanager
+            {
+                man_id = id,
+                name = MAN_name[0],
+                sex = MAN_sex[0],
+                tel = MAN_tel[0],
+                work_unit = MAN_work_unit[0],
+                password = MAN_work_unit[0],
+            };
+            return View(model);
         }
         [HttpPost]
         public IActionResult Manager(Settingsmanager settingsmanager)
@@ -113,19 +172,122 @@ namespace EpidemicManager.Controllers
             return RedirectToAction("Index");
         }
         [HttpGet]
-        public IActionResult Delete()
+        public IActionResult Deletepeople()
         {
-            return View();
+            var id = HttpContext.Session.GetString("userId");
+            var kind = HttpContext.Session.GetString("userKind");
+            if (HttpContext.Session.GetString("userId") == null)
+            {
+                return RedirectToAction("Index", "Login", new { path = "Settings" });
+            }
+            else
+            {
+                if (kind == "people")
+                {
+                    var peo_info = Sql.Read("SELECT name,address,tel,sex,password from people where ID=@0", id);
+                    var PEO_name = new List<string>();
+                    var PEO_address = new List<string>();
+                    var PEO_tel = new List<string>();
+                    var PEO_sex = new List<string>();
+                    var PEO_password = new List<string>();
+                    foreach (DataRow peoi in peo_info)
+                    {
+                        PEO_name.Add(peoi[0].ToString());
+                        PEO_address.Add(peoi[1].ToString());
+                        PEO_tel.Add(peoi[2].ToString());
+                        PEO_sex.Add(peoi[3].ToString());
+                        PEO_password.Add(peoi[4].ToString());
+                    }
+                    var model = new SettingsPeople
+                    {
+                        people_id = id,
+                        name = PEO_name[0],
+                        address = PEO_address[0],
+                        tel = PEO_tel[0],
+                        sex = PEO_sex[0],
+                        password = PEO_password[0],
+                    };
+                    return View(model);
+                }
+                else if (kind == "manager")
+                {
+                    return RedirectToAction("Deletemanager");
+                }
+                else
+                {
+                    return RedirectToAction("Deletedoctor");
+                }
+            }
         }
         [HttpPost]
-        public IActionResult Delete(Settingspatient settingspatient)
+        public IActionResult Deletepeople(SettingsPeople settingsPeople)
         {
             var person_id = HttpContext.Session.GetString("userId");
-            var kind = HttpContext.Session.GetString("userKind");
-            if (kind == "doctor") Sql.Execute("DELETE from doctor where ID = @0", person_id);
-            else if (kind == "patient") Sql.Execute("DELETE from patient where ID = @0", person_id);
-            else if (kind == "manager") Sql.Execute("DELETE from manager where ID = @0", person_id);
-            else if (kind == "people") Sql.Execute("DELETE from people where ID = @0", person_id);
+            Sql.Execute("DELETE from people where ID = @0", person_id);
+            return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public IActionResult Deletemanager()
+        {
+            var id = HttpContext.Session.GetString("userId");
+            var man_info = Sql.Read("SELECT name,sex,tel,work_unit,password from manager where id=@0", id);
+            var MAN_name = new List<string>();
+            var MAN_sex = new List<string>();
+            var MAN_tel = new List<string>();
+            var MAN_work_unit = new List<string>();
+            var MAN_password = new List<string>();
+            foreach (DataRow man in man_info)
+            {
+                MAN_name.Add(man[0].ToString());
+                MAN_sex.Add(man[1].ToString());
+                MAN_tel.Add(man[0].ToString());
+                MAN_work_unit.Add(man[0].ToString());
+                MAN_password.Add(man[0].ToString());
+            }
+            var model = new Settingsmanager
+            {
+                man_id = id,
+                name = MAN_name[0],
+                sex = MAN_sex[0],
+                tel = MAN_tel[0],
+                work_unit = MAN_work_unit[0],
+                password = MAN_work_unit[0],
+            };
+            return View(model);
+        }
+        [HttpPost]
+        public IActionResult Deletemanager(Settingsmanager settingsmanager)
+        {
+            var person_id = HttpContext.Session.GetString("userId");
+            Sql.Execute("DELETE from manager where ID = @0", person_id);
+            return RedirectToAction("Index");
+        }
+        public IActionResult Deletedoctor()
+        {
+            var id = HttpContext.Session.GetString("userId");
+            var doc_info = Sql.Read("SELECT name,hos_name,password from doctor where id=@0", id);
+            var DOC_hos_name = new List<string>();
+            var DOC_name = new List<string>();
+            var DOC_password = new List<string>();
+            foreach (DataRow doci in doc_info)
+            {
+                DOC_name.Add(doci[0].ToString());
+                DOC_hos_name.Add(doci[1].ToString());
+                DOC_password.Add(doci[2].ToString());
+            }
+            var model = new Settingsdoctor
+            {
+                doc_id = id,
+                name = DOC_name[0],
+                hos_name = DOC_hos_name[0],
+                password = DOC_password[0],
+            };
+            return View(model);
+        }
+        public IActionResult Deletedoctor(Settingsdoctor settingsdoctor)
+        {
+            var doc_id = HttpContext.Session.GetString("userId");
+            Sql.Execute("DELETE from doctor where ID = @0", doc_id);
             return RedirectToAction("Index");
         }
     }

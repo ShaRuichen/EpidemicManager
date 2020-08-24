@@ -4,13 +4,14 @@
     ViewBag.Title = "查看";
 }
 <div class="text-c">
-    @if (Model.IDs.Count== 0)
+    @if (Model.IDs.Count == 0)
     {
-        <p>null</p>
+        <p>null 没有数据或未登录</p>
+        <button onclick="login()">登录</button>
     }
     else
     {
-    int m = 1;
+        int m = 1;
 <div class="aa">
     @for (int i = 0; i < Model.IDs.Count; i++)
     {
@@ -22,8 +23,9 @@
         m++;
     }
 </div>
-    }
-    修改：<input type="text" value="null" id="plan_id2"/>
+
+    <input type="text" value="null" id="plan_id2"/>
     <button id="buttonoo" class="button" onclick="modifi()">修改</button>
     <div id="staff"></div>
+    }
 </div>
