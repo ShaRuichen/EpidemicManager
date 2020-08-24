@@ -175,7 +175,7 @@ public class ExamineController : Controller
         var n_d = "M";
         foreach (DataRow r in named)
         {
-            n_d = r[0].ToString();
+             n_d = r[0].ToString();
         }
 
         var model = new ExamineModel
@@ -184,7 +184,7 @@ public class ExamineController : Controller
             ID_patient = id_p,
             name_patient = n_p,
             ID_doctor = id_d,
-            name_doctor = n_p,
+            name_doctor = n_d,
             detail = d,
             time = t,
             ID_report = id_r.ToString(),
@@ -240,7 +240,7 @@ public class ExamineController : Controller
             ID_patient = id_p,
             name_patient = n_p,
             ID_doctor = id_d,
-            name_doctor = n_p,
+            name_doctor = n_d,
             detail = d,
             time = t,
             ID_report = id_r.ToString(),
