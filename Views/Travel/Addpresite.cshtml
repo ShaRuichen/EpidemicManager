@@ -1,0 +1,14 @@
+@model Mamodel
+@{
+    ViewBag.Ref = "template";
+    ViewBag.Title = "模板";
+}
+
+<div class="text-center">
+    <form method="post" class="container" action="ManagerAdd_info">
+        <h4>预设旅行地点:</h4>
+        <input name="realpresite" type="text" class="form-control" placeholder="旅行地点">
+        <input type="submit" class="btn btn-primary" href="/Travel/index" onclick="addsite()" value="添加" />
+        <a class="btn btn-secondary" href="/Travel/index">返回</a>
+    </form>
+</div>
