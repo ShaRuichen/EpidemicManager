@@ -62,7 +62,7 @@ namespace EpidemicManager.Controllers
             var userId = session.GetString("userId");
             if(userKind!="manager")
             {
-                return View("new");
+                return View("notmanager");
             }
             var model = new Mamodel
             {
