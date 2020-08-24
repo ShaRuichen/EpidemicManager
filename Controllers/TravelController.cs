@@ -48,13 +48,6 @@ namespace EpidemicManager.Controllers
             };
             return View(model);
         }
-        [HttpPost]
-        public bool comfirm()
-        {
-            var session = HttpContext.Session;
-            var userKind = session.GetString("userKind");
-            return true;
-        }
         public IActionResult Addpresite()
         {
             var session = HttpContext.Session;
