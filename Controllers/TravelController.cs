@@ -46,25 +46,28 @@ namespace EpidemicManager.Controllers
                 maID = userId,
                 site = realpresite
             };
-            if (realpresite == null)
-            {
-                return RedirectPermanent("/Travel/Addpresite");
-            }
-            else
-            {
-                return View(model);
-            }
+            return View(model);
+        }
+        [HttpPost]
+        public bool comfirm()
+        {
+            var session = HttpContext.Session;
+            var userKind = session.GetString("userKind");
+            return true;
         }
         public IActionResult Addpresite()
         {
             var session = HttpContext.Session;
             var userKind = session.GetString("userKind");
             var userId = session.GetString("userId");
-            var realpresite = session.GetString("realpresite");
+            if(userKind!="manager")
+            {
+                return View("new");
+            }
             var model = new Mamodel
             {
                 maID = userId,
-                site = realpresite
+                site = userKind
             };
             return View(model);
         }
@@ -80,23 +83,20 @@ namespace EpidemicManager.Controllers
             return View(travelinfo);
             
         }
-        public IActionResult ManagerAdd(string id)
-        {
-            var model = new Mamodel
-            {
-                maID = id
-            };
-            return View("ManagerAdd_info");
-        }
-        public IActionResult ManagerAdd_info(string id,string site)
+        public IActionResult Setpresite()
         {
             var session = HttpContext.Session;
-            string site2 = session.GetString("realpresite");
+            string realpresite = Request.Form["realpresite"];
+            HttpContext.Session.SetString("realpresite", realpresite);
+            return View();
+        }
+        public IActionResult ManagerAdd_info(string id)
+        {
+            var session = HttpContext.Session;
+            var site = session.GetString("realpresite");
             if (site == null)
             {
-                string realpresite = Request.Form["realpresite"];
-                HttpContext.Session.SetString("realpresite", realpresite);
-                return View("index");
+                return RedirectPermanent("/Travel/Addpresite");
             }
             Models.Trmodel Mtravelinfo = new Trmodel();
             string date = DateTime.Now.ToString("yyyy-MM-dd");
