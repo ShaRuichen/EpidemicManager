@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System;
 using Microsoft.AspNetCore.Http;
+using System.Web;
 
 namespace EpidemicManager.Controllers
 {
@@ -19,6 +20,7 @@ namespace EpidemicManager.Controllers
         public IActionResult DonateMaterial()
         {
             var id = HttpContext.Session.GetString("userId");
+            var userkind = HttpContext.Session.GetString("userKind");
             if (HttpContext.Session.GetString("userId")==null)
             {
                 return RedirectToAction("Index", "Login",new { path="/Donation/DonateMaterial"});
@@ -28,6 +30,7 @@ namespace EpidemicManager.Controllers
                 var model = new DonateMaterialModel
                 {
                     people_id = id,
+                    kind=userkind,
                 };
                 return View(model);
             }         
@@ -77,6 +80,7 @@ namespace EpidemicManager.Controllers
         public IActionResult DonateMoney()
         {
             var id = HttpContext.Session.GetString("userId");
+            var userkind = HttpContext.Session.GetString("userKind");
             if (HttpContext.Session.GetString("userId") == null)
             {
                 return RedirectToAction("Index", "Login",new { path="/Donation/DonateMoney"});
@@ -86,6 +90,7 @@ namespace EpidemicManager.Controllers
                 var model = new DonateMoneyModel
                 {
                     people_id = id,
+                    kind = userkind,
                 };
                 return View(model);
             }
