@@ -17,7 +17,7 @@
                     <div class="form-group">
                         <label for="report_id" class="col-sm-2 control-label">报告ID</label>
                         <div class="col-sm-10">
-                            @Html.TextBox("report_id", null, new { @class = " form-control ", ReadOnly = true, text = @Model.report[i] })
+                            <input type="text" name="report_id"class="form-control" value="@Model.report[i]" readonly />
                             
                         </div>
                     </div>

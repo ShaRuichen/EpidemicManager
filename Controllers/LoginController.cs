@@ -24,6 +24,7 @@ namespace EpidemicManager.Controllers
             var person = kind switch
             {
                 "people" => Sql.Read("SELECT password FROM people WHERE id = @0", id),
+                "patient" => Sql.Read("SELECT password FROM patient WHERE id = @0", id),
                 "doctor" => Sql.Read("SELECT password FROM doctor WHERE id = @0", id),
                 "manager" => Sql.Read("SELECT password FROM manager WHERE id = @0", id),
                 _ => throw new InvalidOperationException()
@@ -60,6 +61,17 @@ namespace EpidemicManager.Controllers
             Sql.Execute("INSERT INTO people VALUES(@0, @1, @2, @3, @4, @5)", id, name, address,
                 tel, sex, password);
             return true;
+        }
+
+        [HttpPost]
+        public string RegisterPatient(string id, string password, string name, string sex, string hospital)
+        {
+            var patient = Sql.Read("SELECT id FROM patient WHERE id = @0", id);
+            if (patient.Count > 0) return bool.FalseString;
+            var hospitals = Sql.Read("SELECT hospital_name FROM hospital WHERE hospital_name = @0", hospital);
+            if (hospitals.Count == 0) return "医院不存在";
+            Sql.Execute("INSERT INTO patient VALUES(@0, @1, @2, @3, @4)", id, name, sex, hospital, password);
+            return bool.TrueString;
         }
 
         [HttpPost]

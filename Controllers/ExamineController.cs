@@ -1,12 +1,10 @@
-﻿using System;
+﻿using EpidemicManager;
+using EpidemicManager.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Data;
-using EpidemicManager;
-using Microsoft.AspNetCore.Mvc;
-using EpidemicManager.Models;
-using System.Diagnostics;
-using System.Threading;
-using Microsoft.AspNetCore.Http;
 
 public class ExamineController : Controller
 {
@@ -14,8 +12,8 @@ public class ExamineController : Controller
 
     public IActionResult Index_doctor()
     {
-        
-        if (HttpContext.Session.GetString("userKind")!="doctor")
+
+        if (HttpContext.Session.GetString("userKind") != "doctor")
         {
             return RedirectToAction("Index", "Login", new { path = "/Examine/Index_doctor" });
         }
@@ -42,10 +40,11 @@ public class ExamineController : Controller
         m.time = DateTime.Now.ToString("T");
 
         var p = Sql.Read("SELECT name FROM patient where ID=@0", m.ID_patient);
-        if (p.Count == 0) {
+        if (p.Count == 0)
+        {
             Error();
         }
-        Sql.Execute("INSERT INTO examine_repo(date,time,patient_id,doctor_id,title,detail)  VALUES(@0,@1,@2,@3,@4,@5,@6)", m.date, m.time, m.ID_patient, m.ID_doctor, m.title, m.detail);
+        Sql.Execute("INSERT INTO examine_repo(date,time,patient_id,doctor_id,title,detail)  VALUES(@0,@1,@2,@3,@4,@5)", m.date, m.time, m.ID_patient, m.ID_doctor, m.title, m.detail);
         return RedirectToAction("Index_doctor");
 
     }
@@ -95,6 +94,7 @@ public class ExamineController : Controller
         var list_p = new List<string>();
         var list_t = new List<string>();
         var list_n = new List<string>();
+        var i = 0;
         foreach (DataRow r in report)
         {
             list_r.Add(r[0].ToString());
@@ -104,13 +104,14 @@ public class ExamineController : Controller
             foreach (DataRow n in name)
             {
                 list_n.Add(n[0].ToString());
+                i++;
             }
         }
         m.title = list_t;
         m.report = list_r;
         m.name_patient = list_n;
         m.ID_patient = list_p;
-
+        m.n = i;
 
         return View(m);
     }
@@ -137,7 +138,7 @@ public class ExamineController : Controller
         {
             report = list_r,
             title = list_t,
-            n=i,
+            n = i,
         };
 
         return View(model);
@@ -174,7 +175,7 @@ public class ExamineController : Controller
         var n_d = "M";
         foreach (DataRow r in named)
         {
-            n_d = r[0].ToString();
+             n_d = r[0].ToString();
         }
 
         var model = new ExamineModel
@@ -183,7 +184,7 @@ public class ExamineController : Controller
             ID_patient = id_p,
             name_patient = n_p,
             ID_doctor = id_d,
-            name_doctor = n_p,
+            name_doctor = n_d,
             detail = d,
             time = t,
             ID_report = id_r.ToString(),
@@ -239,7 +240,7 @@ public class ExamineController : Controller
             ID_patient = id_p,
             name_patient = n_p,
             ID_doctor = id_d,
-            name_doctor = n_p,
+            name_doctor = n_d,
             detail = d,
             time = t,
             ID_report = id_r.ToString(),
