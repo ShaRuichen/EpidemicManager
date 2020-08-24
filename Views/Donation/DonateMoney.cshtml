@@ -1,6 +1,6 @@
 ﻿@model DonateMoneyModel
 @{
-    ViewBag.Ref = "Donation";
+    ViewBag.Ref = "donation";
     ViewBag.Title = "捐献现金";
 }
     <form class="form-horizontal" role="form" method="post" action="DonateMoney">
@@ -31,3 +31,4 @@
             </div>
         </div>
     </form>
+    <div id="kind" kind="@Model.kind"></div>
