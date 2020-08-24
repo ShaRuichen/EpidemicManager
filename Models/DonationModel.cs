@@ -11,12 +11,16 @@ namespace EpidemicManager.Models
     {
         public string people_id { get; set; }
         public int number { get; set; }
+        public string kind { get; set; }
     }
     public class DonateMaterialModel
     {
         public string people_id { get; set; }
         public string type{ get; set; }
         public int amount { get; set; }
+        public string kind { get; set; }
+
+
     }
     public class DistributeModel
     {
