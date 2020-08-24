@@ -12,6 +12,7 @@ namespace EpidemicManager.Controllers
 {
     public class StatisticsController : Controller
     {
+        /*
         public IActionResult Index()
         {
             var session = HttpContext.Session;
@@ -25,7 +26,6 @@ namespace EpidemicManager.Controllers
             return View();
         }
 
-        /*
         public IActionResult Read()
         {
             if(id!=null)
@@ -64,7 +64,6 @@ namespace EpidemicManager.Controllers
 
             return View(model);
         }
-        */
 
         public IActionResult PeopleAdd()
         {
@@ -107,5 +106,6 @@ namespace EpidemicManager.Controllers
 
             return View(model);
         }
+        */
     }
 }
