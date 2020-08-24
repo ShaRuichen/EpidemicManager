@@ -20,11 +20,6 @@ function changeId() {
     var id = $('#userId').val()
 }
 
-$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-    e.target // newly activated tab
-    e.relatedTarget // previous active tab
-})
-
 function registerPeople() {
     if ($('#peoplePassword').val() != $('#peopleConfirmPassword').val()) {
         $('#peopleErrorMessage').html('两次密码不一致。')
@@ -44,6 +39,32 @@ function registerPeople() {
         }
         else {
             $('#peopleErrorMessage').html('该身份证号已注册。')
+        }
+    })
+}
+
+function registerPatient() {
+    if ($('#patientPassword').val() != $('#patientConfirmPassword').val()) {
+        $('#patientErrorMessage').html('两次密码不一致。')
+        return
+    }
+
+    var parameters = {
+        id: $('#patientId').val(),
+        password: $('#patientPassword').val(),
+        name: $('#patientName').val(),
+        sex: $('input[name="patientSex"]:checked').val(),
+        hospital: $('#patientHospital').val(),
+    };
+    $.post('/Login/RegisterPatient', parameters, function (result) {
+        if (result) {
+            $(location).attr('href', '/Home')
+        }
+        else if (result == 'False') {
+            $('#patientErrorMessage').html('该身份证号已注册。')
+        }
+        else {
+            $('#patientErrorMessage').html('指定的医院不存在。')
         }
     })
 }

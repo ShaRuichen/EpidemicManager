@@ -5,18 +5,22 @@
 
 <div class="text-center">
     <div class="nav nav-tabs justify-content-center" id="userKindTab" role="tablist">
-            <a class="nav-link active" id="people-tab" data-toggle="tab" href="#people" role="tab"
-               aria-controls="people" aria-selected="true">民众</a>
-            <a class="nav-link" id="doctor-tab" data-toggle="tab" href="#doctor" role="tab"
-               aria-controls="doctor" aria-selected="false">医生</a>
-            <a class="nav-link" id="manager-tab" data-toggle="tab" href="#manager" role="tab"
-               aria-controls="manager" aria-selected="false">管理员</a>
+        <a class="nav-link active" id="people-tab" data-toggle="tab" href="#people" role="tab"
+           aria-controls="people" aria-selected="true">民众</a>
+        <a class="nav-link" id="patient-tab" data-toggle="tab" href="#patient" role="tab"
+           aria-controls="patient" aria-selected="false">病人</a>
+        <a class="nav-link" id="doctor-tab" data-toggle="tab" href="#doctor" role="tab"
+           aria-controls="doctor" aria-selected="false">医生</a>
+        <a class="nav-link" id="manager-tab" data-toggle="tab" href="#manager" role="tab"
+           aria-controls="manager" aria-selected="false">管理员</a>
     </div>
     <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active" id="people" role="tabpanel" aria-labelledby="people-tab">
             <p />
-            <p>身份证号：<input type="text" id="peopleId" onchange="changeId()"
-                            oninput = "value=value.replace(/[^\dx]/g,'')"/></p>
+            <p>
+                身份证号：<input type="text" id="peopleId" onchange="changeId()"
+                            oninput="value=value.replace(/[^\dx]/g,'')" />
+            </p>
             <p>密码：<input type="password" id="peoplePassword" /></p>
             <p>确认密码：<input type="password" id="peopleConfirmPassword" /></p>
             <p>姓名：<input type="text" id="peopleName" /></p>
@@ -25,15 +29,35 @@
                 <input type="radio" name="peopleSex" value="male" checked="checked" /> 男
                 <input type="radio" name="peopleSex" value="female" /> 女
             </p>
-            <p>电话：<input type="text" id="peopleTel"  oninput = "value=value.replace(/[^\d]/g,'')" /></p>
+            <p>电话：<input type="text" id="peopleTel" oninput="value=value.replace(/[^\d]/g,'')" /></p>
             <p>家庭住址：<input type="text" id="peopleAddress" /></p>
             <p id="peopleErrorMessage" />
             <p><div class="btn btn-primary" id="registerButton" onclick="registerPeople()">注册</div></p>
         </div>
+        <div class="tab-pane fade show" id="patient" role="tabpanel" aria-labelledby="patient-tab">
+            <p />
+            <p>
+                身份证号：<input type="text" id="patientId" onchange="changeId()"
+                            oninput="value=value.replace(/[^\dx]/g,'')" />
+            </p>
+            <p>密码：<input type="password" id="patientPassword" /></p>
+            <p>确认密码：<input type="password" id="patientConfirmPassword" /></p>
+            <p>姓名：<input type="text" id="patientName" /></p>
+            <p>
+                性别：
+                <input type="radio" name="patientSex" value="male" checked="checked" /> 男
+                <input type="radio" name="patientSex" value="female" /> 女
+            </p>
+            <p>医院：<input type="text" id="patientHospital" /></p>
+            <p id="patientErrorMessage" />
+            <p><div class="btn btn-primary" id="registerButton" onclick="registerPatient()">注册</div></p>
+        </div>
         <div class="tab-pane fade" id="doctor" role="tabpanel" aria-labelledby="doctor-tab">
             <p />
-            <p>身份证号：<input type="text" id="doctorId" onchange="changeId()"
-                            oninput = "value=value.replace(/[^\dx]/g,'')"/></p>
+            <p>
+                身份证号：<input type="text" id="doctorId" onchange="changeId()"
+                            oninput="value=value.replace(/[^\dx]/g,'')" />
+            </p>
             <p>密码：<input type="password" id="doctorPassword" /></p>
             <p>确认密码：<input type="password" id="doctorConfirmPassword" /></p>
             <p>姓名：<input type="text" id="doctorName" /></p>
@@ -43,8 +67,10 @@
         </div>
         <div class="tab-pane fade" id="manager" role="tabpanel" aria-labelledby="manager-tab">
             <p />
-            <p>身份证号：<input type="text" id="managerId" onchange="changeId()"
-                            oninput = "value=value.replace(/[^\dx]/g,'')"/></p>
+            <p>
+                身份证号：<input type="text" id="managerId" onchange="changeId()"
+                            oninput="value=value.replace(/[^\dx]/g,'')" />
+            </p>
             <p>密码：<input type="password" id="managerPassword" /></p>
             <p>确认密码：<input type="password" id="managerConfirmPassword" /></p>
             <p>姓名：<input type="text" id="managerName" /></p>
@@ -54,7 +80,7 @@
                 <input type="radio" name="managerSex" value="female" /> 女
             </p>
             <p>工作单位：<input type="text" id="unit" /></p>
-            <p>电话：<input type="text" id="managerTel"  oninput = "value=value.replace(/[^\d]/g,'')" /></p>
+            <p>电话：<input type="text" id="managerTel" oninput="value=value.replace(/[^\d]/g,'')" /></p>
             <p>家庭住址：<input type="text" id="managerAddress" /></p>
             <p id="managerErrorMessage" />
             <p><div class="btn btn-primary" id="registerButton" onclick="registerManager()">注册</div></p>
