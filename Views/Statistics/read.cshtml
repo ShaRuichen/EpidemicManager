@@ -1,15 +1,30 @@
 ﻿@model StatisticsModel
 @{
-    ViewBag.Ref = "Read";
+    ViewBag.Ref = "Statistics";
     ViewBag.Title = "读取行程信息";
 }
 <div class="text-center">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>旅行人ID</th>
+                <th>旅行日期</th>
+                <th>旅行时间</th>
+                <th>旅行地点</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Info_num; i++)
+            {
+                <tr>
+                    <td>@Model.ID[i]</td>
+                    <td>@Model.Date[i]</td>
+                    <td>@Model.Time[i]</td>
+                    <td>@Model.Site[i]</td>
 
-
-    <p>旅行ID：@Model.ID&emsp;</p>
-    <p>旅行日期：@Model.Date&emsp;</p>
-    <p>旅行时长：@Model.Time&emsp;</p>
-    <p>旅行地点：@Model.Site&emsp;</p>
-
+                </tr>
+            }
+        </tbody>
+    </table>
 
 </div>
