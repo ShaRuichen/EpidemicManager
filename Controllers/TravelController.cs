@@ -53,10 +53,6 @@ namespace EpidemicManager.Controllers
             var session = HttpContext.Session;
             var userKind = session.GetString("userKind");
             var userId = session.GetString("userId");
-            if(userKind!="manager")
-            {
-                return View("notmanager");
-            }
             var model = new Mamodel
             {
                 maID = userId,
@@ -67,21 +63,21 @@ namespace EpidemicManager.Controllers
         public IActionResult AddtravelInfo()
         {
             Models.Trmodel travelinfo = new Trmodel();
-
-            travelinfo.ID = Request.Form["ID"];
+            var session = HttpContext.Session;
+            var userId = session.GetString("userId");
             travelinfo.site = Request.Form["site"];
             string date = DateTime.Now.ToString("yyyy-MM-dd");
             string time = DateTime.Now.ToString("T");
-            Sql.Execute("INSERT INTO travel_info VALUES(@0, @1, @2, @3)", travelinfo.ID, date, time, travelinfo.site);
-            return View(travelinfo);
-            
+            Sql.Execute("INSERT INTO travel_info VALUES(@0, @1, @2, @3)", userId, date, time, travelinfo.site);
+            return RedirectToAction("Index", "Travel");
+
         }
         public IActionResult Setpresite()
         {
             var session = HttpContext.Session;
             string realpresite = Request.Form["realpresite"];
             HttpContext.Session.SetString("realpresite", realpresite);
-            return View();
+            return RedirectToAction("Index", "Travel");
         }
         public IActionResult ManagerAdd_info(string id)
         {
@@ -95,7 +91,7 @@ namespace EpidemicManager.Controllers
             string date = DateTime.Now.ToString("yyyy-MM-dd");
             string time = DateTime.Now.ToString("T");
             Sql.Execute("INSERT INTO travel_info VALUES(@0, @1, @2, @3)", id, date, time, site);
-            return View(Mtravelinfo);
+            return RedirectToAction("Index", "Travel");
 
         }
         public IActionResult Show(string id)
