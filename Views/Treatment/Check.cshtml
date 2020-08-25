@@ -3,29 +3,50 @@
     ViewBag.Ref = "treatment";
     ViewBag.Title = "查看";
 }
-<div class="text-c">
-    @if (Model.IDs.Count == 0)
-    {
-        <p>null 没有数据或未登录</p>
-        <button onclick="login()">登录</button>
-    }
-    else
-    {
-        int m = 1;
-<div class="aa">
-    @for (int i = 0; i < Model.IDs.Count; i++)
-    {
-        <div class="mm">@Model.IDs[i]</div>
-        @if (m % 7 == 0)
+<body class="body" onload="CheckLogin1()">
+    <div class="text-c">
+        @if (Model.IDs.Count == 0)
         {
-            <br />
+            <p>没有数据或未登录</p>
         }
-        m++;
-    }
-</div>
+        else
+        {
+            int m = 0;
+    <table border="1" align="center">
+        <tr>
+            <th>计划编号</th>
+            <th>医生ID</th>
+            <th>病人ID</th>
+            <th>日期</th>
+            <th>时间</th>
+            <th>药</th>
+            <th>备注</th>
+        </tr>
+        @while (true)
+        {
+            <tr>
+                @while (true)
+                {
+                    <td class="mm">@Model.IDs[m]</td>
+                    m++;
+                    @if (m % 7 == 0)
+                    {
+                        break;
+                    }
+                }
+            </tr>
+            if (m == Model.IDs.Count)
+            {
+                break;
+            }
+        }
+    </table>
+            <div id="h">
+                <input type="text" value="null" id="plan_id2" />
+                <button id="buttonoo" class="button" onclick="modifi()">修改</button>
+            </div>
+            <div id="staff"></div>
+        }
+    </div>
+</body>
 
-    <input type="text" value="null" id="plan_id2"/>
-    <button id="buttonoo" class="button" onclick="modifi()">修改</button>
-    <div id="staff"></div>
-    }
-</div>
