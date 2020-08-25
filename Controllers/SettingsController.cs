@@ -76,7 +76,11 @@ namespace EpidemicManager.Controllers
             {
                 return RedirectToAction("Message", "Settings");
             }
-            if(newpassword1=="") return RedirectToAction("Success");
+            if (newpassword1 == "")
+            {
+                Sql.Execute("UPDATE people set name=@1,address=@2,tel=@3,sex=@4 where id=@0", id, people_info.name, people_info.address, people_info.tel, people_info.sex);
+                return RedirectToAction("Success");
+            }
             Sql.Execute("UPDATE people set name=@1,address=@2,tel=@3,sex=@4,password=@5 where id=@0", id, people_info.name, people_info.address, people_info.tel, people_info.sex, newpassword1);
             return RedirectToAction("Success");
         }
@@ -125,7 +129,11 @@ namespace EpidemicManager.Controllers
             {
                 return RedirectToAction("Message", "Settings");
             }
-            if (newpassword1 == "") return RedirectToAction("Success");
+            if (newpassword1 == "")
+            {
+                Sql.Execute("UPDATE doctor set name=@1,hospital_name=@2 where id=@0", id, doc_info.name, doc_info.hos_name);
+                return RedirectToAction("Success");
+            }
             Sql.Execute("UPDATE doctor set name=@1,hospital_name=@2,password=@3 where id=@0", id, doc_info.name, doc_info.hos_name, newpassword1);
             return RedirectToAction("Success");
         }
@@ -133,19 +141,21 @@ namespace EpidemicManager.Controllers
         public IActionResult Manager()
         {
             var id = HttpContext.Session.GetString("userId");
-            var man_info = Sql.Read("SELECT name,sex,tel,work_unit,password from manager where id=@0", id);
+            var man_info = Sql.Read("SELECT name,sex,tel,work_unit,address,password from manager where id=@0", id);
             var MAN_name = new List<string>();
             var MAN_sex = new List<string>();
             var MAN_tel = new List<string>();
             var MAN_work_unit = new List<string>();
+            var MAN_address= new List<string>();
             var MAN_password = new List<string>();
             foreach (DataRow man in man_info)
             {
                 MAN_name.Add(man[0].ToString());
                 MAN_sex.Add(man[1].ToString());
-                MAN_tel.Add(man[0].ToString());
-                MAN_work_unit.Add(man[0].ToString());
-                MAN_password.Add(man[0].ToString());
+                MAN_tel.Add(man[2].ToString());
+                MAN_work_unit.Add(man[3].ToString());
+                MAN_address.Add(man[4].ToString());
+                MAN_password.Add(man[5].ToString());
             }
             var model = new Settingsmanager
             {
@@ -154,7 +164,8 @@ namespace EpidemicManager.Controllers
                 sex = MAN_sex[0],
                 tel = MAN_tel[0],
                 work_unit = MAN_work_unit[0],
-                password = MAN_work_unit[0],
+                address=MAN_address[0],
+                password = MAN_password[0],
             };
             return View(model);
         }
@@ -174,7 +185,11 @@ namespace EpidemicManager.Controllers
             {
                 return RedirectToAction("Message", "Settings");
             }
-            if (newpassword1 == "") return RedirectToAction("Success");
+            if (newpassword1 == "")
+            {
+                Sql.Execute("UPDATE manager set name=@1,sex=@2,tel=@3 where id=@0", id, man_info.name, man_info.sex, man_info.tel);
+                return RedirectToAction("Success");
+            }
             Sql.Execute("UPDATE manager set name=@1,sex=@2,tel=@3,password=@4 where id=@0", id, man_info.name, man_info.sex, man_info.tel, newpassword1);
             return RedirectToAction("Success");
         }
@@ -182,6 +197,10 @@ namespace EpidemicManager.Controllers
         public IActionResult Patient()
         {
             var id = HttpContext.Session.GetString("userId");
+            if (HttpContext.Session.GetString("userId") == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             var pat_info = Sql.Read("SELECT name,sex,hospital_name,password from patient where id=@0", id);
             var PAT_name= new List<string>();
             var PAT_sex= new List<string>();
@@ -215,12 +234,16 @@ namespace EpidemicManager.Controllers
             pat_info.password = Request.Form["password"];
             var newpassword1 = Request.Form["password1"];
             var newpassword2 = Request.Form["password2"];
-            if (newpassword1 == "") return RedirectToAction("Success");
             if (newpassword1 != newpassword2)
             {
                 return RedirectToAction("Message", "Settings");
             }
-            Sql.Execute("UPDATE patient set name=@1,hos_name=@2,sex=@3,password=@4 where id=@0", id, pat_info.name, pat_info.hos_name, pat_info.sex, newpassword1);
+            if (newpassword1 == "")
+            {
+                Sql.Execute("UPDATE patient set name=@1,hospital_name=@2,sex=@3 where id=@0", id, pat_info.name, pat_info.hos_name, pat_info.sex);
+                return RedirectToAction("Success");
+            }
+            Sql.Execute("UPDATE patient set name=@1,hospital_name=@2,sex=@3,password=@4 where id=@0", id, pat_info.name, pat_info.hos_name, pat_info.sex, newpassword1);
             return RedirectToAction("Index");
         }
         [HttpGet]
