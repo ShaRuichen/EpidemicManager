@@ -53,6 +53,10 @@ namespace EpidemicManager.Controllers
             var session = HttpContext.Session;
             var userKind = session.GetString("userKind");
             var userId = session.GetString("userId");
+            if (userKind != "manager")
+            {
+                return View("notmanager");
+            }
             var model = new Mamodel
             {
                 maID = userId,
@@ -137,8 +141,6 @@ namespace EpidemicManager.Controllers
                 num++;
             }
             model.info_num = num;
-            var fine =new List<Travelmodel>();
-            ViewBag.Huhaha = "旅行ID 旅行日期 旅行时间 旅行地点";
             return View(model);
         }
     }
