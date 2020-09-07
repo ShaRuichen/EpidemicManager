@@ -29,7 +29,7 @@ public class ExamineController : Controller
         return View();
     }
     [HttpPost]
-    public IActionResult Create(ExamineModel M)
+    public string Create_()
     {
         ExamineModel m = new ExamineModel();
         m.ID_doctor = HttpContext.Session.GetString("userId");
@@ -38,14 +38,21 @@ public class ExamineController : Controller
         m.title = Request.Form["title"];
         m.date = DateTime.Now.ToString("yyyy-MM-dd");
         m.time = DateTime.Now.ToString("T");
+        var i = 0;
 
         var p = Sql.Read("SELECT name FROM patient where ID=@0", m.ID_patient);
-        if (p.Count == 0)
+        foreach(DataRow n in p)
         {
-            Error();
+            i++;
+        }
+        if (i == 0)
+        {
+            
+            return "病人ID输入有误";
+            
         }
         Sql.Execute("INSERT INTO examine_repo(date,time,patient_id,doctor_id,title,detail)  VALUES(@0,@1,@2,@3,@4,@5)", m.date, m.time, m.ID_patient, m.ID_doctor, m.title, m.detail);
-        return RedirectToAction("Index_doctor");
+        return "创建成功";
 
     }
 
@@ -55,18 +62,20 @@ public class ExamineController : Controller
         {
             return RedirectToAction("Index", "Login", new { path = "Exmaine/Read_index" });
         }
-        var report = Sql.Read("SELECT report_id,patient_id,title FROM examine_repo ");
+        var report = Sql.Read("SELECT report_id,patient_id,title,date FROM examine_repo ");
         ExamineIndexModel m = new ExamineIndexModel();
         var list_r = new List<string>();
         var list_p = new List<string>();
         var list_t = new List<string>();
         var list_n = new List<string>();
+        var list_d = new List<string>();
         var i = 0;
         foreach (DataRow r in report)
         {
             list_r.Add(r[0].ToString());
             list_p.Add(r[1].ToString());
             list_t.Add(r[2].ToString());
+            list_d.Add(r[3].ToString());
             var name = Sql.Read("SELECT name FROM patient where ID=@0", r[1]);
             foreach (DataRow n in name)
             {
@@ -78,6 +87,7 @@ public class ExamineController : Controller
         m.report = list_r;
         m.name_patient = list_n;
         m.ID_patient = list_p;
+        m.date = list_d;
         m.n = i;
 
         return View(m);
@@ -88,18 +98,20 @@ public class ExamineController : Controller
         {
             return RedirectToAction("Index", "Login", new { path = "Examine/Write_index" });
         }
-        var report = Sql.Read("SELECT report_id,patient_id,title FROM examine_repo ");
+        var report = Sql.Read("SELECT report_id,patient_id,title,date FROM examine_repo ");
         ExamineIndexModel m = new ExamineIndexModel();
         var list_r = new List<string>();
         var list_p = new List<string>();
         var list_t = new List<string>();
         var list_n = new List<string>();
+        var list_d = new List<string>();
         var i = 0;
         foreach (DataRow r in report)
         {
             list_r.Add(r[0].ToString());
             list_p.Add(r[1].ToString());
             list_t.Add(r[2].ToString());
+            list_d.Add(r[3].ToString());
             var name = Sql.Read("SELECT name FROM patient where ID=@0", r[1]);
             foreach (DataRow n in name)
             {
@@ -111,6 +123,7 @@ public class ExamineController : Controller
         m.report = list_r;
         m.name_patient = list_n;
         m.ID_patient = list_p;
+        m.date = list_d;
         m.n = i;
 
         return View(m);
@@ -123,14 +136,16 @@ public class ExamineController : Controller
             return RedirectToAction("Index", "Login", new { path = "Examine/Index_patient" });
         }
         var id_p = HttpContext.Session.GetString("userId");
-        var report = Sql.Read("SELECT report_id,title FROM examine_repo WHERE patient_id=@0", id_p);
+        var report = Sql.Read("SELECT report_id,title ,date FROM examine_repo WHERE patient_id=@0", id_p);
         var list_r = new List<string>();
         var list_t = new List<string>();
+        var list_d = new List<string>();
         var i = 0;
         foreach (DataRow r in report)
         {
             list_r.Add(r[0].ToString());
             list_t.Add(r[1].ToString());
+            list_d.Add(r[2].ToString());
             i++;
         }
 
@@ -138,6 +153,7 @@ public class ExamineController : Controller
         {
             report = list_r,
             title = list_t,
+            date=list_d,
             n = i,
         };
 
@@ -251,7 +267,7 @@ public class ExamineController : Controller
     }
 
     [HttpPost]
-    public IActionResult Write_(ExamineModel M)
+    public string Write_(ExamineModel M)
     {
         ExamineModel m = new ExamineModel();
         m.ID_doctor = HttpContext.Session.GetString("userId");
@@ -262,18 +278,90 @@ public class ExamineController : Controller
         m.time = DateTime.Now.ToString("T");
 
         m.ID_report = Request.Form["report_id"];
-        var p = Sql.Read("SELECT name FROM patient where ID=@0", m.ID_patient);
-        if (p.Count == 0)
-        {
-            Error();
-        }
-        Sql.Execute("UPDATE  examine_repo set detail =@0, time =@1 ,date=@2,title=@3,patient_id=@4,doctor_id=@5 WHERE report_id =@6", m.detail, m.time, m.date, m.title, m.ID_patient, m.ID_doctor, Convert.ToInt32(m.ID_report));
+        var i = 0;
 
-        return RedirectToAction("Index_doctor");
+        var p = Sql.Read("SELECT name FROM patient where ID=@0", m.ID_patient);
+        foreach (DataRow n in p)
+        {
+            i++;
+        }
+        if (i == 0)
+        {
+
+            return "病人ID输入有误";
+
+        }
+        Sql.Execute("INSERT INTO examine_repo(date,time,patient_id,doctor_id,title,detail)  VALUES(@0,@1,@2,@3,@4,@5)", m.date, m.time, m.ID_patient, m.ID_doctor, m.title, m.detail);
+        return "修改成功";
 
     }
-    private void Error()
+    
+
+    [HttpPost]
+    public IActionResult Read_index_()
     {
-        View();
+        var id_p = Request.Form["patient_id"];
+        
+        var report = Sql.Read("SELECT report_id,patient_id,title ,date FROM examine_repo WHERE patient_id=@0", id_p);
+        ExamineIndexModel m = new ExamineIndexModel();
+        var list_r = new List<string>();
+        var list_p = new List<string>();
+        var list_t = new List<string>();
+        var list_n = new List<string>();
+        var list_d = new List<string>();
+        var i = 0;
+        foreach (DataRow r in report)
+        {
+            list_r.Add(r[0].ToString());
+            list_p.Add(r[1].ToString());
+            list_t.Add(r[2].ToString());
+            list_d.Add(r[3].ToString());
+            var name = Sql.Read("SELECT name FROM patient where ID=@0", r[1]);
+            foreach (DataRow n in name)
+            {
+                list_n.Add(n[0].ToString());
+            }
+            i++;
+        }
+        m.title = list_t;
+        m.report = list_r;
+        m.name_patient = list_n;
+        m.ID_patient = list_p;
+        m.date = list_d;
+        m.n = i;
+        return View(m);
+    }
+    public IActionResult Write_index_()
+    {
+        var id_p = Request.Form["patient_id"];
+        
+        var report = Sql.Read("SELECT report_id,patient_id,title,date  FROM examine_repo WHERE patient_id=@0", id_p);
+        ExamineIndexModel m = new ExamineIndexModel();
+        var list_r = new List<string>();
+        var list_p = new List<string>();
+        var list_t = new List<string>();
+        var list_n = new List<string>();
+        var list_d = new List<string>();
+        var i = 0;
+        foreach (DataRow r in report)
+        {
+            list_r.Add(r[0].ToString());
+            list_p.Add(r[1].ToString());
+            list_t.Add(r[2].ToString());
+            list_d.Add(r[3].ToString());
+            var name = Sql.Read("SELECT name FROM patient where ID=@0", r[1]);
+            foreach (DataRow n in name)
+            {
+                list_n.Add(n[0].ToString());
+            }
+            i++;
+        }
+        m.title = list_t;
+        m.report = list_r;
+        m.name_patient = list_n;
+        m.ID_patient = list_p;
+        m.date = list_d;
+        m.n = i;
+        return View(m);
     }
 }
