@@ -10,14 +10,14 @@
         "people" => Sql.Read("SELECT name FROM people WHERE id = @0", userId)[0][0],
         "doctor" => Sql.Read("SELECT name FROM doctor WHERE id = @0", userId)[0][0],
         "manager" => Sql.Read("SELECT name FROM manager WHERE id = @0", userId)[0][0],
-        _ => throw new InvalidOperationException()
+        _ => string.Empty
     };
     var kindText = userKind switch
     {
         "people" => "民众",
         "doctor" => "医生",
         "manager" => "管理员",
-        _ => throw new InvalidOperationException()
+        _ => string.Empty
     };
 }
 
@@ -45,6 +45,21 @@
                 </button>
                 <div class="navbar-collapse collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
+                        @if (userKind == "people")
+                        {
+                            <li class="nav-item"><a class="nav-link" href="/travel">行程信息</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/donation">物资分配</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/communication">线上交流</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/questionnaire">填写问卷</a></li>
+                        }
+                        else if (userKind == "doctor")
+                        {
+
+                        }
+                        else if (userKind == "manager")
+                        {
+
+                        }
                     </ul>
                     <form class="form-inline navbar-nav my-2 my-lg-0">
                         @if (userId == null)
@@ -59,6 +74,7 @@
                                     <label>@kindText</label>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="/settings">设置</a>
+                                    <a class="dropdown-item" href="/shared/logout">登出</a>
                                 </div>
                             </div>
                         }
