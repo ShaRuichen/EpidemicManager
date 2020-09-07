@@ -43,6 +43,12 @@ namespace EpidemicManager.Controllers
             var session = HttpContext.Session;
             session.SetString("userKind", kind);
             session.SetString("userId", id);
+            if (kind == "people")
+            {
+                var patients = Sql.Read("SELECT password FROM patient WHERE id = @0", id);
+                if (patients.Count > 0) session.SetString("isPatient", bool.TrueString);
+                else session.SetString("isPatient", bool.FalseString);
+            }
             var originPath = session.GetString("sourcePath");
             var path = originPath.StartsWith("/") ? originPath : "/" + originPath;
             return Json(new

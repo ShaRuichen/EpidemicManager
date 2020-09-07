@@ -1,6 +1,24 @@
-﻿@{
-    ViewBag.CssPath = $"/css/{ViewBag.Ref}.css";
-    ViewBag.JsPath = $"/js/{ViewBag.Ref}.js";
+﻿@using Microsoft.AspNetCore.Http;
+@{
+    var cssPath = $"/css/{ViewBag.Ref}.css";
+    var jsPath = $"/js/{ViewBag.Ref}.js";
+    var session = ViewContext.HttpContext.Session;
+    var userId = session.GetString("userId");
+    var userKind = session.GetString("userKind");
+    var userName = userKind switch
+    {
+        "people" => Sql.Read("SELECT name FROM people WHERE id = @0", userId)[0][0],
+        "doctor" => Sql.Read("SELECT name FROM doctor WHERE id = @0", userId)[0][0],
+        "manager" => Sql.Read("SELECT name FROM manager WHERE id = @0", userId)[0][0],
+        _ => throw new InvalidOperationException()
+    };
+    var kindText = userKind switch
+    {
+        "people" => "民众",
+        "doctor" => "医生",
+        "manager" => "管理员",
+        _ => throw new InvalidOperationException()
+    };
 }
 
 <!DOCTYPE html>
@@ -11,27 +29,40 @@
     <title>@ViewBag.Title - EpidemicManager</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <link rel="stylesheet" href="@ViewBag.CssPath" />
-    <script src="@ViewBag.JsPath"></script>
+    <link rel="stylesheet" href="@cssPath" />
+    <script src="@jsPath"></script>
     <link rel="stylesheet" href="~/css/shared.css" />
     <script src="~/js/shared.js"></script>
 </head>
 
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">EpidemicManager</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/">传染病信息管理系统</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
+                <div class="navbar-collapse collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
                     </ul>
+                    <form class="form-inline navbar-nav my-2 my-lg-0">
+                        @if (userId == null)
+                        {
+                            <button type="button" class="btn btn-outline-light" onclick="s_jump('/login')">登录</button>
+                        }
+                        else
+                        {
+                            <div class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="nameDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@userName</a>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="nameDropdown">
+                                    <label>@kindText</label>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="/settings">设置</a>
+                                </div>
+                            </div>
+                        }
+                    </form>
                 </div>
             </div>
         </nav>
