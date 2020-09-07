@@ -25,6 +25,7 @@ namespace EpidemicManager.Models
         public List<string> name_patient { get; set; }
         public List<string> report { get; set; }
         public List<string> title { get; set; }
+        public List<string> date { get; set; }
         public int n = 0;
     }
 
