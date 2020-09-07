@@ -13,25 +13,27 @@
     <div class="form-group">
         <label for="patient_id" class="col-sm-2 control-label">患者身份证号</label>
         <div class="col-sm-10">
-            @Html.TextBox("patient_id", null, new { @class = " form-control ", text = @Model.ID_patient , oninput = "value= value.replace(/[^\\d|xX]/g,'')" })
+            <input type="text" name="patient_id" class="form-control" value="@Model.ID_patient" oninput="value=value.replace(/[^\d|xX]/g,'')" />
+
         </div>
     </div>
     <div class="form-group">
         <label for="title" class="col-sm-2 control-label">报告标题</label>
         <div class="col-sm-10">
-            @Html.TextBox("title", null, new { @class = " form-control ", MaxLength = 30, text = @Model.title })
+            <input type="text" name="title" class="form-control" value="@Model.title"  MaxLength = 30/>
+            
         </div>
     </div>
     <div class="form-group">
         <label for="detail" class="col-sm-2 control-label">报告详细内容</label>
         <div class="col-sm-10">
-            @Html.TextBox("detail", null, new { @class = " form-control ", MaxLength = 500, ScrollBars = true, text = @Model.detail })
+            <textarea class="form-control" name="detail" rows="5" MaxLength="500" placeholder="请输入检查报告的详细内容" value="@Model.detail"></textarea>
         </div>
     </div>
-    
+
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
             <button type="submit" class="btn btn-light">提交</button>
         </div>
     </div>
-</form> 
+</form>

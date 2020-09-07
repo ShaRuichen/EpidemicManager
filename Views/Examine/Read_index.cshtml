@@ -9,35 +9,62 @@
         <div class="panel-heading">
             <h3>可查看的检测报告</h3>
         </div>
-        <div class="panel-body">
-            <div class="btn-group-vertical">
-                @for (int i = 0; i < Model.n; i++)
-                {
-                <form method="post" action="Read">
-                    <div class="form-group">
-                        <label for="report_id" class="col-sm-2 control-label">报告ID</label>
-                        <div class="col-sm-10">
-                            <input type="text" name="report_id" class="form-control" value="@Model.report[i]" readonly />
-                            
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-10">
-                            报告标题：@Model.title[i]<br />
-                            患者姓名：@Model.name_patient[i]<br />
-                            患者身份证号：@Model.ID_patient[i]<br />
-
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-10">
-                            <button type="submit" class="btn btn-light">查看</button>
-                        </div>
-                    </div>
-                </form>
-                }
-
-            </div>
-        </div>
     </div>
 </div>
+<br />
+<form method="post" action="Read_index_">
+    
+    <div class="input-group">
+        <input type="text" name="patient_id" class="form-control" aria-describedby="basic-addon2" placeholder="请输入患者身份证号" oninput="value=value.replace(/[^\d|xX]/g,'')" />>
+        <div class=" input-group-append">
+            <button type="submit" class="btn btn-outline-secondary">搜索</button>
+            <button type="button" class="btn btn-outline-secondary" onclick=" window.location.href = '../Examine/Read_index'">查找全部报告</button>
+        </div>
+    </div>
+
+</form>
+<br />
+<br />
+        <div class="card-columns">
+            @for (int i = 0; i < Model.n; i++)
+            {
+
+
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            @Model.title[i]
+                        </h5>
+                        <p class="card-text">
+                            可能需要添加报告时间和详情在这个位置
+                        </p>
+
+                    </div>
+                    <ul class=" list-group list-group-flush">
+                        <li class="list-group-item">
+                            患者姓名：@Model.name_patient[i]
+                        </li>
+                        <li class="list-group-item">
+                            患者身份证号：@Model.ID_patient[i]
+                        </li>
+                    </ul>
+                    <div class="card-body">
+                        <form method="post" action="Read">
+                            <div class="form-group">
+                                <div class="col-sm-10">
+                                    <input type="text" style="display:none" name="report_id" class="form-control" value="@Model.report[i]" readonly />
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="submit" class="btn btn-light">查看</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+
+            }
+        </div>

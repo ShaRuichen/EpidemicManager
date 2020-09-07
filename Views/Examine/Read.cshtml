@@ -3,16 +3,35 @@
     ViewBag.Title = "显示";
 }
 
-<div class="text-center">
 
-    <p>检测报告序号：@Model.ID_report&emsp;</p>
-    <p>检测报告标题：@Model.title&emsp;</p>
-    <p>患者姓名：@Model.name_patient&emsp;</p>
-    <p>患者身份证号：@Model.ID_patient&emsp;</p>
-    <p>医生姓名：@Model.name_doctor&emsp;</p>
-    <p>日期：@Model.date&emsp;</p>
-    <p>时间：@Model.time&emsp;</p>
-    <p>报告细节：@Model.detail&emsp;</p>
-
-
-</div>
+    
+        
+<h5>检查报告表单</h5>
+<h8>表单序列号：@Model.ID_report</h8>
+    
+    
+<table id="tab" cellpadding="1" cellspacing="1" border="1">
+    <tr>
+        <th colspan="4" align="center">@Model.title</th> 
+    </tr>
+    <tr>
+        <th rowspan="2">患者：</th>
+        <th>@Model.name_patient</th>
+        <th rowspan="2">医生：</th>
+        <th rowspan="2">@Model.name_doctor</th>
+    </tr>
+    <tr>
+        <th>@Model.ID_patient</th>
+    </tr>
+    <tr>
+        <th colspan="2">@Model.date</th>
+        <th colspan="2">@Model.time</th>
+    </tr>
+    <tr>
+        <th colspan="4">
+            详细内容:<br />
+            @Model.detail
+        </th>
+    </tr>
+</table>
+   
