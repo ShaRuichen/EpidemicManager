@@ -6,13 +6,6 @@
 
     <form class="Settings_form" method="post" action="Manager">
         <div>
-            <span>您当前的信息:</span><br />
-            <p>身份证号：</p><p>@Model.man_id</p>
-            <span>姓名：</span><p>@Model.name</p>
-            <span>性别：</span><p>@Model.sex</p>
-            <span>电话</span><p>@Model.tel</p>
-            <span>工作单位</span><p>@Model.work_unit</p>
-            <span>密码：</span><p>@Model.password</p>
             <span>以下是您可以修改的信息，框内为原值(不填则为默认不修改)：</span>
         </div>
         <div class="form-group">
@@ -24,8 +17,8 @@
         <div class="form-group">
             <label for="hos_name" class="col-sm-2 control-label">性别</label>
             <div class="col-sm-10">
-                男 @Html.RadioButton("sex", "male", true, new { @class = " form-control " })
-                女 @Html.RadioButton("sex", "female", true, new { @class = " form-control " })
+                男 @Html.RadioButton("sex", "male", true, new { @class = "radioStyle" })
+                女 @Html.RadioButton("sex", "female", true, new { @class = "radioStyle" })
             </div>
         </div>
         <div class="form-group">

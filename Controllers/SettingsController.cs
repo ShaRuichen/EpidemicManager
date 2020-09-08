@@ -234,17 +234,31 @@ namespace EpidemicManager.Controllers
             pat_info.password = Request.Form["password"];
             var newpassword1 = Request.Form["password1"];
             var newpassword2 = Request.Form["password2"];
+            var hospital_n = Sql.Read("SELECT hospital_name from hospital");
+            bool has_hospital = false;
+            foreach (DataRow hos in hospital_n)
+            {
+                if (hos[0].ToString() == pat_info.hos_name) has_hospital = true;
+            }
             if (newpassword1 != newpassword2)
             {
                 return RedirectToAction("Message", "Settings");
             }
-            if (newpassword1 == "")
+            else if (newpassword1 == "")
             {
-                Sql.Execute("UPDATE patient set name=@1,hospital_name=@2,sex=@3 where id=@0", id, pat_info.name, pat_info.hos_name, pat_info.sex);
-                return RedirectToAction("Success");
+                if(has_hospital)
+                {
+                    Sql.Execute("UPDATE patient set name=@1,hospital_name=@2,sex=@3 where id=@0", id, pat_info.name, pat_info.hos_name, pat_info.sex);
+                    return RedirectToAction("Success");
+                }
+                else return RedirectToAction("Message", "Settings");
             }
-            Sql.Execute("UPDATE patient set name=@1,hospital_name=@2,sex=@3,password=@4 where id=@0", id, pat_info.name, pat_info.hos_name, pat_info.sex, newpassword1);
-            return RedirectToAction("Index");
+            else if(has_hospital)
+            {
+                Sql.Execute("UPDATE patient set name=@1,hospital_name=@2,sex=@3,password=@4 where id=@0", id, pat_info.name, pat_info.hos_name, pat_info.sex, newpassword1);
+                return RedirectToAction("Index");
+            }
+            else return RedirectToAction("Message", "Settings");
         }
         [HttpGet]
         public IActionResult Message()
