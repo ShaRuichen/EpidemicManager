@@ -2,8 +2,6 @@
     $(location).attr('href', target)
 }
 
-var active
-
 $(document).ready(function () {
     $("#navigation").find("li").each(function () {
         var a = $(this).find("a:first")[0];

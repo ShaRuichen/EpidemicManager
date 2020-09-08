@@ -1,5 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Http;
 @{
+    var siteName = "传染病信息管理系统";
     var cssPath = $"/css/{ViewBag.Ref}.css";
     var jsPath = $"/js/{ViewBag.Ref}.js";
     var session = ViewContext.HttpContext.Session;
@@ -26,7 +27,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewBag.Title - EpidemicManager</title>
+    <title>@ViewBag.Title - @siteName</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <link rel="stylesheet" href="@cssPath" />
@@ -38,7 +39,10 @@
 <body>
     <nav class="navbar sticky-top navbar-expand-md navbar-dark bg-dark s_navbar">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/">传染病信息管理系统</a>
+            <a class="navbar-brand" href="/">
+                <img src="~/res/brand.svg" width="30" height="30" class="d-inline-block align-top" />
+                @siteName
+            </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
