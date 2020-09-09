@@ -1,4 +1,4 @@
-var a = 0;
+
 function click2() {
     $.post('/Treatment/Click2', {  pat_id: document.getElementById("patient_id").value, date: document.getElementById("date").value,time: document.getElementById("time").value, med: document.getElementById("medicine").value, detail: document.getElementById("detail").value }, function (result) {
         if (result == 1) { alert("插入完成"); }
@@ -20,7 +20,7 @@ function modifi() {
     $.post('/Treatment/Find', { plan_id2: document.getElementById("plan_id2").value }, function (result) {
         if (result == 1) { alert("这个plan不存在") }
         if (result == 2) {
-            a = document.getElementById("plan_id2").value;
+            var a = document.getElementById("plan_id2").value;
             window.location.href = "../Treatment/Findout?plan_id2= "+a;
         }
     })
