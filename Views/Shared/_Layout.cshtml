@@ -37,7 +37,7 @@
 </head>
 
 <body>
-    <nav class="navbar sticky-top navbar-expand-md navbar-dark bg-dark s_navbar">
+    <nav class="navbar sticky-top navbar-expand-md navbar-light s_navbar s_nav-bg">
         <div class="container-fluid">
             <a class="navbar-brand" href="/">
                 <img src="~/res/brand.svg" width="30" height="30" class="d-inline-block align-top" />
@@ -51,7 +51,14 @@
                     @if (userKind == "people")
                     {
                         <li class="nav-item"><a class="nav-link" href="/travel">行程信息</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/donation">物资分配</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="donationDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">物资分配</a>
+                            <div class="dropdown-menu" aria-labelledby="donationDropdown">
+                                <a class="dropdown-item" href="/donation/distribute">查看分配信息</a>
+                                <a class="dropdown-item" href="/donation/donatematerial">捐献物资</a>
+                                <a class="dropdown-item" href="/donation/donatemoney">捐献金钱</a>
+                            </div>
+                        </li>
                         <li class="nav-item"><a class="nav-link" href="/communication">线上交流</a></li>
                         <li class="nav-item"><a class="nav-link" href="/questionnaire">填写问卷</a></li>
                         <li class="nav-item"><a class="nav-link" href="/examine/index_patient">检查报告</a></li>
