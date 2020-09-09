@@ -1,3 +1,4 @@
+
 using System.Collections.Generic;
 using System.Data;
 
@@ -5,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using EpidemicManager.Models;
 using Microsoft.AspNetCore.Http;
 using Org.BouncyCastle.Asn1.X509.SigI;
+using System;
 
 namespace EpidemicManager.Controllers
 {
@@ -22,8 +24,10 @@ namespace EpidemicManager.Controllers
 
 
         [HttpPost]
-        public int Click2( string pat_id, string date,string time, string med, string detail)
+        public int Click2( string pat_id, string med, string detail)
         {
+            string date = DateTime.Now.ToShortDateString().ToString();
+            string time = DateTime.Now.ToShortTimeString().ToString();
             var session = HttpContext.Session;
             var userkind = session.GetString("userKind");
             var doc_id = session.GetString("userId");
@@ -53,10 +57,9 @@ namespace EpidemicManager.Controllers
         {
             var session = HttpContext.Session;
             var userkind = session.GetString("userKind");
-            var doc_id = session.GetString("userId");
             if (userkind == "doctor")
             {
-                var plan = Sql.Read("SELECT * FROM treat_plan WHERE doctor_id='" + doc_id+"'");
+                var plan = Sql.Read("SELECT * FROM treat_plan");
                 var list2 = new List<string>();
                 foreach (DataRow person in plan)
                 {
@@ -83,6 +86,27 @@ namespace EpidemicManager.Controllers
                 return View(model);
             }
         }
+        public IActionResult Findout(string plan_id2)
+        {
+            var plan=Sql.Read("SELECT * FROM treat_plan WHERE plan_id ='" + plan_id2 + "'");
+            int ji = plan.Count;
+            var list2 = new List<string>();
+            foreach (DataRow person in plan)
+            {
+                for (int i = 0; i < 7; i++)
+                {
+                    list2.Add(person[i].ToString());
+                }
+            }
+
+
+            var model = new TreatmentModel
+            {
+                IDs = list2,
+            };
+
+            return View(model);
+    }
         public int Find(string plan_id2)
         {
             var t = 0;
@@ -95,6 +119,8 @@ namespace EpidemicManager.Controllers
             if (t==0) { return 1; }
             else { return 2; }
         }
+
+        [HttpPost]
 
         public List<string> Give(string plan_id2)
         {
@@ -110,8 +136,10 @@ namespace EpidemicManager.Controllers
             }
             return aa;
         }
-        public int Update(string plan_id, string date, string time, string med, string det)
+        public int Update(string plan_id, string med, string det)
         {
+            string date = DateTime.Now.ToShortDateString().ToString();
+            string time = DateTime.Now.ToShortTimeString().ToString();
             Sql.Execute("UPDATE treat_plan SET time=@0 WHERE plan_id=@1", time, plan_id);
             Sql.Execute("UPDATE treat_plan SET date=@0 WHERE plan_id=@1", date, plan_id);
             Sql.Execute("UPDATE treat_plan SET medicine=@0 WHERE plan_id=@1",med,plan_id);
@@ -137,3 +165,4 @@ namespace EpidemicManager.Controllers
         }
     }
 }
+
