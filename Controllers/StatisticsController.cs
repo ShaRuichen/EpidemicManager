@@ -74,9 +74,9 @@ namespace EpidemicManager.Controllers
             var session = HttpContext.Session;
             var userKind = session.GetString("userKind");
             var userId = session.GetString("userId");
-            var model = new PepQRcodeModel
+            var model = new QRcodeModel
             {
-                PepID = userId
+                ID = userId
             };
 
             return View(model);
@@ -103,9 +103,13 @@ namespace EpidemicManager.Controllers
             var session = HttpContext.Session;
             var userKind = session.GetString("userKind");
             var userId = session.GetString("userId");
-            var model = new PepQRcodeModel
+            if (userKind != "manager")
             {
-                PepID = userId
+                return View("Warning");
+            }
+            var model = new QRcodeModel
+            {
+                ID = userId
             };
 
             return View(model);

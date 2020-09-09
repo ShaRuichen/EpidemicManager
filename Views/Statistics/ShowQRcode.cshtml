@@ -1,11 +1,11 @@
-﻿@model PepQRcodeModel
+﻿@model QRcodeModel
 @{
     ViewBag.Ref = "Statistics";
     ViewBag.Title = "管理员展示二维码";
 }
 
 <div class="text-center">
-    <img src="/QRcode?path=Statistics/PeopleAdd?id=@Model.PepSite" />
-    <h1>当前所在地点：@Model.PepSite</h1>
-    <h4>（扫描二维码添加行程记录）</h4>
+    <img src="/QRcode?path=Statistics/PeopleAdd?site=@Model.Site" />
+    <h1>当前所在地点：@Model.Site</h1>
+    <h4>（扫描二维码为您添加行程记录）</h4>
 </div>

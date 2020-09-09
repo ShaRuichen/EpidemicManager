@@ -1,4 +1,4 @@
-﻿@model PepQRcodeModel
+﻿@model QRcodeModel
 @{ 
     ViewBag.Ref = "Statistics";
     ViewBag.Title = "民众添加自己的行程信息";
@@ -7,7 +7,7 @@
 <div class="text-center">
     <form method="post" class="container" action="PeopleAdd_info">
         <h4>旅行人ID:</h4>
-        <input name="MID" type="text" class="form-control" value="@Model.PepID" readonly />
+        <input name="MID" type="text" class="form-control" value="@Model.ID" readonly />
         <h4>旅行地点:</h4>
         <input type="text" class="form-control" id="Msite" placeholder="旅行地点">
         <input type="submit" class="btn btn-primary" href="/Statistics/index" value="添加" />

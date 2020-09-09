@@ -14,10 +14,10 @@ namespace EpidemicManager.Models
         public int Info_num { get; set; }
     }
 
-    public class PepQRcodeModel//二维码
+    public class QRcodeModel//二维码
     {
-        public string PepID { get; set; }
-        public string PepSite { get; set; }
+        public string ID { get; set; }
+        public string Site { get; set; }
     }
 
     public class PepModel
