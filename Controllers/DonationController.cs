@@ -11,11 +11,6 @@ namespace EpidemicManager.Controllers
     public class DonationController : Controller
     {
       
-        
-        public IActionResult Index()
-        {
-            return View();
-        }
         [HttpGet]
         public IActionResult DonateMaterial()
         {
