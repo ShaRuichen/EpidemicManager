@@ -20,7 +20,6 @@
             <th>日期</th>
             <th>时间</th>
             <th>药</th>
-            <th>备注</th>
         </tr>
         @while (true)
         {
@@ -29,8 +28,13 @@
                 {
                     <td class="mm">@Model.IDs[m]</td>
                     m++;
+                    @if ((m + 1) % 7 == 0)
+                    {
+                        m++;
+                    }
                     @if (m % 7 == 0)
                     {
+                        
                         break;
                     }
                 }
@@ -43,10 +47,9 @@
     </table>
             <div id="h">
                 <input type="text" value="null" id="plan_id2" />
-                <button id="buttonoo" class="button" onclick="modifi()">修改</button>
+                <button id="buttonoo" class="button" onclick="modifi()">查看/修改</button>
             </div>
             <div id="staff"></div>
         }
     </div>
 </body>
-
