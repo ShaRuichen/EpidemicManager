@@ -3,19 +3,19 @@
     ViewBag.Ref = "Settings";
     ViewBag.Title = "管理员修改信息";
 }
-    <form class="Delete_form" method="post" action="Delete">
+    <form class="Delete_form" method="post" action="Deletemanager">
         <div>
-            <p>您当前的信息:</p><br />
-            <p>身份证号：</p><p>@Model.man_id</p><br />
-            <p>姓名：</p><p>@Model.name</p><br />
-            <p>性别：</p><p>@Model.sex</p><br />
-            <p>电话</p><p>@Model.tel</p><br />
-            <p>工作单位</p><p>@Model.work_unit</p><br />
-            <p>密码：</p><p>@Model.password</p><br /><br />
+            <p>您当前的信息如下且将被删除！</p>
+            <p>身份证号：</p><p>@Model.man_id</p>
+            <p>姓名：</p><p>@Model.name</p>
+            <p>性别：</p><p>@Model.sex</p>
+            <p>电话</p><p>@Model.tel</p>
+            <p>工作单位</p><p>@Model.work_unit</p>
+            <p>密码：</p><p>@Model.password</p>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-light">删除</button>
+                <button type="submit" class="btn btn-light">确认并返回主页面</button>
             </div>
         </div>
     </form>
