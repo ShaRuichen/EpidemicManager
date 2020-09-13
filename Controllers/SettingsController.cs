@@ -325,7 +325,7 @@ namespace EpidemicManager.Controllers
         {
             var person_id = HttpContext.Session.GetString("userId");
             Sql.Execute("DELETE from people where ID = @0", person_id);
-            return RedirectToAction("Index");
+            return RedirectToAction("logout", "Shared");
         }
         [HttpGet]
         public IActionResult Deletemanager()
@@ -361,8 +361,9 @@ namespace EpidemicManager.Controllers
         {
             var person_id = HttpContext.Session.GetString("userId");
             Sql.Execute("DELETE from manager where ID = @0", person_id);
-            return RedirectToAction("Index");
+            return RedirectToAction("logout", "Shared");
         }
+        [HttpGet]
         public IActionResult Deletedoctor()
         {
             var id = HttpContext.Session.GetString("userId");
@@ -385,11 +386,12 @@ namespace EpidemicManager.Controllers
             };
             return View(model);
         }
+        [HttpPost]
         public IActionResult Deletedoctor(Settingsdoctor settingsdoctor)
         {
             var doc_id = HttpContext.Session.GetString("userId");
             Sql.Execute("DELETE from doctor where ID = @0", doc_id);
-            return RedirectToAction("Index");
+            return RedirectToAction("logout", "Shared");
         }
     }
 }
