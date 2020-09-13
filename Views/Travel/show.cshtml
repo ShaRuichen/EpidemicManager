@@ -1,15 +1,25 @@
 @model Travelmodel
 @{
-    ViewBag.Ref = "template";
-    ViewBag.Title = "修改";
+    ViewBag.Ref = "travel";
+    ViewBag.Title = "行程信息";
 }
 @{ int n = 0;}
+
+    <div class="container">
+        <div class="text-center">
+            <img src="~/res/contains/005.png" width="200" height="200" />
+            <h2>行程信息</h2>
+            <p class="lead">下表是所有民众的出行信息</p>
+        </div>
+    </div>
+
     <div class="text-center">
+        <h3>行程信息</h3>
         <table class="table">
             <thead>
                 <tr>
-                    <th>旅行人ID</th>
                     <th>旅行日期</th>
+                    <th>旅行人ID</th>
                     <th>旅行时间</th>
                     <th>旅行地点</th>
                 </tr>
@@ -27,5 +37,5 @@
                 }
             </tbody>
         </table>
-        <a class="btn btn-primary" href="/Travel/index">返回</a>
+        <a class="btn btn-primary btn-lg" href="/Travel/index">返回</a>
     </div>
