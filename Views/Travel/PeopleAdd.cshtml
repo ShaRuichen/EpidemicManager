@@ -1,13 +1,38 @@
-@model Trmodel
+@model Mamodel
 @{
     ViewBag.Ref = "travel";
-    ViewBag.Title = "警告";
+    ViewBag.Title = "添加行程";
 }
 
-<div class="text-center">
-    <h1>只有管理员才能预设地址！</h1>
-    <div class="text-center">
-        <a class="btn btn-primary btn-block" href="/Travel/index">返回旅行信息操作页面</a>
-        <a class="btn btn-secondary btn-block" href="/login?path=travel/Addpresite">返回登录页面</a>
+    <div class="container">
+        <div class="text-center">
+            <img src="~/res/contains/006.png" width="311" height="203" />
+            <h2>添加出行信息</h2>
+            <p class="lead">填写下表添加您的出行信息</p>
+        </div>
     </div>
+
+<div >
+    <form method="post" class="container" action="AddtravelInfo">
+        <div class="form-group row">
+            <label for="ID" class="col-sm-2 col-form-label">旅行人ID:</label>
+            <div class="col-sm-10">
+                <input name="ID" type="text" readonly class="form-control" value="@Model.maID">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="site" class="col-sm-2 col-form-label">旅行地点:</label>
+            <div class="col-sm-10">
+                <input name="site" type="text" class="form-control input-group-lg" required placeholder="旅行地点">
+            </div>
+        </div>
+        <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" required id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">我已确认无误</label>
+        </div>
+        <div class="text-center">
+            <input type="submit" class="btn btn-primary btn-block" value="添加" />
+            <a class="btn btn-secondary btn-block" href="/Travel/index">返回</a>
+        </div>
+    </form>
 </div>
