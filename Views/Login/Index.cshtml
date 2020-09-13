@@ -2,9 +2,21 @@
     ViewBag.Ref = "login";
     ViewBag.Title = "登录";
 }
- 
 <div class="text-center">
-    <form name="mainForm">
+    <form class="form-signin" action="/Login/Login" method="post" onsubmit="return login()">
+        <h1 class="mb-3">请登录</h1>
+        <input type="text" class="form-control" name="id" placeholder="身份证号" required autofocus />
+        <input type="password" class="form-control" name="password" placeholder="密码" required />
+        <div class="mb-3">
+            <label><input type="radio" name="kind" value="people" checked="checked" /> 民众</label>
+            <label><input type="radio" name="kind" value="doctor" /> 医生</label>
+            <label><input type="radio" name="kind" value="manager" /> 管理员</label>
+        </div>
+        <div class="mb-3"></div>
+        <button class="btn btn-primary btn-block" type="submit">登录</button>
+        <p class="mt-5 text-danger" id="errorMessage"></p>
+    </form>
+    <!--form name="mainForm">
         <p id="errorMessage"></p>
         <p>ID：<input id="userId" type="text" oninput="value=value.replace(/[^\dx]/g,'')" /></p>
         <p>密码：<input id="userPassword" type="password" /></p>
@@ -17,5 +29,5 @@
             <div class="btn btn-primary" onclick="login()">登录</div>
             <a class="btn btn-secondary" href="/Login/Register">注册</a>
         </p>
-    </form>
+    </!-form-->
 </div>

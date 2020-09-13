@@ -1,9 +1,11 @@
 ﻿function login() {
-    var id = $('#userId').val()
-    var password = $('#userPassword').val()
-    var kind = $('input[name="userKind"]:checked').val()
+    var parameters = {
+        id: $('input[name="id"]').val(),
+        password: $('input[name="password"]').val(),
+        kind: $('input[name="kind"]:checked').val()
+    }
 
-    $.post('/login/Login', { id: id, password: password, kind: kind }, function (result) {
+    $.post('/login/login', parameters, function (result) {
         var isSucceeded = result.isSucceeded
         if (isSucceeded) {
             var path = result.path
@@ -14,6 +16,7 @@
             $('#errorMessage').html(message)
         }
     })
+    return false
 }
 
 function changeId() {
