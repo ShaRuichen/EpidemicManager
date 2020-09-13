@@ -1,11 +1,13 @@
 @model Trmodel
 @{
-    ViewBag.Ref = "template";
-    ViewBag.Title = "模板";
+    ViewBag.Ref = "travel";
+    ViewBag.Title = "警告";
 }
 
 <div class="text-center">
     <h1>只有管理员才能预设地址！</h1>
-    <a class="btn btn-primary" href="/Travel/index">返回旅行信息操作页面</a>
-    <a class="btn btn-secondary" href="/login?path=travel/Addpresite">返回登录页面</a>
+    <div class="text-center">
+        <a class="btn btn-primary btn-block" href="/Travel/index">返回旅行信息操作页面</a>
+        <a class="btn btn-secondary btn-block" href="/login?path=travel/Addpresite">返回登录页面</a>
+    </div>
 </div>
