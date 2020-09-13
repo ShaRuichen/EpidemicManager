@@ -1,0 +1,20 @@
+﻿@{
+    ViewBag.Ref = "login";
+    ViewBag.Title = "民众注册";
+}
+
+<div>
+    <form onsubmit="return registerPeople()">
+        <div class="checkbox">
+            <h1 class="mb-3">民众注册</h1>
+            <hr class="mb-4" />
+            <div class="col-md-6 mb-3">
+                <label for="firstName">First name</label>
+                <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
+                <div class="invalid-feedback">
+                    Valid first name is required.
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

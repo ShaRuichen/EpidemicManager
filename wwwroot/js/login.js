@@ -44,6 +44,7 @@ function registerPeople() {
             $('#peopleErrorMessage').html('该身份证号已注册。')
         }
     })
+    return false
 }
 
 function registerPatient() {

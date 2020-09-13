@@ -6,6 +6,7 @@
     var session = ViewContext.HttpContext.Session;
     var userId = session.GetString("userId");
     var userKind = session.GetString("userKind");
+    var isPatient = bool.Parse(session.GetString("isPatient") ?? bool.FalseString);
     var userName = userKind switch
     {
         "people" => Sql.Read("SELECT name FROM people WHERE id = @0", userId)[0][0],
@@ -68,8 +69,11 @@
                         </li>
                         <li class="nav-item"><a class="nav-link" href="/communication">线上交流</a></li>
                         <li class="nav-item"><a class="nav-link" href="/questionnaire/fill">填写问卷</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/examine/index_patient">检查报告</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/treatment">治疗方案</a></li>
+                        @if (isPatient)
+                        {
+                            <li class="nav-item"><a class="nav-link" href="/examine">调查报告</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/treatment">治疗方案</a></li>
+                        }
                     }
                     else if (userKind == "doctor")
                     {

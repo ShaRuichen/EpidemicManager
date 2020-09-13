@@ -13,6 +13,11 @@ namespace EpidemicManager.Controllers
             return View();
         }
 
+        public IActionResult PeopleRegister()
+        {
+            return View();
+        }
+
         public IActionResult Register()
         {
             return View();
