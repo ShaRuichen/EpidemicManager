@@ -71,19 +71,33 @@
                         <li class="nav-item"><a class="nav-link" href="/questionnaire/fill">填写问卷</a></li>
                         @if (isPatient)
                         {
-                            <li class="nav-item"><a class="nav-link" href="/examine">调查报告</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/examine/index_patient">检查报告</a></li>
                             <li class="nav-item"><a class="nav-link" href="/treatment">治疗方案</a></li>
                         }
                     }
                     else if (userKind == "doctor")
                     {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="examineDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">检查报告</a>
+                            <div class="dropdown-menu" aria-labelledby="examineDropdown">
+                                <a class="dropdown-item" href="/examine/read_index">查看检查报告</a>
+                                <a class="dropdown-item" href="/examine/create">添加检查报告</a>
+                            </div>
+                        </li>
                         <li class="nav-item"><a class="nav-link" href="/treatment">治疗方案</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/examine/read_index">检查报告</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/examine/index_doctor">检查报告</a></li>
                         <li class="nav-item"><a class="nav-link" href="/distribution">物资分配</a></li>
                         <li class="nav-item"><a class="nav-link" href="/communication">线上交流</a></li>
                     }
                     else if (userKind == "manager")
                     {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="statisticsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">行程信息</a>
+                            <div class="dropdown-menu" aria-labelledby="statisticsDropdown">
+                                <a class="dropdown-item" href="/statistics/read_index">查看检查报告</a>
+                                <a class="dropdown-item" href="/statistics/">添加检查报告</a>
+                            </div>
+                        </li>
                         <li class="nav-item"><a class="nav-link" href="/distribution">分配物资</a></li>
                         <li class="nav-item"><a class="nav-link" href="/questionnaire">发放问卷</a></li>
                         <li class="nav-item"><a class="nav-link" href="/questionnaire">统计问卷</a></li>
