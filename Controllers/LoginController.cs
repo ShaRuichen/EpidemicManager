@@ -37,13 +37,14 @@ namespace EpidemicManager.Controllers
             if (person.Count == 0) return Json(new
             {
                 isSucceeded = false,
-                message = "用户名不存在。",
+                isIdValid = false,
             });
             var correctPassword = person[0][0].ToString();
             if (password != correctPassword) return Json(new
             {
                 isSucceeded = false,
-                message = "密码错误。",
+                isIdValid = true,
+                isPasswordValid = false,
             });
             var session = HttpContext.Session;
             session.SetString("userKind", kind);

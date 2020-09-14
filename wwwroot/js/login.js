@@ -1,7 +1,9 @@
 ﻿function login() {
+    var id = $('input[name="id"]')
+    var password = $('input[name="password"]')
     var parameters = {
-        id: $('input[name="id"]').val(),
-        password: $('input[name="password"]').val(),
+        id: id.val(),
+        password: password.val(),
         kind: $('input[name="kind"]:checked').val()
     }
 
@@ -12,8 +14,22 @@
             $(location).attr('href', path)
         }
         else {
-            var message = result.message
-            $('#errorMessage').html(message)
+            if (result.isIdValid) {
+                id.removeClass('is-invalid')
+                id.addClass('is-valid')
+            }
+            else {
+                id.removeClass('is-valid')
+                id.addClass('is-invalid')
+            }
+            if (result.isPasswordValid) {
+                password.removeClass('is-invalid')
+                password.addClass('is-valid')
+            }
+            else {
+                password.removeClass('is-valid')
+                password.addClass('is-invalid')
+            }
         }
     })
     return false
