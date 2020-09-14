@@ -70,6 +70,16 @@ namespace EpidemicManager.Controllers
             people_info.tel = Request.Form["tel"];
             people_info.sex = Request.Form["sex"];
             people_info.password = Request.Form["password"];
+            var people_pass = Sql.Read("SELECT password from people where ID=@0",id);
+            var PEO_password = new List<string>();
+            foreach (DataRow peoi in people_pass)
+            {
+                PEO_password.Add(peoi[0].ToString());
+            }
+            if(PEO_password[0]!=people_info.password||PEO_password[0]=="")
+            {
+                return RedirectToAction("PasswordError", "Settings");
+            }
             var newpassword1 = Request.Form["password1"];
             var newpassword2 = Request.Form["password2"];
             if (newpassword1 != newpassword2)
@@ -123,6 +133,16 @@ namespace EpidemicManager.Controllers
             doc_info.hos_name = Request.Form["hos_name"];
             doc_info.name = Request.Form["name"];
             doc_info.password = Request.Form["password"];
+            var people_pass = Sql.Read("SELECT password from doctor where ID=@0", id);
+            var PEO_password = new List<string>();
+            foreach (DataRow peoi in people_pass)
+            {
+                PEO_password.Add(peoi[0].ToString());
+            }
+            if (PEO_password[0] != doc_info.password)
+            {
+                return RedirectToAction("PasswordError", "Settings");
+            }
             var newpassword1 = Request.Form["password1"];
             var newpassword2 = Request.Form["password2"];
             if (newpassword1 != newpassword2)
@@ -179,6 +199,16 @@ namespace EpidemicManager.Controllers
             man_info.tel = Request.Form["tel"];
             man_info.work_unit = Request.Form["work_unit"];
             man_info.password = Request.Form["password"];
+            var people_pass = Sql.Read("SELECT password from manager where ID=@0", id);
+            var PEO_password = new List<string>();
+            foreach (DataRow peoi in people_pass)
+            {
+                PEO_password.Add(peoi[0].ToString());
+            }
+            if (PEO_password[0] != man_info.password || PEO_password[0] == "")
+            {
+                return RedirectToAction("PasswordError", "Settings");
+            }
             var newpassword1 = Request.Form["password1"];
             var newpassword2 = Request.Form["password2"];
             if(newpassword1!=newpassword2)
@@ -232,6 +262,16 @@ namespace EpidemicManager.Controllers
             pat_info.sex = Request.Form["sex"];
             pat_info.hos_name = Request.Form["hos_name"];
             pat_info.password = Request.Form["password"];
+            var people_pass = Sql.Read("SELECT password from people where ID=@0", id);
+            var PEO_password = new List<string>();
+            foreach (DataRow peoi in people_pass)
+            {
+                PEO_password.Add(peoi[0].ToString());
+            }
+            if (PEO_password[0] != pat_info.password || PEO_password[0] == "")
+            {
+                return RedirectToAction("PasswordError", "Settings");
+            }
             var newpassword1 = Request.Form["password1"];
             var newpassword2 = Request.Form["password2"];
             var hospital_n = Sql.Read("SELECT hospital_name from hospital");
@@ -264,6 +304,12 @@ namespace EpidemicManager.Controllers
         public IActionResult Message()
         {
             ViewBag.hehe = "两次新密码不一致，请检查输入是否有效";
+            return View();
+        }
+        [HttpGet]
+        public IActionResult PasswordError()
+        {
+            ViewBag.hehe = "输入密码错误，请检查输入密码是否有效";
             return View();
         }
         [HttpGet]
@@ -324,6 +370,17 @@ namespace EpidemicManager.Controllers
         public IActionResult Deletepeople(SettingsPeople settingsPeople)
         {
             var person_id = HttpContext.Session.GetString("userId");
+            var password= Request.Form["password"];
+            var people_pass = Sql.Read("SELECT password from people where ID=@0", person_id);
+            var PEO_password = new List<string>();
+            foreach (DataRow peoi in people_pass)
+            {
+                PEO_password.Add(peoi[0].ToString());
+            }
+            if (PEO_password[0] != password)
+            {
+                return RedirectToAction("PasswordError", "Settings");
+            }
             Sql.Execute("DELETE from people where ID = @0", person_id);
             return RedirectToAction("logout", "Shared");
         }
@@ -360,6 +417,17 @@ namespace EpidemicManager.Controllers
         public IActionResult Deletemanager(Settingsmanager settingsmanager)
         {
             var person_id = HttpContext.Session.GetString("userId");
+            var password = Request.Form["password"];
+            var people_pass = Sql.Read("SELECT password from manager where ID=@0", person_id);
+            var PEO_password = new List<string>();
+            foreach (DataRow peoi in people_pass)
+            {
+                PEO_password.Add(peoi[0].ToString());
+            }
+            if (PEO_password[0] != password)
+            {
+                return RedirectToAction("PasswordError", "Settings");
+            }
             Sql.Execute("DELETE from manager where ID = @0", person_id);
             return RedirectToAction("logout", "Shared");
         }
@@ -390,6 +458,17 @@ namespace EpidemicManager.Controllers
         public IActionResult Deletedoctor(Settingsdoctor settingsdoctor)
         {
             var doc_id = HttpContext.Session.GetString("userId");
+            var password = Request.Form["password"];
+            var people_pass = Sql.Read("SELECT password from doctor where ID=@0", doc_id);
+            var PEO_password = new List<string>();
+            foreach (DataRow peoi in people_pass)
+            {
+                PEO_password.Add(peoi[0].ToString());
+            }
+            if (PEO_password[0] != password)
+            {
+                return RedirectToAction("PasswordError", "Settings");
+            }
             Sql.Execute("DELETE from doctor where ID = @0", doc_id);
             return RedirectToAction("logout", "Shared");
         }
