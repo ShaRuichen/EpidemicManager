@@ -73,7 +73,7 @@ namespace EpidemicManager.Controllers
             string date = DateTime.Now.ToString("yyyy-MM-dd");
             string time = DateTime.Now.ToString("T");
             Sql.Execute("INSERT INTO travel_info VALUES(@0, @1, @2, @3)", userId, date, time, travelinfo.site);
-            return RedirectToAction("Index", "Travel");
+            return RedirectToAction("Index", "Home");
 
         }
         public IActionResult Setpresite()
@@ -81,7 +81,7 @@ namespace EpidemicManager.Controllers
             var session = HttpContext.Session;
             string realpresite = Request.Form["realpresite"];
             HttpContext.Session.SetString("realpresite", realpresite);
-            return RedirectToAction("Index", "Travel");
+            return RedirectToAction("Index", "Home");
         }
         public IActionResult ManagerAdd_info(string id)
         {
@@ -95,7 +95,7 @@ namespace EpidemicManager.Controllers
             string date = DateTime.Now.ToString("yyyy-MM-dd");
             string time = DateTime.Now.ToString("T");
             Sql.Execute("INSERT INTO travel_info VALUES(@0, @1, @2, @3)", id, date, time, site);
-            return RedirectToAction("Index", "Travel");
+            return RedirectToAction("Index", "Home");
 
         }
         public IActionResult Show(string id)
