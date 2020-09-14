@@ -1,7 +1,7 @@
 
-function click2() {
-    $.post('/Treatment/Click2', {  pat_id: document.getElementById("patient_id").value, date: document.getElementById("date").value,time: document.getElementById("time").value, med: document.getElementById("medicine").value, detail: document.getElementById("detail").value }, function (result) {
-        if (result == 1) { alert("插入完成"); }
+function click12() {
+    $.post('/Treatment/Click2', {  pat_id: document.getElementById("patient_id").value, med: document.getElementById("medicine").value, detail: document.getElementById("detail").value }, function (result) {
+        if (result == 1) { alert("插入完成")}
         else if (result == 0) {
             alert("您未登录或身份受限");
             window.location.href="../Login/Index";
@@ -53,7 +53,7 @@ function modifi2() {
 
 function insert() {
     $.post('/Treatment/Update',
-        { plan_id: document.getElementById("plan_id2").value, date: document.getElementById("input_0").value, time: document.getElementById("input_1").value, med: document.getElementById("input_2").value, det: document.getElementById("input_3").value }, function (result) {
+        { plan_id: document.getElementById("sss").value,  med: document.getElementById("input_0").value, det: document.getElementById("input_1").value }, function (result) {
             alert("修改成功");
             window.location.href = "../Treatment/Check";
     })
