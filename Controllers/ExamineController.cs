@@ -134,10 +134,9 @@ public class ExamineController : Controller
         if (HttpContext.Session.GetString("userKind") != "people")
         {
             return RedirectToAction("Index", "Login", new { path = "Examine/Index_patient" });
-            if(HttpContext.Session.GetString("isPatient") != true){
+        }
+        if(HttpContext.Session.GetString("isPatient") !=  true.ToString()){
                 return RedirectToAction("Index", "Login", new { path = "Examine/Index_patient" });
-            }
-            
         }
         var id_p = HttpContext.Session.GetString("userId");
         var report = Sql.Read("SELECT report_id,title ,date FROM examine_repo WHERE patient_id=@0", id_p);
