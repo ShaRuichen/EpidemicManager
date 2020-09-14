@@ -12,14 +12,15 @@
         else
         {
             int m = 0;
-    <table border="1" align="center">
+    <table class="table table-hover">
+        <caption>患者治疗计划</caption>
         <tr>
             <th>计划编号</th>
             <th>医生ID</th>
             <th>病人ID</th>
-            <th>日期</th>
-            <th>时间</th>
-            <th>药</th>
+            <th>修改日期</th>
+            <th>修改时间</th>
+            <th>药物</th>
         </tr>
         @while (true)
         {
@@ -47,7 +48,7 @@
     </table>
             <div id="h">
                 <input type="text" value="null" id="plan_id2" />
-                <button id="buttonoo" class="button" onclick="modifi()">查看/修改</button>
+                <button id="buttonoo" class="btn btn-primary btn-lg" onclick="modifi()">查看/修改</button>
             </div>
             <div id="staff"></div>
         }
