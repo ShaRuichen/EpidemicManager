@@ -1,32 +1,147 @@
-@model Mamodel
-@{
-    ViewBag.Ref = "travel";
-    ViewBag.Title = "添加预设地址";
+using System.Collections.Generic;
+using System.Data;
+
+using Microsoft.AspNetCore.Mvc;
+using EpidemicManager.Models;
+using Microsoft.AspNetCore.Http;
+using System.Diagnostics;
+using System.Threading;
+using System;
+
+namespace EpidemicManager.Controllers
+{
+    public class TravelController : Controller
+    {
+
+        public IActionResult Index()
+        {
+            var session = HttpContext.Session;
+            var userKind = session.GetString("userKind");
+            var userId = session.GetString("userId");
+            if(userId==null)
+            {
+                return RedirectPermanent("/login?path=travel");
+            }
+            return View();
+        }
+        public IActionResult PeopleAdd()
+        {
+            var session = HttpContext.Session;
+            var userKind = session.GetString("userKind");
+            var userId = session.GetString("userId");
+            var model = new Mamodel
+            {
+                maID = userId
+            };
+            return View(model);
+        }
+        public IActionResult ShowQRcode()
+        {
+            var session = HttpContext.Session;
+            var userKind = session.GetString("userKind");
+            var userId = session.GetString("userId");
+            var realpresite = session.GetString("realpresite");
+            var model = new Mamodel
+            {
+                maID = userId,
+                site = realpresite
+            };
+            return View(model);
+        }
+        public IActionResult Addpresite()
+        {
+            var session = HttpContext.Session;
+            var userKind = session.GetString("userKind");
+            var userId = session.GetString("userId");
+            if (userKind != "manager")
+            {
+                return View("notmanager");
+            }
+            var model = new Mamodel
+            {
+                maID = userId,
+                site = userKind
+            };
+            return View(model);
+        }
+        public IActionResult AddtravelInfo()
+        {
+            Models.Trmodel travelinfo = new Trmodel();
+            var session = HttpContext.Session;
+            var userId = session.GetString("userId");
+            travelinfo.site = Request.Form["site"];
+            string date = DateTime.Now.ToString("yyyy-MM-dd");
+            string time = DateTime.Now.ToString("T");
+            Sql.Execute("INSERT INTO travel_info VALUES(@0, @1, @2, @3)", userId, date, time, travelinfo.site);
+            return RedirectToAction("Index", "Home");
+
+        }
+        public IActionResult Setpresite()
+        {
+            var session = HttpContext.Session;
+            string realpresite = Request.Form["realpresite"];
+            HttpContext.Session.SetString("realpresite", realpresite);
+            return RedirectToAction("Index", "Home");
+        }
+        public IActionResult ManagerAdd_info(string id)
+        {
+            var session = HttpContext.Session;
+            var site = session.GetString("realpresite");
+            if (site == null)
+            {
+                return RedirectPermanent("/Travel/Addpresite");
+            }
+            Models.Trmodel Mtravelinfo = new Trmodel();
+            string date = DateTime.Now.ToString("yyyy-MM-dd");
+            string time = DateTime.Now.ToString("T");
+            Sql.Execute("INSERT INTO travel_info VALUES(@0, @1, @2, @3)", id, date, time, site);
+            return RedirectToAction("Index", "Home");
+
+        }
+        public IActionResult Show(string id)
+        {
+            if (id != null)
+            {
+                Sql.Execute("INSERT INTO people VALUES(@0, 'name', 'address', 'tel', 'sex', 'password')", id);
+            }
+            var ID = Sql.Read("SELECT ID FROM travel_info");
+            var date = Sql.Read("SELECT date FROM travel_info"); 
+            var time = Sql.Read("SELECT time FROM travel_info"); 
+            var site = Sql.Read("SELECT site FROM travel_info");
+            var IDlist = new List<string>();
+            var datelist = new List<string>();
+            var timelist = new List<string>();
+            var sitelist = new List<string>();
+            foreach (DataRow travel in ID)
+            {
+                IDlist.Add(travel[0].ToString());
+            }
+            foreach (DataRow travel in date)
+            {
+                datelist.Add(Convert.ToDateTime(travel[0]).ToString("yyyy-MM-dd"));
+            }
+            foreach (DataRow travel in time)
+            {
+                timelist.Add(travel[0].ToString());
+            }
+            foreach (DataRow travel in site)
+            {
+                sitelist.Add(travel[0].ToString());
+            }
+            var model = new Travelmodel
+            {
+                Ids = IDlist,
+                Dates=datelist,
+                Times=timelist,
+                Sites=sitelist
+            };
+            int num = 0;
+            foreach(var nums in model.Ids)
+            {
+                num++;
+            }
+            model.info_num = num;
+            return View(model);
+        }
+    }
 }
-
-    <div class="container">
-        <div class="text-center">
-            <img src="~/res/contains/007.png" width="194" height="238" />
-            <h2>预设出行地址</h2>
-            <p class="lead">填写下表预设出行地址</p>
-        </div>
-    </div>
-
-<div>
-    <form method="post" class="container" action="Setpresite">
-        <div class="form-group row">
-            <label for="realpresite" class="col-sm-2 col-form-label">预设旅行地点:</label>
-            <div class="col-sm-10">
-                <input name="realpresite" type="text" class="form-control input-group-lg" required placeholder="预设旅行地点">
-            </div>
-        </div>
-        <div class="form-group form-check">
-            <input type="checkbox" class="form-check-input" required id="exampleCheck1">
-            <label class="form-check-label" for="exampleCheck1">我已确认无误</label>
-        </div>
-        <div class="text-center">
-            <input type="submit" class="btn btn-primary btn-block" href="/" onclick="comfirm()" value="添加" />
-            <a class="btn btn-secondary btn-lg" href="/">返回</a>
-        </div>
-    </form>
-</div>
