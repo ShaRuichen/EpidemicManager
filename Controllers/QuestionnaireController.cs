@@ -19,7 +19,7 @@ namespace EpidemicManager.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            var ques = Sql.Read("SELECT * FROM questionnaire");//查找所有问题
+            var ques = Sql.Read("SELECT * FROM questionnaire WHERE is_deleted=0");//查找所有问题
             var list = new List<Question>();
             var model = new QuestionnaireModel();//问卷模型
             foreach (DataRow question in ques)
@@ -104,7 +104,7 @@ namespace EpidemicManager.Controllers
                 return RedirectToAction("index");
             }*/
             //判断用户当日是否已经填写过问卷
-            var ques = Sql.Read("SELECT * FROM questionnaire");//查找所有问题
+            var ques = Sql.Read("SELECT * FROM questionnaire WHERE is_deleted=0");//查找所有问题
             var list = new List<Question>();
             var model = new QuestionnaireModel();//问卷模型
             foreach (DataRow question in ques)
@@ -145,7 +145,7 @@ namespace EpidemicManager.Controllers
             //var session = HttpContext.Session;
             //filler_id = HttpContext.Session.GetString("userId");
             var date = DateTime.Now.ToString("yyyy--MM-dd");
-            var ques = Sql.Read("SELECT * FROM questionnaire");
+            var ques = Sql.Read("SELECT * FROM questionnaire WHERE is_deleted=0");
             int count=0;
             var type = new List<bool>();
             foreach (DataRow question in ques)
@@ -190,7 +190,7 @@ namespace EpidemicManager.Controllers
 
         public IActionResult Result()
         {
-            var ques = Sql.Read("SELECT * FROM questionnaire");//查找所有问题
+            var ques = Sql.Read("SELECT * FROM questionnaire WHERE is_deleted=0");//查找所有问题
             var list = new List<Question>();
             var model = new QuestionnaireModel();//问卷模型
             foreach (DataRow question in ques)

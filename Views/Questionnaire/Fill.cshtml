@@ -1,4 +1,4 @@
-@model QuestionnaireModel
+﻿@model QuestionnaireModel
 @{
     ViewBag.Ref = "questionnaire";
     ViewBag.Title = "填写问卷";
@@ -19,7 +19,7 @@
                         @if (!Model.questionnaire[i].is_Bridge)
                         {
                             <p>
-                            @Model.questionnaire[i].question_ID
+                            @(i+1)
                             <strong>.@Model.questionnaire[i].question_Content</strong>
                             <i style="color:red">--填空</i>
                             </p>
@@ -29,7 +29,7 @@
                         else
                         {
                             <p>
-                                @Model.questionnaire[i].question_ID
+                                @(i+1)
                                 <strong>.@Model.questionnaire[i].question_Content</strong>
                                 <i style="color:red">--选择</i>
                             </p>
