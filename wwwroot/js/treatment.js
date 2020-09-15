@@ -29,25 +29,40 @@ function modifi() {
 function modifi2() {
     var board = document.getElementById("staff");
     var store = new Array(2);
-    for (var i = 0; i < 2; i++) {
-        var e = document.createElement("input");
-
+    for (var i = 0; i < 4; i++) {
+        var e = document.createElement("textarea");
+        var h = document.createElement("br");
         e.type = "text"
         e.setAttribute("id", "input_" + i);//设置name属性
         store[i] = e;
         board.appendChild(e);//将e追加到board最后一个节点后面
+        board.appendChild(h); 
     }
     var mmm = document.createElement("input");
     mmm.type = "button";
     mmm.setAttribute("value", "确定");
     mmm.setAttribute("onclick", "insert()");
     mmm.setAttribute("id", "cc");
+    mmm.setAttribute("class", "btn btn-primary");
     board.appendChild(mmm);
-    store[0].setAttribute("type", "text");
-    store[1].setAttribute("type", "text");
+    store[3].setAttribute("class", "bigput");
+    store[3].setAttribute("style", "width: 200px; height: 200px;" );
+    store[1].setAttribute("class", "smallput");
+    store[0].setAttribute("class", "textareaab");
+    store[0].setAttribute("rows", 1);
+    store[2].setAttribute("rows", 1);
+    store[0].setAttribute("cols", 7);
+    store[2].setAttribute("cols", 7);
+    store[0].setAttribute("readonly", "readonly");
+    store[2].setAttribute("readonly", "readonly");
+    store[2].setAttribute("class", "textareaab");
     $.post('/Treatment/Give', { plan_id2: document.getElementById("sss").value }, function (result) {
-        store[0].setAttribute("value", result[2]);
-        store[1].setAttribute("value", result[3]);
+        document.getElementById("input_1").value = result[2];  
+        document.getElementById("input_3").value = result[3];  
+        document.getElementById("input_0").value = "用药：";  
+        document.getElementById("input_2").value = "备注：";  
+        //store[0].setAttribute("value", result[2]);
+        //store[1].setAttribute("value", result[3]);
     })
 }
 
@@ -62,8 +77,8 @@ function insert() {
 
 function CheckLogin1() {
     $.post('/Treatment/CheckLogin', function (result) {
-        if (result == 0) { alert("请您先登录"); window.location.href = "../Login?path=../Treatment/Check"; }
-        if (result == 1) { alert("当前不是医生请登陆"); window.location.href = "../Login?path=../Treatment/Check";}
+        if (result == 0) { alert("请您先登录"); window.location.href = "../Login?path=../Treatment/Check?patient=null"; }
+        if (result == 1) { alert("当前不是医生请登陆"); window.location.href = "../Login?path=../Treatment/Check?patient=null";}
     })
 }
 function CheckLogin2() {
