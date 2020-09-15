@@ -36,7 +36,7 @@ public class ExamineController : Controller
         m.ID_patient = Request.Form["patient_id"];
         m.detail = Request.Form["detail"];
         m.title = Request.Form["title"];
-        m.date = DateTime.Now.ToString("hh:mm:ss");
+        m.date = DateTime.Now.ToString("yyyy-MM-dd");
         m.time = DateTime.Now.ToString("T");
         var i = 0;
 
@@ -277,7 +277,7 @@ public class ExamineController : Controller
         m.ID_patient = Request.Form["patient_id"];
         m.detail = Request.Form["detail"];
         m.title = Request.Form["title"];
-        m.date = DateTime.Now.ToString("hh:mm:ss");
+        m.date = DateTime.Now.ToString("yyyy-MM-dd");
         m.time = DateTime.Now.ToString("T");
 
         m.ID_report = Request.Form["report_id"];
