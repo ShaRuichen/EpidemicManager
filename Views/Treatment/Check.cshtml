@@ -3,11 +3,11 @@
     ViewBag.Ref = "treatment";
     ViewBag.Title = "查看";
 }
-<body class="body" onload="CheckLogin1()">
+<body class="abody" onload="CheckLogin1()">
     <div class="text-c">
         <div id="h">
-            <input type="text" value="null" id="plan_id2" />
-            <button id="buttonoo" class="btn btn-primary btn-lg" onclick="modifi()">查看/修改</button>
+            查找病人：<input type="text" value="" id="plan_id2" />
+            <button id="buttonoo" class="btn btn-primary" onclick="modifi()">查看/修改</button>
         </div>
         @if (Model.IDs.Count == 0)
         {
@@ -16,7 +16,6 @@
         else
         {
             int m = 0;
-            string aa = "a";
             <table class="table table-hover">
                 <caption>患者治疗计划</caption>
                 <tr>
@@ -50,7 +49,10 @@
                                 break;
                             }
                         }
-                        <td><input id="button_@Model.IDs[m-7]" type="button" value=@Model.IDs[m-7] onclick="Moo(this)"/></td>
+                        <td>
+                        <input id="button_@Model.IDs[m-7]" type="hidden" value=@Model.IDs[m-7]/>
+                        <input id="button_@Model.IDs[m-7]" type="button" class="btn btn-primary" value="查看" onclick="Moo(this)"/>
+                        </td>
                     </tr>
                     if (m == Model.IDs.Count)
                     {
