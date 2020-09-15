@@ -18,10 +18,10 @@ function login() {
 
 function modifi() {
     $.post('/Treatment/Find', { plan_id2: document.getElementById("plan_id2").value }, function (result) {
-        if (result == 1) { alert("这个plan不存在") }
+        if (result == 1) { alert("这个病人不存在") }
         if (result == 2) {
             var a = document.getElementById("plan_id2").value;
-            window.location.href = "../Treatment/Findout?plan_id2= "+a;
+            window.location.href = "../Treatment/Check?patient="+a;
         }
     })
 }
@@ -71,4 +71,8 @@ function CheckLogin2() {
         if (result == 0) { alert("请您先登录"); window.location.href = "../Login?path=../Treatment/Insert"; }
         if (result == 1) { alert("当前不是医生请登陆"); window.location.href = "../Login?path=../Treatment/Insert"; }
     })
+}
+function Moo(h) {
+    var a = document.getElementById(h.id).value;
+    window.location.href = "../Treatment/Findout?plan_id2=" + a;
 }
