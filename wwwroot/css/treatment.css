@@ -1,33 +1,19 @@
-.body{
+.bigput{
+    margin-bottom:10px;
+}
+
+
+.abody{
     text-align:center;
 }
-.pa {
-    font-size: xx-large;
-}
-.button0 {
-    border: 1px solid green;
-    padding: 5px;
-}
-#buttonoo{
-    border: 1px solid blue;
-}
-.text_c{
-    text-align: center;
-}
-#input_1,#input_2,#input_3,#input_4,cc{
-    margin-left:5px;
-}
-#staff,#h{
-    margin-top:10px;
-}
 
-#plan_id2{
-    width:200px;
-}
 
-#button1 {
-    width: 50px;
-    border: 1px solid green;
-    padding: 5px;
-    margin-top: 10px;
-}
+.textareaab {
+    border: 0;
+    background-color: transparent;
+    /*scrollbar-arrow-color:yellow;  
+    scrollbar-base-color:lightsalmon;  
+    overflow: hidden;*/
+    color: #666464;
+    height: auto;
+} 
