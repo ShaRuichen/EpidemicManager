@@ -36,7 +36,7 @@ public class ExamineController : Controller
         m.ID_patient = Request.Form["patient_id"];
         m.detail = Request.Form["detail"];
         m.title = Request.Form["title"];
-        m.date = DateTime.Now.ToString("yyyy-MM-dd");
+        m.date = DateTime.Now.ToString("hh:mm:ss");
         m.time = DateTime.Now.ToString("T");
         var i = 0;
 
@@ -131,12 +131,9 @@ public class ExamineController : Controller
 
     public IActionResult Index_patient()//病人Id
     {
-        if (HttpContext.Session.GetString("userKind") != "people")
+        if (HttpContext.Session.GetString("userKind") != "patient")
         {
             return RedirectToAction("Index", "Login", new { path = "Examine/Index_patient" });
-        }
-        if(HttpContext.Session.GetString("isPatient") !=  true.ToString()){
-                return RedirectToAction("Index", "Login", new { path = "Examine/Index_patient" });
         }
         var id_p = HttpContext.Session.GetString("userId");
         var report = Sql.Read("SELECT report_id,title ,date FROM examine_repo WHERE patient_id=@0", id_p);
@@ -277,7 +274,7 @@ public class ExamineController : Controller
         m.ID_patient = Request.Form["patient_id"];
         m.detail = Request.Form["detail"];
         m.title = Request.Form["title"];
-        m.date = DateTime.Now.ToString("yyyy-MM-dd");
+        m.date = DateTime.Now.ToString("hh:mm:ss");
         m.time = DateTime.Now.ToString("T");
 
         m.ID_report = Request.Form["report_id"];
