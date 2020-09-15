@@ -79,19 +79,38 @@ namespace EpidemicManager.Controllers
         }
 
 
-        public IActionResult Check()
+        public IActionResult Check(string patient)
         {
             var session = HttpContext.Session;
             var userkind = session.GetString("userKind");
             if (userkind == "doctor")
             {
-                var plan = Sql.Read("SELECT * FROM treat_plan");
+
                 var list2 = new List<string>();
-                foreach (DataRow person in plan)
+                if (patient == "null")
                 {
-                    for (int i = 0; i < 7; i++)
+                    
+                    var plan = Sql.Read("SELECT * FROM treat_plan");
+                    foreach (DataRow person in plan)
                     {
-                        list2.Add(person[i].ToString());
+                        for (int i = 0; i < 7; i++)
+                        {
+                            list2.Add(person[i].ToString());
+                        }
+                    }
+                }
+                else
+                {
+                    var plan = Sql.Read("SELECT * FROM treat_plan WHERE patient_id='"+patient+"' ");
+                    if (plan.Count != 0)
+                    {
+                        foreach (DataRow person in plan)
+                        {
+                            for (int i = 0; i < 7; i++)
+                            {
+                                list2.Add(person[i].ToString());
+                            }
+                        }
                     }
                 }
                 
@@ -136,7 +155,7 @@ namespace EpidemicManager.Controllers
         public int Find(string plan_id2)
         {
             var t = 0;
-            var plan = Sql.Read("SELECT plan_id FROM treat_plan WHERE plan_id ='" + plan_id2 + "'");
+            var plan = Sql.Read("SELECT plan_id FROM treat_plan WHERE patient_id ='" + plan_id2 + "'");
             
             foreach (DataRow person in plan)
             {
