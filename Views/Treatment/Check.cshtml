@@ -5,6 +5,10 @@
 }
 <body class="body" onload="CheckLogin1()">
     <div class="text-c">
+        <div id="h">
+            <input type="text" value="null" id="plan_id2" />
+            <button id="buttonoo" class="btn btn-primary btn-lg" onclick="modifi()">查看/修改</button>
+        </div>
         @if (Model.IDs.Count == 0)
         {
             <p>没有数据或未登录</p>
@@ -12,44 +16,49 @@
         else
         {
             int m = 0;
-    <table class="table table-hover">
-        <caption>患者治疗计划</caption>
-        <tr>
-            <th>计划编号</th>
-            <th>医生ID</th>
-            <th>病人ID</th>
-            <th>修改日期</th>
-            <th>修改时间</th>
-            <th>药物</th>
-        </tr>
-        @while (true)
-        {
-            <tr>
+            string aa = "a";
+            <table class="table table-hover">
+                <caption>患者治疗计划</caption>
+                <tr>
+                    <th>计划编号</th>
+                    <th>医生ID</th>
+                    <th>病人ID</th>
+                    <th>修改日期</th>
+                    <th>修改时间</th>
+                    <th>药物</th>
+                    <th>详情</th>
+                </tr>
                 @while (true)
                 {
-                    <td class="mm">@Model.IDs[m]</td>
-                    m++;
-                    @if ((m + 1) % 7 == 0)
+                    string a;
+                    <tr>
+                        @while (true)
+                        {
+                            <td class="mm">@Model.IDs[m]</td>
+                            @if ((m - 1) % 7 == 0)
+                            {
+                                a = Model.IDs[m];
+                            }
+                            m++;
+                            @if ((m + 1) % 7 == 0)
+                            {
+                                m++;
+                            }
+                            @if (m % 7 == 0)
+                            {
+
+                                break;
+                            }
+                        }
+                        <td><input id="button_@Model.IDs[m-7]" type="button" value=@Model.IDs[m-7] onclick="Moo(this)"/></td>
+                    </tr>
+                    if (m == Model.IDs.Count)
                     {
-                        m++;
-                    }
-                    @if (m % 7 == 0)
-                    {
-                        
                         break;
                     }
                 }
-            </tr>
-            if (m == Model.IDs.Count)
-            {
-                break;
-            }
-        }
-    </table>
-            <div id="h">
-                <input type="text" value="null" id="plan_id2" />
-                <button id="buttonoo" class="btn btn-primary btn-lg" onclick="modifi()">查看/修改</button>
-            </div>
+            </table>
+
             <div id="staff"></div>
         }
     </div>
