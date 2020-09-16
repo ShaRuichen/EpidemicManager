@@ -34,27 +34,55 @@
         </div>
     </div>
     <div class="form-group">
-        <label for="password" class="col-sm-2 control-label">此处输入旧密码</label>
+        <label class="col-sm-2 control-label">密&nbsp;&nbsp;&nbsp;&nbsp;码：</label>
         <div class="col-sm-10">
-            @Html.Password("password", null, new { @class = " form-control ", placeholder = "密码" })
+            <input type="password" class="form-control" name="password"
+                   placeholder="请输入密码" id="people_pwd">
         </div>
     </div>
     <div class="form-group">
-        <label for="password" class="col-sm-2 control-label">新密码</label>
+        <label class="col-sm-2 control-label">确认密码：</label>
         <div class="col-sm-10">
-            @Html.Password("password1", null, new { @class = " form-control " })
+            <input type="password" class="form-control"
+                   placeholder="请输入密码" id="people_pwd2">
         </div>
     </div>
-    <div class="form-group">
-        <label for="password" class="col-sm-2 control-label">再次输入新密码</label>
-        <div class="col-sm-10">
-            @Html.Password("password2", null, new { @class = " form-control " })
-        </div>
-    </div>
+    <p id="msg_pwd" style="margin-left: 150px"></p>
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-light">提交</button>
+            <button type="submit" class="btn btn-light" id="btn_register">提交</button>
         </div>
     </div>
     <p><div class="btn btn-primary" id="DeleteManager" onclick="Delete_manager()">删除个人信息</div></p>
 </form>
+<script>
+    $(document).ready(function () {
+        $('#people_pwd').on('input propertychange', function () {
+            //input propertychange即实时监控键盘输入包括粘贴
+            var pwd = $.trim($(this).val());
+            //获取this，即ipwd的val()值，trim函数的作用是去除空格
+            var rpwd = $.trim($("#people_pwd2").val());
+            if (pwd == rpwd) {                                 //相同则提示密码匹配
+                $("#msg_pwd").html("<font color='green'>两次密码匹配通过</font>");
+                $("#btn_register").attr("disabled", false); //使按钮无法点击
+            } else {                                          //不相同则提示密码匹配
+                $("#msg_pwd").html("<font color='red'>两次密码不匹配</font>");
+                $("#btn_register").attr("disabled", true);
+
+            }
+        })
+    })
+    $(document).ready(function () {
+        $('#people_pwd2').on('input propertychange', function () {
+            var pwd = $.trim($(this).val());
+            var rpwd = $.trim($("#people_ipwd").val());
+            if (pwd == rpwd) {
+                $("#msg_pwd").html("<font color='green'>两次密码匹配通过</font>");
+                $("#btn_register").attr("disabled", false);
+            } else {
+                $("#msg_pwd").html("<font color='red'>两次密码不匹配</font>");
+                $("#btn_register").attr("disabled", true);
+            }
+        })
+    })
+</script>

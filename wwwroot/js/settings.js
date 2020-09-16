@@ -2,10 +2,7 @@
 {
     var message = confirm("确认删除个人信息吗？");
     if (message) {
-        window.location.href = "/Settings/Deletepeople";
-    }
-    else {
-        window.location.href = "/Settings/Changepeople";
+        window.location.href = "/Settings/Deletepeople"
     }
 }
 
@@ -16,7 +13,7 @@ function Delete_doctor()
         window.location.href = "/Settings/Deletedoctor";
     }
     else {
-        window.location.href = "/Settings/Doctor";
+        
     }
 }
 function Delete_manager()
@@ -26,7 +23,7 @@ function Delete_manager()
         window.location.href = "/Settings/Deletemanager";
     }
     else {
-        window.location.href = "/Settings/Manager";
+        
     }
 }
 function Delete_patient()
@@ -36,6 +33,6 @@ function Delete_patient()
         window.location.href = "/Settings/Deletepatient";
     }
     else {
-        window.location.href = "/Settings/Patient";
+        
     }
 }

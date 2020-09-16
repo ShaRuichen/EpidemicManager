@@ -14,8 +14,7 @@ namespace EpidemicManager.Models
         public string tel { get; set; }
         public string sex { get; set; }
         public string password { get; set; }
-        public string password1 { get; set; }
-        public string password2 { get; set; }
+        public bool password1 { get; set; }
     }
     public class Settingsdoctor
     {
