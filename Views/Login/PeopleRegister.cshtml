@@ -11,36 +11,30 @@
             <form onsubmit="return registerPeople()">
                 <div class="form-group">
                     <label for="id">身份证号</label>
-                    <input type="text" class="form-control" id="id" placeholder="" value="" required />
+                    <input type="text" class="form-control" id="id" oninput="enterId(value)" required />
                     <div class="invalid-feedback">
-                        Valid first name is required.
+                        该身份证号已注册。
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="password">密码</label>
-                    <input type="password" class="form-control" id="password" placeholder="" value="" required />
-                    <div class="invalid-feedback">
-                        Valid first name is required.
-                    </div>
+                    <input type="password" class="form-control" id="password" oninput="enterPassword(value)" required />
                 </div>
                 <div class="form-group">
                     <label for="validPassword">确认密码</label>
-                    <input type="password" class="form-control" id="validPassword" placeholder="" value="" required />
+                    <input type="password" class="form-control" id="validPassword" oninput="checkPassword(value)" required />
                     <div class="invalid-feedback">
-                        Valid first name is required.
+                        两次密码不一致。
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="name">姓名</label>
-                    <input type="text" class="form-control" id="name" placeholder="" value="" required />
-                    <div class="invalid-feedback">
-                        Valid first name is required.
-                    </div>
+                    <input type="text" class="form-control" id="name" required />
                 </div>
                 <div class="form-group">
                     <label>性别：</label>
                     <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="maleRadio" name="sex" class="custom-control-input">
+                        <input type="radio" id="maleRadio" name="sex" class="custom-control-input" checked="checked">
                         <label class="custom-control-label" for="maleRadio">男</label>
                     </div>
                     <div class="custom-control custom-radio custom-control-inline">
@@ -50,19 +44,13 @@
                 </div>
                 <div class="form-group">
                     <label for="tel">电话</label>
-                    <input type="text" class="form-control" id="tel" placeholder="" value="" required />
-                    <div class="invalid-feedback">
-                        Valid first name is required.
-                    </div>
+                    <input type="text" class="form-control" id="tel" required />
                 </div>
                 <div class="form-group">
                     <label for="address">家庭住址</label>
-                    <input type="text" class="form-control" id="address" placeholder="" value="" required />
-                    <div class="invalid-feedback">
-                        Valid first name is required.
-                    </div>
+                    <input type="text" class="form-control" id="address" required />
                 </div>
-                <button class="btn btn-primary btn-block" type="submit">注册</button>
+                <button class="btn btn-primary btn-block mt-5" type="submit">注册并登录</button>
             </form>
         </div>
     </div>

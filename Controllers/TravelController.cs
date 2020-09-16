@@ -29,6 +29,10 @@ namespace EpidemicManager.Controllers
             var session = HttpContext.Session;
             var userKind = session.GetString("userKind");
             var userId = session.GetString("userId");
+            if (userId == null)
+            {
+                return RedirectPermanent("/login?path=travel/PeopleAdd");
+            }
             var model = new Mamodel
             {
                 maID = userId
@@ -41,6 +45,10 @@ namespace EpidemicManager.Controllers
             var userKind = session.GetString("userKind");
             var userId = session.GetString("userId");
             var realpresite = session.GetString("realpresite");
+            if (userId == null)
+            {
+                return RedirectPermanent("/login?path=travel/ShowQRcode");
+            }
             var model = new Mamodel
             {
                 maID = userId,
@@ -53,6 +61,10 @@ namespace EpidemicManager.Controllers
             var session = HttpContext.Session;
             var userKind = session.GetString("userKind");
             var userId = session.GetString("userId");
+            if (userId == null)
+            {
+                return RedirectPermanent("/login?path=travel/Addpresite");
+            }
             if (userKind != "manager")
             {
                 return View("notmanager");
@@ -98,16 +110,19 @@ namespace EpidemicManager.Controllers
             return RedirectToAction("Index", "Home");
 
         }
-        public IActionResult Show(string id)
+        public IActionResult Show()
         {
-            if (id != null)
+            var session = HttpContext.Session;
+            var userKind = session.GetString("userKind");
+            var userId = session.GetString("userId");
+            if (userId == null)
             {
-                Sql.Execute("INSERT INTO people VALUES(@0, 'name', 'address', 'tel', 'sex', 'password')", id);
+                return RedirectPermanent("/login?path=travel/Show");
             }
-            var ID = Sql.Read("SELECT ID FROM travel_info");
-            var date = Sql.Read("SELECT date FROM travel_info"); 
-            var time = Sql.Read("SELECT time FROM travel_info"); 
-            var site = Sql.Read("SELECT site FROM travel_info");
+            var ID = Sql.Read("SELECT ID FROM travel_info WHERE ID=@0",userId);
+            var date = Sql.Read("SELECT date FROM travel_info WHERE ID=@0", userId); 
+            var time = Sql.Read("SELECT time FROM travel_info WHERE ID=@0", userId); 
+            var site = Sql.Read("SELECT site FROM travel_info WHERE ID=@0", userId);
             var IDlist = new List<string>();
             var datelist = new List<string>();
             var timelist = new List<string>();

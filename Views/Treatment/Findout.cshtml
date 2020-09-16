@@ -5,25 +5,25 @@
 }
 <body class="body">
     <div class="text-c">
-        @if (Model.IDs.Count != 0) {
-            int m = 0;
-            
-        <form>
-            <p><input id="sss" type="hidden" value=@Model.IDs[0]></p>
-            <p><div>编号：@Model.IDs[0]</div></p>
-            <p><div>医生ID：@Model.IDs[1]</div></p>
-            <p><div>病人ID：@Model.IDs[2]</div></p>
-            <p><div>日期：@Model.IDs[3]</div></p>
-            <p><div>时间：@Model.IDs[4]</div></p>
-            <p><div>用药：@Model.IDs[5]</div></p>
-            <p><div>备注：@Model.IDs[6]</div></p>
-        </form>
-                }
+        @if (Model.IDs.Count != 0)
+        {
 
-                <div id="h">
-                    <button id="buttonoo" class="button" onclick="modifi2()">修改</button>
-                </div>
-                <div id="staff"></div>
-                
-            </div>
+            <form >
+                <p class="text-left"><input id="sss" type="hidden" value=@Model.IDs[0]></p>
+                <p class="text-left"><div>编号：@Model.IDs[0]</div></p>
+                <p class="text-left"><div>医生ID：@Model.IDs[1]</div></p>
+                <p class="text-left"><div>病人ID：@Model.IDs[2]</div></p>
+                <p class="text-left"><div>修改日期：@Model.IDs[3]</div></p>
+                <p class="text-left"><div>修改时间：@Model.IDs[4]</div></p>
+                <p class="text-left"><div>用药：<br /> @Model.IDs[5]</div></p>
+                <p class="text-left"><div>备注：<br /> @Model.IDs[6]</div></p>
+            </form>
+        }
+
+        <div id="h">
+            <button id="buttonoo" class="btn btn-primary" onclick="modifi2()">修改</button>
+        </div>
+        <div id="staff"></div>
+
+    </div>
 </body>

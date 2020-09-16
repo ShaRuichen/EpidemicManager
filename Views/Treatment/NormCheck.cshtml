@@ -1,0 +1,28 @@
+@model TreatmentModel
+@{
+    ViewBag.Ref = "treatment";
+    ViewBag.Title = "治疗方案";
+}
+<body class="body">
+    <div class="text-c">
+        @if (Model.IDs.Count == 0)
+        {
+            <p>当前身份不是病人</p>
+        }
+        @if (Model.IDs.Count != 0)
+        {
+
+            <form>
+                <p class="text-left"><div>编号：@Model.IDs[0]</div></p>
+                <p class="text-left"><div>医生ID：@Model.IDs[1]</div></p>
+                <p class="text-left"><div>病人ID：@Model.IDs[2]</div></p>
+                <p class="text-left"><div>日期：@Model.IDs[3]</div></p>
+                <p class="text-left"><div>时间：@Model.IDs[4]</div></p>
+                <p class="text-left"><div>用药：@Model.IDs[5]</div></p>
+                <p class="text-left"><div>备注：@Model.IDs[6]</div></p>
+            </form>
+        }
+
+    </div>
+</body>
+

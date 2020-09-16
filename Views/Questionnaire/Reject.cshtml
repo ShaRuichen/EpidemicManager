@@ -1,11 +1,11 @@
-@{
+﻿@{
     ViewBag.Ref = "questionnaire";
-    ViewBag.Title = "填写完毕";
+    ViewBag.Title = "已经填写过了！";
 }
-    <div>
-        <h1>您已填写完成今日问卷，感谢您的配合与支持！</h1>
-        <SPAN style="FONT-SIZE: 12px">
-            <script type="text/javascript"><!--
+<div>
+    <h1>您今日已经填写过问卷了！</h1>
+    <SPAN style="FONT-SIZE: 12px">
+        <script type="text/javascript"><!--
                 function go(t, url) {
                     document.write("<div id=text>本页将在<strong id='tt'></strong>后，跳转至：<span id='link'></span></div>");
                     document.getElementById("link").innerHTML = "<a href=" + url + ">" + url + "</a>";
@@ -31,7 +31,6 @@
                     }
                 }
                 //--></script>
-            <script type="text/javascript">go(5, "/Home")</script>
-        </SPAN>
-    </div>
-
+        <script type="text/javascript">go(5, "/Home")</script>
+    </SPAN>
+</div>

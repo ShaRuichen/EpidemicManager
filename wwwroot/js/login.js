@@ -40,27 +40,60 @@ function changeId() {
 }
 
 function registerPeople() {
-    if ($('#peoplePassword').val() != $('#peopleConfirmPassword').val()) {
-        $('#peopleErrorMessage').html('两次密码不一致。')
-        return
-    }
     var parameters = {
-        id: $('#peopleId').val(),
-        password: $('#peoplePassword').val(),
-        name: $('#peopleName').val(),
-        sex: $('input[name="peopleSex"]:checked').val(),
-        tel: $('#peopleTel').val(),
-        address: $('#peopleAddress').val()
+        id: $('#id').val(),
+        password: $('#password').val(),
+        name: $('#name').val(),
+        sex: $('input[name="sex"]:checked').val(),
+        tel: $('#tel').val(),
+        address: $('#address').val()
     };
     $.post('/Login/RegisterPeople', parameters, function (result) {
         if (result) {
             $(location).attr('href', '/Home')
         }
         else {
-            $('#peopleErrorMessage').html('该身份证号已注册。')
+            $('#id').addClass('is-invalid')
         }
     })
+    parameters = {
+        id: parameters.id,
+        password: parameters.password,
+        kind: "people",
+    }
+    $.post('/login/login', parameters, function (result) { })
     return false
+}
+
+function enterId(value) {
+    $('#id').removeClass('is-invalid')
+}
+
+function enterPassword(value) {
+    var valid = $('#validPassword')
+    if (valid.val() == "") return
+    var password = $('#password')
+    if (valid.val() != value) {
+        valid.removeClass('is-valid')
+        valid.addClass('is-invalid')
+    }
+    else {
+        valid.removeClass('is-invalid')
+        valid.addClass('is-valid')
+    }
+}
+
+function checkPassword(value) {
+    var password = $('#password')
+    var valid = $('#validPassword')
+    if (password.val() != value) {
+        valid.removeClass('is-valid')
+        valid.addClass('is-invalid')
+    }
+    else {
+        valid.removeClass('is-invalid')
+        valid.addClass('is-valid')
+    }
 }
 
 function registerPatient() {

@@ -8,19 +8,19 @@
     <div class="form-group">
         <label for="patient_id" class="col-sm-2 control-label">患者身份证号</label>
         <div class="col-sm-10">
-            @Html.TextBox("patient_id", null, new { @class = " form-control ", placeholder = "请输入身份证号", oninput = "value= value.replace(/[^\\d|xX]/g,'')" })
+            @Html.TextBox("patient_id", null, new { @class = " form-control ", placeholder = "请输入身份证号", oninput = "value= value.replace(/[^\\d|xX]/g,'')" ,required = "required" })
         </div>
     </div>
     <div class="form-group">
         <label for="title" class="col-sm-2 control-label">报告标题</label>
         <div class="col-sm-10">
-            @Html.TextBox("title", null, new { @class = " form-control ", MaxLength = 30, placeholder = "请输入检查报告标题" })
+            @Html.TextBox("title", null, new { @class = " form-control ", MaxLength = 30, placeholder = "请输入检查报告标题" , required = "required" })
         </div>
     </div>
     <div class="form-group">
         <label for="detail" class="col-sm-2 control-label">报告详细内容</label>
         <div class="col-sm-10">
-            <textarea class="form-control" id="detail" rows="5"  MaxLength = "500" placeholder="请输入检查报告的详细内容"></textarea>
+            <textarea class="form-control" id="detail" rows="5"  MaxLength = "500" placeholder="请输入检查报告的详细内容" required = "required"></textarea>
         </div>
     </div>
     
