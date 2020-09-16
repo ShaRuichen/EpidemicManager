@@ -19,7 +19,7 @@ namespace EpidemicManager.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            var ques = Sql.Read("SELECT * FROM questionnaire");//查找所有问题
+            var ques = Sql.Read("SELECT * FROM questionnaire WHERE is_deleted=0");//查找所有问题
             var list = new List<Question>();
             var model = new QuestionnaireModel();//问卷模型
             foreach (DataRow question in ques)
@@ -90,7 +90,7 @@ namespace EpidemicManager.Controllers
         [HttpGet]
         public IActionResult Fill()
         {
-            var session = HttpContext.Session;
+            var session=HttpContext.Session;
             var filler_id = HttpContext.Session.GetString("userId");
             var date = DateTime.Now.ToString("yyyy--MM-dd");
             var fill = 0;
@@ -99,12 +99,12 @@ namespace EpidemicManager.Controllers
             {
                 fill++;
             }
-            if (fill != 0)
+            if (fill == 0)
             {
-                return RedirectToAction("index");
+                return RedirectToAction("reject");
             }
             //判断用户当日是否已经填写过问卷
-            var ques = Sql.Read("SELECT * FROM questionnaire");//查找所有问题
+            var ques = Sql.Read("SELECT * FROM questionnaire WHERE is_deleted=0");//查找所有问题
             var list = new List<Question>();
             var model = new QuestionnaireModel();//问卷模型
             foreach (DataRow question in ques)
@@ -145,22 +145,22 @@ namespace EpidemicManager.Controllers
             var session = HttpContext.Session;
             filler_id = HttpContext.Session.GetString("userId");
             var date = DateTime.Now.ToString("yyyy--MM-dd");
-            var ques = Sql.Read("SELECT * FROM questionnaire");
-            int count = 0;
+            var ques = Sql.Read("SELECT * FROM questionnaire WHERE is_deleted=0");
+            int count=0;
             var type = new List<bool>();
             foreach (DataRow question in ques)
             {
                 if (question[3].ToString() == "选择")
                 {
                     type.Add(true);
-                }
+                        }
                 else
                 {
                     type.Add(false);
                 }
-                count++;
+                    count++;
             }
-            var effectiveques = Sql.Read("SELECT q_num FROM questionnaire where is_deleted=0");
+            var effectiveques =Sql.Read("SELECT q_num FROM questionnaire where is_deleted=0");
             List<int> trueQuesNum = new List<int>();
             foreach (DataRow num in effectiveques)
             {
@@ -188,9 +188,14 @@ namespace EpidemicManager.Controllers
             return View();
         }
 
+        public IActionResult Reject()
+        {
+            return View();
+        }
+
         public IActionResult Result()
         {
-            var ques = Sql.Read("SELECT * FROM questionnaire");//查找所有问题
+            var ques = Sql.Read("SELECT * FROM questionnaire WHERE is_deleted=0");//查找所有问题
             var list = new List<Question>();
             var model = new QuestionnaireModel();//问卷模型
             foreach (DataRow question in ques)
@@ -234,7 +239,7 @@ namespace EpidemicManager.Controllers
             foreach (DataRow ans in results)
             {
                 int q_num = Convert.ToInt32(ans[0]);
-                if (!list[findPosition(q_num, trueQuesNum)].is_Bridge)
+                if(!list[findPosition(q_num,trueQuesNum)].is_Bridge)
                 {
                     string content = ans[1].ToString();
                     (list[findPosition(q_num, trueQuesNum)].fills).Add(content);
@@ -253,20 +258,30 @@ namespace EpidemicManager.Controllers
         public bool AddRadios(string content, string op1, string op2, string op3, string op4)
         {
             var ids = Sql.Read("SELECT MAX(q_num) FROM questionnaire");
-            int id = 0;
-            string managerId = "123456";
-            if (content == null)
+            int count = 0;
+            int id=0;
+            foreach (DataRow num in ids)
+            {
+                count++;
+            }
+            //string managerId = "123456";
+            if (content==null)
             {
                 return false;
             }
             var session = HttpContext.Session;
-            managerId = HttpContext.Session.GetString("userId");
-
-            foreach (DataRow at in ids)
+            var managerId=HttpContext.Session.GetString("userId");
+            if(count==1)
             {
-                id = Convert.ToInt32(at[0]) + 1;
+                id = 1;
             }
-            Sql.Execute("INSERT INTO questionnaire VALUES(@0, @1, @2, @3, @4)", id, content, managerId, "选择", 0);
+            else {
+                foreach (DataRow at in ids)
+                {
+                    id = Convert.ToInt32(at[0]) + 1;
+                }
+            }
+            Sql.Execute("INSERT INTO questionnaire VALUES(@0, @1, @2, @3, @4)", id, content,managerId, "选择", 0);
             if (op1 != null)
             {
                 Sql.Execute("INSERT INTO question_option VALUES(@0, @1, @2)", 1, op1, id);
@@ -291,18 +306,29 @@ namespace EpidemicManager.Controllers
         public bool AddFill(string q_content)
         {
             var ids = Sql.Read("SELECT MAX(q_num) FROM questionnaire");
+            int count = 0;
             int id = 0;
-            string managerId = "123456";
-            var session = HttpContext.Session;
-            managerId = HttpContext.Session.GetString("userId");
+            foreach (DataRow num in ids)
+            {
+                count++;
+            }
+            //string managerId = "123456";
             if (q_content == null)
             {
                 return false;
             }
-
-            foreach (DataRow at in ids)
+            var session = HttpContext.Session;
+            var managerId = HttpContext.Session.GetString("userId");
+            if (count == 0)
             {
-                id = Convert.ToInt32(at[0]) + 1;
+                id = 1;
+            }
+            else
+            {
+                foreach (DataRow at in ids)
+                {
+                    id = Convert.ToInt32(at[0]) + 1;
+                }
             }
             Sql.Execute("INSERT INTO questionnaire VALUES(@0, @1, @2, @3, @4)", id, q_content, managerId, "填空", 0);
             return true;
@@ -331,10 +357,10 @@ namespace EpidemicManager.Controllers
 
         }
 
-        public int findPosition(int key, List<int> list)
-        {
+        public int findPosition(int key,List<int> list)
+            {
             int pos = 0;
-            for (int i = 0; i < list.Count; i++)
+            for(int i=0;i<list.Count;i++)
             {
                 if (key != list[i])
                     pos++;
