@@ -16,4 +16,13 @@
     overflow: hidden;*/
     color: #666464;
     height: auto;
-} 
+}
+
+#h{
+    margin-bottom:10px;
+    margin-top:10px;
+}
+
+.baody{
+    padding-left :450px;
+}
