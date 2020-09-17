@@ -113,7 +113,13 @@ namespace EpidemicManager.Controllers
                         }
                     }
                 }
-                
+                for (int i = 0; i < list2.Count; i++)
+                {
+                    if ((i + 4) % 7 == 0)
+                    {
+                        list2[i] = CutString(list2[i], 11, false);
+                    }
+                }
 
                 var model = new TreatmentModel
                 {
@@ -143,7 +149,13 @@ namespace EpidemicManager.Controllers
                     list2.Add(person[i].ToString());
                 }
             }
-
+            for(int i = 0; i < list2.Count; i++)
+            {
+                if ((i + 4) % 7 == 0)
+                {
+                    list2[i] = CutString(list2[i], 11, false);
+                }
+            }
 
             var model = new TreatmentModel
             {
@@ -208,6 +220,66 @@ namespace EpidemicManager.Controllers
                 return 2;
             }
         }
+        public IActionResult Findout2(string plan_id2)
+        {
+            var plan = Sql.Read("SELECT * FROM treat_plan WHERE plan_id ='" + plan_id2 + "'");
+            var list2 = new List<string>();
+            foreach (DataRow person in plan)
+            {
+                for (int i = 0; i < 7; i++)
+                {
+                    list2.Add(person[i].ToString());
+                }
+            }
+
+
+            var model = new TreatmentModel
+            {
+                IDs = list2,
+            };
+
+            return View(model);
+        }
+        public static string CutString(string str, int len, bool flag)
+        {
+            string _outString = "";
+            int _len = 0;
+            for (int i = 0; i < str.Length; i++)
+            {
+                if (Char.ConvertToUtf32(str, i) >= Convert.ToInt32("4e00", 16) && Char.ConvertToUtf32(str, i) <= Convert.ToInt32("9fff", 16))
+                {
+                    _len += 2;
+                    if (_len > len)//截取的长度若是最后一个占两个字节，则不截取
+                    {
+                        break;
+                    }
+                }
+                else
+                {
+                    _len++;
+                }
+
+
+                try
+                {
+                    _outString += str.Substring(i, 1);
+                }
+                catch
+                {
+                    break;
+                }
+                if (_len >= len)
+                {
+                    break;
+                }
+            }
+            if (str != _outString && flag == true)//判断是否添加省略号
+            {
+                _outString += "...";
+            }
+            return _outString;
+        }
     }
+
 }
 
