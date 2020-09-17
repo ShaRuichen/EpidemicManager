@@ -81,7 +81,7 @@ namespace EpidemicManager.Controllers
             Models.Trmodel travelinfo = new Trmodel();
             var session = HttpContext.Session;
             var userId = session.GetString("userId");
-            travelinfo.site = Request.Form["site"];
+            travelinfo.site = Request.Form["site1"];
             string date = DateTime.Now.ToString("yyyy-MM-dd");
             string time = DateTime.Now.ToString("T");
             Sql.Execute("INSERT INTO travel_info VALUES(@0, @1, @2, @3)", userId, date, time, travelinfo.site);
