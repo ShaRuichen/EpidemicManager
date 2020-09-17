@@ -5,3 +5,7 @@
 .s_nav-bg {
     background: #bfdfff;
 }
+
+.s-max-width {
+    max-width: 50rem;
+}

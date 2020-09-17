@@ -4,54 +4,55 @@
 }
 
 <div class="container">
+    <h1 class="mb-3">民众注册</h1>
+    <hr class="mb-4" />
+    <form onsubmit="return registerPeople()">
+        <div class="form-group">
+            <label for="id">身份证号</label>
+            <input type="text" class="form-control" id="id" oninput="enterId(value)" required />
+            <div class="invalid-feedback">
+                该身份证号已注册。
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="password">密码</label>
+            <input type="password" class="form-control" id="password" oninput="enterPassword(value)" required />
+        </div>
+        <div class="form-group">
+            <label for="validPassword">确认密码</label>
+            <input type="password" class="form-control" id="validPassword" oninput="checkPassword(value)" required />
+            <div class="invalid-feedback">
+                两次密码不一致。
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="name">姓名</label>
+            <input type="text" class="form-control" id="name" required />
+        </div>
+        <div class="form-group">
+            <label>性别：</label>
+            <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="maleRadio" name="sex" class="custom-control-input" checked="checked">
+                <label class="custom-control-label" for="maleRadio">男</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="femaleRadio" name="sex" class="custom-control-input">
+                <label class="custom-control-label" for="femaleRadio">女</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="tel">电话</label>
+            <input type="text" class="form-control" id="tel" required />
+        </div>
+        <div class="form-group">
+            <label for="address">家庭住址</label>
+            <input type="text" class="form-control" id="address" required />
+        </div>
+        <button class="btn btn-primary btn-block mt-5" type="submit">注册并登录</button>
+    </form>
     <div class="row">
-        <div class="col-md-8 offset-2  order-md-1">
-            <h1 class="mb-3">民众注册</h1>
-            <hr class="mb-4" />
-            <form onsubmit="return registerPeople()">
-                <div class="form-group">
-                    <label for="id">身份证号</label>
-                    <input type="text" class="form-control" id="id" oninput="enterId(value)" required />
-                    <div class="invalid-feedback">
-                        该身份证号已注册。
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="password">密码</label>
-                    <input type="password" class="form-control" id="password" oninput="enterPassword(value)" required />
-                </div>
-                <div class="form-group">
-                    <label for="validPassword">确认密码</label>
-                    <input type="password" class="form-control" id="validPassword" oninput="checkPassword(value)" required />
-                    <div class="invalid-feedback">
-                        两次密码不一致。
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="name">姓名</label>
-                    <input type="text" class="form-control" id="name" required />
-                </div>
-                <div class="form-group">
-                    <label>性别：</label>
-                    <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="maleRadio" name="sex" class="custom-control-input" checked="checked">
-                        <label class="custom-control-label" for="maleRadio">男</label>
-                    </div>
-                    <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="femaleRadio" name="sex" class="custom-control-input">
-                        <label class="custom-control-label" for="femaleRadio">女</label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="tel">电话</label>
-                    <input type="text" class="form-control" id="tel" required />
-                </div>
-                <div class="form-group">
-                    <label for="address">家庭住址</label>
-                    <input type="text" class="form-control" id="address" required />
-                </div>
-                <button class="btn btn-primary btn-block mt-5" type="submit">注册并登录</button>
-            </form>
+        <div class="col-md-8 offset-2 order-md-1">
+
         </div>
     </div>
 </div>
