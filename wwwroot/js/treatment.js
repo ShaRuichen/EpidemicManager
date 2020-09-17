@@ -70,7 +70,7 @@ function insert() {
     $.post('/Treatment/Update',
         { plan_id: document.getElementById("sss").value,  med: document.getElementById("input_0").value, det: document.getElementById("input_1").value }, function (result) {
             alert("修改成功");
-            window.location.href = "../Treatment/Check";
+            window.location.href = "../Treatment/Check?patient=null";
     })
     
 }
@@ -90,4 +90,8 @@ function CheckLogin2() {
 function Moo(h) {
     var a = document.getElementById(h.id).value;
     window.location.href = "../Treatment/Findout?plan_id2=" + a;
+}
+function Moo1(h) {
+    var a = document.getElementById(h.id).value;
+    window.location.href = "../Treatment/Findout2?plan_id2=" + a;
 }
