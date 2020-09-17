@@ -10,34 +10,30 @@
         <p class="lead">下表是您捐款需要填写的相关信息，谢谢您的爱心！</p>
     </div>
 </div>
-<div class="row">
-    <div class="col-md-8 offset-2  order-md-1">
-        <h4 class="mb-3 ">捐献信息</h4>
-        <form role="form" method="post" action="DonateMoney">
-            <div class="mb-3">
-                <label for="username">身份证号</label>
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">身份证号</span>
-                    </div>
-                    <input type="text" class="form-control" value="@Model.people_id" readonly />
-                </div>
+<h4 class="mb-3 ">捐献信息</h4>
+<form role="form" method="post" action="DonateMoney">
+    <div class="mb-3">
+        <label for="username">身份证号</label>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">身份证号</span>
             </div>
-
-            <div class="mb-3">
-                <label for="number">金额</label>
-                @Html.TextBox("number", null, new { @class = " form-control ", placeholder = "请输入捐款金额", required = "required", oninput = "value=value.replace(/[^\\d]/g,'')" })
-            </div>
-            <hr class="mb-4">
-            <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="save-info">
-                <label class="custom-control-label" for="save-info">我已确认无误！</label>
-            </div>
-            <hr class="mb-4">
-            <button type="submit" class="btn btn-primary btn-lg btn-block">提交</button>
-        </form>
+            <input type="text" class="form-control" value="@Model.people_id" readonly />
+        </div>
     </div>
-</div>
+
+    <div class="mb-3">
+        <label for="number">金额</label>
+        @Html.TextBox("number", null, new { @class = " form-control ", placeholder = "请输入捐款金额", required = "required", oninput = "value=value.replace(/[^\\d]/g,'')" })
+    </div>
+    <hr class="mb-4">
+    <div class="custom-control custom-checkbox">
+        <input type="checkbox" class="custom-control-input" id="save-info" required>
+        <label class="custom-control-label" for="save-info">我已确认无误！</label>
+    </div>
+    <hr class="mb-4">
+    <button type="submit" class="btn btn-primary btn-lg btn-block">提交</button>
+</form>
 <div id="kind" kind="@Model.kind"></div>
 
 
