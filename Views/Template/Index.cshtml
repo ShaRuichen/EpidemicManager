@@ -4,10 +4,11 @@
     ViewBag.Title = "模板";
 }
 
+<script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=wWYw0yCb8ntXmSgTxTx40vKR"></script>
 <div class="text-center">
     <h1>Hi</h1>
-    <div id="button" class="button" onclick="click1('World')">按钮</div>
-    @foreach(var id in Model.Ids)
+    <div id="button" class="button" onclick="getLocation()">按钮</div>
+    @foreach (var id in Model.Ids)
     {
         <p>@id</p>
     }
