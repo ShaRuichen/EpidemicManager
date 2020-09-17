@@ -3,12 +3,12 @@
     ViewBag.Ref = "treatment";
     ViewBag.Title = "治疗方案";
 }
-<body class="body">
-    <div class="text-c">
+<body>
+    <div class="baody">
         @if (Model.IDs.Count != 0)
         {
 
-            <form >
+            <form>
                 <p class="text-left"><input id="sss" type="hidden" value=@Model.IDs[0]></p>
                 <p class="text-left"><div>编号：@Model.IDs[0]</div></p>
                 <p class="text-left"><div>医生ID：@Model.IDs[1]</div></p>
