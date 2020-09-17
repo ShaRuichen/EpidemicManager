@@ -5,8 +5,9 @@
 }
 <body class="abody" onload="CheckLogin1()">
     <div class="text-c">
+        <h3>治疗方案总览</h3>
         <div id="h">
-            查找病人：<input type="text" value="" id="plan_id2" />
+            查找病人：<input type="text" value="" class="input-group-addon" id="plan_id2" />
             <button id="buttonoo" class="btn btn-primary" onclick="modifi()">查看/修改</button>
         </div>
         @if (Model.IDs.Count == 0)
