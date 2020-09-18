@@ -5,21 +5,16 @@
 @{ ViewBag.Ref = "distribution";
     ViewBag.Title = "hello"; }
 <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
-@*<h1>钱</h1>
-@foreach (var id in Model.Idsdocmon)
-{
-<h5 id=@id.id value="@id.id">id:@id.id 捐献日期:@id.datet 捐献时间:@id.timet 分配日期:@id.dated 分配时间:@id.timed 数量:@id.number</h5>
-}
-<br />
-<br />
-<br />
-<h1>物资</h1>
-@foreach (var id in Model.Idsdocmat)
-{
-    <h5 id=@id.id value="@id.id">id:@id.id 捐献日期:@id.datet 捐献时间:@id.timet 分配日期:@id.dated 分配时间:@id.timed 数量:@id.amount 类型:@id.type </h5>
-}*@
 
+<div class="container">
+    <div class="py-5 text-center">
+        <img class="d-block mx-auto mb-4" src="~/res/houqinwuzi.svg" alt="">
+        <h2>物资与资金分配情况</h2>
+        <p class="lead">下表是您所在的医院的物资与资金分配情况</p>
+    </div>
+</div>
 
+@*
 <table class="table table-hover table-bordered table-striped">
     <caption>资金分配情况</caption>
     <thead>
@@ -35,15 +30,15 @@
     <tbody>
         @foreach (var id in Model.Idsdocmon)
         {
-        <tr>
-            <td>@id.id</td>
-            <td>@id.datet</td>
-            <td>@id.timet</td>
-            <td>@id.dated</td>
-            <td>@id.timed</td>
-            <td>@id.number</td>
-        </tr>
-            
+            <tr>
+                <td>@id.id</td>
+                <td>@id.datet</td>
+                <td>@id.timet</td>
+                <td>@id.dated</td>
+                <td>@id.timed</td>
+                <td>@id.number</td>
+            </tr>
+
         }
     </tbody>
 </table>
@@ -77,4 +72,82 @@
 
         }
     </tbody>
-</table>
+</table>*@
+
+
+
+
+
+<ul id="myTab" class="nav nav-pills">
+    <li class="active">
+        <a href="#home" data-toggle="tab">
+            资金分配情况
+        </a>
+    </li>
+    <a>          </a>
+    <li><a href="#ios" data-toggle="tab">物资分配情况</a></li>
+
+</ul>
+<div id="myTabContent" class="tab-content">
+    <div class="tab-pane fade in active" id="home">
+        <table class="table table-hover table-bordered table-striped">
+            <caption>资金分配情况</caption>
+            <thead>
+                <tr>
+                    <th>编号</th>
+                    <th>捐献日期</th>
+                    <th>捐献时间</th>
+                    <th>分配日期</th>
+                    <th>分配时间</th>
+                    <th>数量</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var id in Model.Idsdocmon)
+                {
+                    <tr>
+                        <td>@id.id</td>
+                        <td>@id.datet</td>
+                        <td>@id.timet</td>
+                        <td>@id.dated</td>
+                        <td>@id.timed</td>
+                        <td>@id.number</td>
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="tab-pane fade" id="ios">
+        <table class="table table-hover table-bordered table-striped">
+            <caption>物资分配情况</caption>
+            <thead>
+                <tr>
+                    <th>编号</th>
+                    <th>捐献日期</th>
+                    <th>捐献时间</th>
+                    <th>分配日期</th>
+                    <th>分配时间</th>
+                    <th>数量</th>
+                    <th>类型</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var id in Model.Idsdocmat)
+                {
+                    <tr>
+                        <td>@id.id</td>
+                        <td>@id.datet</td>
+                        <td>@id.timet</td>
+                        <td>@id.dated</td>
+                        <td>@id.timed</td>
+                        <td>@id.amount</td>
+                        <td>@id.type</td>
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+    </div>
+
+</div>
