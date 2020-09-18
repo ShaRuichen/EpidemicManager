@@ -5,6 +5,25 @@
 @{ ViewBag.Ref = "distribution";
     ViewBag.Title = "hello"; }
 <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+@*<h1>钱</h1>
+    @foreach (var id in Model.Idsdocmon)
+    {
+    <h5 id=@id.id value="@id.id">id:@id.id 捐献日期:@id.datet 捐献时间:@id.timet 分配日期:@id.dated 分配时间:@id.timed 数量:@id.number</h5>
+    }
+    <br />
+    <br />
+    <br />
+    <h1>物资</h1>
+    @foreach (var id in Model.Idsdocmat)
+    {
+        <h5 id=@id.id value="@id.id">id:@id.id 捐献日期:@id.datet 捐献时间:@id.timet 分配日期:@id.dated 分配时间:@id.timed 数量:@id.amount 类型:@id.type </h5>
+    }*@
+
+
+@*<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">*@
+@*<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>*@
+
 
 <div class="container">
     <div class="py-5 text-center">
@@ -151,3 +170,5 @@
     </div>
 
 </div>
+
+
