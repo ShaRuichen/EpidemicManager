@@ -66,24 +66,31 @@ namespace EpidemicManager.Controllers
             else return View();
         }
         [HttpPost]
-        public IActionResult Changepeople(SettingsPeople settingsPeople)
+        public bool Changepeople(string name,string address,string tel, string sex,string password,string oldpassword)
         {
             var id = HttpContext.Session.GetString("userId");
-            SettingsPeople people_info = new SettingsPeople();
-            people_info.name = Request.Form["name"];
-            people_info.address = Request.Form["address"];
-            people_info.tel = Request.Form["tel"];
-            people_info.sex = Request.Form["sex"];
-            people_info.password = Request.Form["password"];
+            if(oldpassword == null)
+            {
+                Sql.Execute("UPDATE people set name=@1,address=@2,tel=@3,sex=@4 where id=@0", id, name, address, tel, sex);
+                return true;
+            }
             var people_pass = Sql.Read("SELECT password from people where ID=@0",id);
             var PEO_password = new List<string>();
-            if (people_info.password == "")
+            foreach (DataRow peoi in people_pass)
             {
-                Sql.Execute("UPDATE people set name=@1,address=@2,tel=@3,sex=@4 where id=@0", id, people_info.name, people_info.address, people_info.tel, people_info.sex);
-                return RedirectToAction("Success");
+                PEO_password.Add(peoi[0].ToString());
             }
-            Sql.Execute("UPDATE people set name=@1,address=@2,tel=@3,sex=@4,password=@5 where id=@0", id, people_info.name, people_info.address, people_info.tel, people_info.sex, people_info.password);
-            return RedirectToAction("Success");
+            if (PEO_password[0] != oldpassword) 
+            {
+                return false;
+            }
+            if (password == null)
+            {
+                Sql.Execute("UPDATE people set name=@1,address=@2,tel=@3,sex=@4 where id=@0", id, name, address, tel, sex);
+                return true;
+            }
+            Sql.Execute("UPDATE people set name=@1,address=@2,tel=@3,sex=@4,password=@5 where id=@0", id, name, address, tel, sex, password);
+            return true;
         }
 
         [HttpGet]
@@ -117,20 +124,31 @@ namespace EpidemicManager.Controllers
             }
         }
         [HttpPost]
-        public IActionResult Doctor(Settingsdoctor settingsdoctor)
+        public bool Doctor(string name,string hos_name,string password,string oldpassword)
         {
-            Settingsdoctor doc_info = new Settingsdoctor();
             var id = HttpContext.Session.GetString("userId");
-            doc_info.hos_name = Request.Form["hos_name"];
-            doc_info.name = Request.Form["name"];
-            doc_info.password = Request.Form["password"];
-            if (doc_info.password == "")
+            if (oldpassword == null)
             {
-                Sql.Execute("UPDATE doctor set name=@1,hospital_name=@2 where id=@0", id, doc_info.name, doc_info.hos_name);
-                return RedirectToAction("Success");
+                Sql.Execute("UPDATE doctor set name=@1,hospital_name=@2 where id=@0", id, name, hos_name);
+                return true;
             }
-            Sql.Execute("UPDATE doctor set name=@1,hospital_name=@2,password=@3 where id=@0", id, doc_info.name, doc_info.hos_name, doc_info.password);
-            return RedirectToAction("Success");
+            var people_pass = Sql.Read("SELECT password from doctor where ID=@0", id);
+            var PEO_password = new List<string>();
+            foreach (DataRow peoi in people_pass)
+            {
+                PEO_password.Add(peoi[0].ToString());
+            }
+            if (PEO_password[0] != oldpassword)
+            {
+                return false;
+            }
+            if(password==null)
+            {
+                Sql.Execute("UPDATE doctor set name=@1,hospital_name=@2 where id=@0", id, name, hos_name);
+                return true;
+            }
+            Sql.Execute("UPDATE doctor set name=@1,hospital_name=@2,password=@3 where id=@0", id, name, hos_name, password);
+            return true;
         }
         [HttpGet]
         public IActionResult Manager()
@@ -165,22 +183,31 @@ namespace EpidemicManager.Controllers
             return View(model);
         }
         [HttpPost]
-        public IActionResult Manager(Settingsmanager settingsmanager)
+        public bool Manager(string name,string sex,string work_unit,string tel,string oldpassword,string password)
         {
-            Settingsmanager man_info = new Settingsmanager();
             var id = HttpContext.Session.GetString("userId");
-            man_info.name = Request.Form["name"];
-            man_info.sex = Request.Form["sex"];
-            man_info.tel = Request.Form["tel"];
-            man_info.work_unit = Request.Form["work_unit"];
-            man_info.password = Request.Form["password"];
-            if (man_info.password == "")
+            if (oldpassword == null)
             {
-                Sql.Execute("UPDATE manager set name=@1,sex=@2,tel=@3 where id=@0", id, man_info.name, man_info.sex, man_info.tel);
-                return RedirectToAction("Success");
+                Sql.Execute("UPDATE manager set name=@1,sex=@2,work_unit=@3,tel=@4 where id=@0", id, name, sex, work_unit,tel);
+                return true;
             }
-            Sql.Execute("UPDATE manager set name=@1,sex=@2,tel=@3,password=@4 where id=@0", id, man_info.name, man_info.sex, man_info.tel, man_info.password);
-            return RedirectToAction("Success");
+            var people_pass = Sql.Read("SELECT password from manager where ID=@0", id);
+            var PEO_password = new List<string>();
+            foreach (DataRow peoi in people_pass)
+            {
+                PEO_password.Add(peoi[0].ToString());
+            }
+            if (PEO_password[0] != oldpassword)
+            {
+                return false;
+            }
+            if(password==null)
+            {
+                Sql.Execute("UPDATE manager set name=@1,sex=@2,work_unit=@3,tel=@4 where id=@0", id, name, sex, work_unit, tel);
+                return true;
+            }
+            Sql.Execute("UPDATE manager set name=@1,sex=@2,tel=@3,work_unit=@4,password=@5 where id=@0", id, name, sex, tel, work_unit, password);
+            return true;
         }
         [HttpGet]
         public IActionResult Patient()
@@ -326,10 +353,9 @@ namespace EpidemicManager.Controllers
             }
         }
         [HttpPost]
-        public IActionResult Deletepeople(SettingsPeople settingsPeople)
+        public bool Deletepeople(string password)
         {
             var person_id = HttpContext.Session.GetString("userId");
-            var password= Request.Form["password"];
             var people_pass = Sql.Read("SELECT password from people where ID=@0", person_id);
             var PEO_password = new List<string>();
             foreach (DataRow peoi in people_pass)
@@ -338,12 +364,12 @@ namespace EpidemicManager.Controllers
             }
             if (PEO_password[0] != password)
             {
-                return RedirectToAction("PasswordError", "Settings");
+                return false;
             }
             else
             {
                 Sql.Execute("DELETE from people where ID = @0", person_id);
-                return RedirectToAction("logout", "Shared");
+                return true;
             }
         }
         [HttpGet]
@@ -376,10 +402,9 @@ namespace EpidemicManager.Controllers
             return View(model);
         }
         [HttpPost]
-        public IActionResult Deletemanager(Settingsmanager settingsmanager)
+        public bool Deletemanager(string password)
         {
             var person_id = HttpContext.Session.GetString("userId");
-            var password = Request.Form["password"];
             var people_pass = Sql.Read("SELECT password from manager where ID=@0", person_id);
             var PEO_password = new List<string>();
             foreach (DataRow peoi in people_pass)
@@ -388,10 +413,10 @@ namespace EpidemicManager.Controllers
             }
             if (PEO_password[0] != password)
             {
-                return RedirectToAction("PasswordError", "Settings");
+                return false;
             }
             Sql.Execute("DELETE from manager where ID = @0", person_id);
-            return RedirectToAction("logout", "Shared");
+            return true;
         }
         [HttpGet]
         public IActionResult Deletedoctor()
@@ -417,10 +442,9 @@ namespace EpidemicManager.Controllers
             return View(model);
         }
         [HttpPost]
-        public IActionResult Deletedoctor(Settingsdoctor settingsdoctor)
+        public bool Deletedoctor(string password)
         {
             var doc_id = HttpContext.Session.GetString("userId");
-            var password = Request.Form["password"];
             var people_pass = Sql.Read("SELECT password from doctor where ID=@0", doc_id);
             var PEO_password = new List<string>();
             foreach (DataRow peoi in people_pass)
@@ -429,10 +453,10 @@ namespace EpidemicManager.Controllers
             }
             if (PEO_password[0] != password)
             {
-                return RedirectToAction("PasswordError", "Settings");
+                return false;
             }
             Sql.Execute("DELETE from doctor where ID = @0", doc_id);
-            return RedirectToAction("logout", "Shared");
+            return true;
         }
     }
 }
