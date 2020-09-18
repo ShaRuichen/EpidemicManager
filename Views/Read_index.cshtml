@@ -1,0 +1,74 @@
+﻿@model ExamineIndexModel
+@{
+    ViewBag.Ref = "Examine";
+    ViewBag.Title = "查看检查报告";
+}
+
+<div class="text-center">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3><strong>可查看的检查报告</strong></h3>
+        </div>
+    </div>
+</div>
+<br />
+<form method="post" action="Read_index_">
+    
+    <div class="input-group">
+        <input type="text" name="patient_id" class="form-control" aria-describedby="basic-addon2" placeholder="请输入患者身份证号" oninput="value=value.replace(/[^\d|xX]/g,'')" />>
+        <div class=" input-group-append">
+            <button type="submit" class="btn btn-outline-secondary">搜索</button>
+            <button type="button" class="btn btn-outline-secondary" onclick=" window.location.href = '../Examine/Read_index'">查找全部报告</button>
+        </div>
+    </div>
+
+</form>
+<br />
+<br />
+<div class="card-columns">
+    @if (@Model.n > 0)
+    {
+        @for (int i = 0; i < @Model.n; i++)
+        {
+
+
+            <div class="card " style="width: 16rem;">
+                <div class="card-body">
+                    <h5 class="card-title text-success">
+                        @Model.title[i]
+                    </h5>
+                    <p class="card-text">
+                        报告最后一次修改的日期：@Model.date[i]
+                    </p>
+
+                </div>
+                <ul class=" list-group list-group-flush">
+                    <li class="list-group-item">
+                        患者姓名：@Model.name_patient[i]
+                    </li>
+                    <li class="list-group-item ">
+                        患者身份证号：@Model.ID_patient[i]
+                    </li>
+                    <li class="list-group-item ">
+                        <form method="post" action="Read">
+                            <div class="form-group">
+                                <div class="col-sm-10">
+                                    <input type="text" style="display:none" name="report_id" class="form-control" value="@Model.report[i]" readonly />
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="submit" class="btn btn-success">查看</button>
+                                </div>
+                            </div>
+                        </form>
+                    </li>
+                </ul>
+                
+            </div>
+
+
+        }
+    }
+    </div>
