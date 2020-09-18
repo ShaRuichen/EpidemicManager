@@ -20,84 +20,84 @@
     }*@
 
 
-@*<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">*@
-@*<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
-<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>*@
+@*<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>*@
 
 
 <div class="container">
     <div class="py-5 text-center">
-        <img class="d-block mx-auto mb-4" src="~/res/houqinwuzi.svg" alt="">
+        <img class="d-block mx-auto mb-4" src="~/res/yiliaowenjian.svg" alt="">
         <h2>物资与资金分配情况</h2>
-        <p class="lead">下表是您所在的医院的物资与资金分配情况</p>
+        <p class="lead">下面是您所在的医院的物资与资金分配情况</p>
     </div>
 </div>
 
 @*
-<table class="table table-hover table-bordered table-striped">
-    <caption>资金分配情况</caption>
-    <thead>
-        <tr>
-            <th>编号</th>
-            <th>捐献日期</th>
-            <th>捐献时间</th>
-            <th>分配日期</th>
-            <th>分配时间</th>
-            <th>数量</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var id in Model.Idsdocmon)
-        {
+    <table class="table table-hover table-bordered table-striped">
+        <caption>资金分配情况</caption>
+        <thead>
             <tr>
-                <td>@id.id</td>
-                <td>@id.datet</td>
-                <td>@id.timet</td>
-                <td>@id.dated</td>
-                <td>@id.timed</td>
-                <td>@id.number</td>
+                <th>编号</th>
+                <th>捐献日期</th>
+                <th>捐献时间</th>
+                <th>分配日期</th>
+                <th>分配时间</th>
+                <th>数量</th>
             </tr>
+        </thead>
+        <tbody>
+            @foreach (var id in Model.Idsdocmon)
+            {
+                <tr>
+                    <td>@id.id</td>
+                    <td>@id.datet</td>
+                    <td>@id.timet</td>
+                    <td>@id.dated</td>
+                    <td>@id.timed</td>
+                    <td>@id.number</td>
+                </tr>
 
-        }
-    </tbody>
-</table>
+            }
+        </tbody>
+    </table>
 
 
-<table class="table table-hover table-bordered table-striped">
-    <caption>物资分配情况</caption>
-    <thead>
-        <tr>
-            <th>编号</th>
-            <th>捐献日期</th>
-            <th>捐献时间</th>
-            <th>分配日期</th>
-            <th>分配时间</th>
-            <th>数量</th>
-            <th>类型</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var id in Model.Idsdocmat)
-        {
+    <table class="table table-hover table-bordered table-striped">
+        <caption>物资分配情况</caption>
+        <thead>
             <tr>
-                <td>@id.id</td>
-                <td>@id.datet</td>
-                <td>@id.timet</td>
-                <td>@id.dated</td>
-                <td>@id.timed</td>
-                <td>@id.amount</td>
-                <td>@id.type</td>
+                <th>编号</th>
+                <th>捐献日期</th>
+                <th>捐献时间</th>
+                <th>分配日期</th>
+                <th>分配时间</th>
+                <th>数量</th>
+                <th>类型</th>
             </tr>
+        </thead>
+        <tbody>
+            @foreach (var id in Model.Idsdocmat)
+            {
+                <tr>
+                    <td>@id.id</td>
+                    <td>@id.datet</td>
+                    <td>@id.timet</td>
+                    <td>@id.dated</td>
+                    <td>@id.timed</td>
+                    <td>@id.amount</td>
+                    <td>@id.type</td>
+                </tr>
 
-        }
-    </tbody>
-</table>*@
+            }
+        </tbody>
+    </table>*@
 
 
 
 
 
-<ul id="myTab" class="nav nav-pills">
+@*<ul id="myTab" class="nav nav-pills">
     <li class="active">
         <a href="#home" data-toggle="tab">
             资金分配情况
@@ -169,6 +169,90 @@
         </table>
     </div>
 
+</div>*@
+
+
+
+
+
+<nav id="navbar-example2" class="navbar navbar-light bg-light">
+    <a class="navbar-brand" href="#">分配情况</a>
+    <ul class="nav nav-pills">
+        <li class="nav-item">
+            <a class="nav-link" href="#fat">资金</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#mdo">物资</a>
+        </li>
+        @*<li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="#one">one</a>
+                <a class="dropdown-item" href="#two">two</a>
+                <div role="separator" class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#three">three</a>
+            </div>
+        </li>*@
+    </ul>
+</nav>
+<div data-spy="scroll" data-target="#navbar-example2" data-offset="0">
+    <h4 id="fat"></h4>
+    <table class="table table-hover table-bordered table-striped">
+        <caption>资金分配情况</caption>
+        <thead>
+            <tr>
+                <th>编号</th>
+                <th>捐献日期</th>
+                <th>捐献时间</th>
+                <th>分配日期</th>
+                <th>分配时间</th>
+                <th>数量</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var id in Model.Idsdocmon)
+            {
+                <tr>
+                    <td>@id.id</td>
+                    <td>@id.datet</td>
+                    <td>@id.timet</td>
+                    <td>@id.dated</td>
+                    <td>@id.timed</td>
+                    <td>@id.number</td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+    <h4 id="mdo"></h4>
+    <table class="table table-hover table-bordered table-striped">
+        <caption>物资分配情况</caption>
+        <thead>
+            <tr>
+                <th>编号</th>
+                <th>捐献日期</th>
+                <th>捐献时间</th>
+                <th>分配日期</th>
+                <th>分配时间</th>
+                <th>数量</th>
+                <th>类型</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var id in Model.Idsdocmat)
+            {
+                <tr>
+                    <td>@id.id</td>
+                    <td>@id.datet</td>
+                    <td>@id.timet</td>
+                    <td>@id.dated</td>
+                    <td>@id.timed</td>
+                    <td>@id.amount</td>
+                    <td>@id.type</td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+    
 </div>
-
-
