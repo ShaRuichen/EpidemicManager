@@ -135,9 +135,12 @@ public class ExamineController : Controller
 
     public IActionResult Index_patient()//病人Id
     {
-        if (HttpContext.Session.GetString("userKind") != "patient")
-        {
-            return RedirectToAction("Index", "Login", new { path = "Examine/Index_patient" });
+       if (HttpContext.Session.GetString("userKind") != "people")	        
+        {	        
+            return RedirectToAction("Index", "Login", new { path = "Examine/Index_patient" });	            
+        }	        
+        if(HttpContext.Session.GetString("isPatient") !=  true.ToString()){	
+                return RedirectToAction("Index", "Login", new { path = "Examine/Index_patient" });	
         }
         var id_p = HttpContext.Session.GetString("userId");
         var report = Sql.Read("SELECT report_id,title ,date FROM examine_repo WHERE patient_id=@0", id_p);
