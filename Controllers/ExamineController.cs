@@ -29,13 +29,13 @@ public class ExamineController : Controller
         return View();
     }
     [HttpPost]
-    public string Create_()
+    public int Create_(string p_id,string title,string detail)
     {
         ExamineModel m = new ExamineModel();
         m.ID_doctor = HttpContext.Session.GetString("userId");
-        m.ID_patient = Request.Form["patient_id"];
-        m.detail = Request.Form["detail"];
-        m.title = Request.Form["title"];
+        m.ID_patient = p_id;
+        m.detail = detail;
+        m.title = title;
         m.date = DateTime.Now.ToString("yyyy-MM-dd");
         m.time = DateTime.Now.ToString("T");
         var i = 0;
@@ -48,11 +48,11 @@ public class ExamineController : Controller
         if (i == 0)
         {
             
-            return "病人ID输入有误";
+            return 0;
             
         }
         Sql.Execute("INSERT INTO examine_repo(date,time,patient_id,doctor_id,title,detail)  VALUES(@0,@1,@2,@3,@4,@5)", m.date, m.time, m.ID_patient, m.ID_doctor, m.title, m.detail);
-        return "创建成功";
+        return 1;
 
     }
 
@@ -75,7 +75,9 @@ public class ExamineController : Controller
             list_r.Add(r[0].ToString());
             list_p.Add(r[1].ToString());
             list_t.Add(r[2].ToString());
-            list_d.Add(r[3].ToString());
+            string d = r[3].ToString();
+            string[] sArray = d.Split(' ');
+            list_d.Add(sArray[0]);
             var name = Sql.Read("SELECT name FROM patient where ID=@0", r[1]);
             foreach (DataRow n in name)
             {
@@ -111,7 +113,9 @@ public class ExamineController : Controller
             list_r.Add(r[0].ToString());
             list_p.Add(r[1].ToString());
             list_t.Add(r[2].ToString());
-            list_d.Add(r[3].ToString());
+            string d = r[3].ToString();
+            string[] sArray = d.Split(' ');
+            list_d.Add(sArray[0]);
             var name = Sql.Read("SELECT name FROM patient where ID=@0", r[1]);
             foreach (DataRow n in name)
             {
@@ -131,12 +135,9 @@ public class ExamineController : Controller
 
     public IActionResult Index_patient()//病人Id
     {
-        if (HttpContext.Session.GetString("userKind") != "people")
+        if (HttpContext.Session.GetString("userKind") != "patient")
         {
             return RedirectToAction("Index", "Login", new { path = "Examine/Index_patient" });
-        }
-        if(HttpContext.Session.GetString("isPatient") !=  true.ToString()){
-                return RedirectToAction("Index", "Login", new { path = "Examine/Index_patient" });
         }
         var id_p = HttpContext.Session.GetString("userId");
         var report = Sql.Read("SELECT report_id,title ,date FROM examine_repo WHERE patient_id=@0", id_p);
@@ -148,7 +149,9 @@ public class ExamineController : Controller
         {
             list_r.Add(r[0].ToString());
             list_t.Add(r[1].ToString());
-            list_d.Add(r[2].ToString());
+            string d = r[2].ToString();
+            string[] sArray = d.Split(' ');
+            list_d.Add(sArray[0]);
             i++;
         }
 
@@ -180,7 +183,10 @@ public class ExamineController : Controller
             id_d = r[1].ToString();
             d = r[2].ToString();
             t = r[3].ToString();
-            date = r[4].ToString();
+            string dd = r[4].ToString();
+            string[] sArray = dd.Split(' ');
+            
+            date = sArray[0];
             title = r[5].ToString();
         }
 
@@ -222,6 +228,7 @@ public class ExamineController : Controller
     public IActionResult Write(ExamineModel M)
     {
         var id_r = Convert.ToInt32(Request.Form["report_id"]);
+        //var id_r = Convert.ToInt32(r_id);
         //var id_r = request("report_id");
         var report = Sql.Read("SELECT patient_id,doctor_id,detail,time,date,title FROM examine_repo WHERE report_id=@0", id_r);
         var id_p = "M";
@@ -270,17 +277,17 @@ public class ExamineController : Controller
     }
 
     [HttpPost]
-    public string Write_(ExamineModel M)
+    public int Write_(string r_id,string p_id,string title,string detail)
     {
         ExamineModel m = new ExamineModel();
         m.ID_doctor = HttpContext.Session.GetString("userId");
-        m.ID_patient = Request.Form["patient_id"];
-        m.detail = Request.Form["detail"];
-        m.title = Request.Form["title"];
+        m.ID_patient = p_id;
+        m.detail =detail;
+        m.title = title;
         m.date = DateTime.Now.ToString("yyyy-MM-dd");
         m.time = DateTime.Now.ToString("T");
 
-        m.ID_report = Request.Form["report_id"];
+        var ID_report = Convert.ToInt32(r_id);
         var i = 0;
 
         var p = Sql.Read("SELECT name FROM patient where ID=@0", m.ID_patient);
@@ -290,12 +297,11 @@ public class ExamineController : Controller
         }
         if (i == 0)
         {
-
-            return "病人ID输入有误";
+            return 0;
 
         }
-        Sql.Execute("INSERT INTO examine_repo(date,time,patient_id,doctor_id,title,detail)  VALUES(@0,@1,@2,@3,@4,@5)", m.date, m.time, m.ID_patient, m.ID_doctor, m.title, m.detail);
-        return "修改成功";
+        Sql.Execute("UPDATE examine_repo SET date=@0,time=@1,patient_id=@2,doctor_id=@3,title=@4,detail=@5 WHERE report_id=@6  ", m.date, m.time, m.ID_patient, m.ID_doctor, m.title, m.detail,ID_report);
+        return 1;
 
     }
     
@@ -318,7 +324,9 @@ public class ExamineController : Controller
             list_r.Add(r[0].ToString());
             list_p.Add(r[1].ToString());
             list_t.Add(r[2].ToString());
-            list_d.Add(r[3].ToString());
+            string d = r[3].ToString();
+            string[] sArray = d.Split(' ');
+            list_d.Add(sArray[0]);
             var name = Sql.Read("SELECT name FROM patient where ID=@0", r[1]);
             foreach (DataRow n in name)
             {
@@ -351,7 +359,9 @@ public class ExamineController : Controller
             list_r.Add(r[0].ToString());
             list_p.Add(r[1].ToString());
             list_t.Add(r[2].ToString());
-            list_d.Add(r[3].ToString());
+            string d = r[3].ToString();
+            string[] sArray = d.Split(' ');
+            list_d.Add(sArray[0]);
             var name = Sql.Read("SELECT name FROM patient where ID=@0", r[1]);
             foreach (DataRow n in name)
             {
