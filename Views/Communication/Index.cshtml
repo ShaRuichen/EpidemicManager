@@ -1,19 +1,14 @@
 ﻿@{ ViewBag.Ref = "communication";
-    ViewBag.Title = "线上问答"; }
+    ViewBag.Title = "线上问询"; }
 
 
 
 <div class="text-center">
-    <div class="Communication_body">
+    <div class="panel panel-default">
         <h3>请选择</h3>
-        <div class="settings_vertical">
-            <a asp-area="" asp-controller="Communication" asp-action="user">用户问询入口</a>
-            <br />
-            <a asp-area="" asp-controller="Communication" asp-action="doctor">医生答疑入口</a>
-            <br />
-            <a asp-area="" asp-controller="Communication" asp-action="check">用户查看入口</a>
-            <br />
 
-        </div>
+        <button type="button" class="btn btn-primary btn-lg btn-block" onclick="window.location.href = '../Communication/user'">民众线上问询</button>
+        <button type="button" class="btn btn-secondary btn-lg btn-block" onclick="window.location.href = '../Communication/doctor'"> 医生线上解答</button>
+        <button type="button" class="btn btn-success btn-lg btn-block" onclick="window.location.href = '../Communication/check'"> 民众查看问询结果</button>
     </div>
 </div>

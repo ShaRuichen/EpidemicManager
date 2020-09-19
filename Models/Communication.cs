@@ -17,7 +17,7 @@ namespace EpidemicManager.Models
     public class UserCommunitionMobel
     {
         public string user_name { get; set; }
-        public string user_idNumber { get; set; }
+        public string user_id { get; set; }
         public string date { get; set; }
         public int question_id { get; set; }
         public string question_content { get; set; }
@@ -35,4 +35,3 @@ namespace EpidemicManager.Models
     }
 
 }
-
