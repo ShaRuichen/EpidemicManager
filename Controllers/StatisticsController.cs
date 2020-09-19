@@ -65,7 +65,12 @@ namespace EpidemicManager.Controllers
                 Time = timelist,
                 Site = sitelist
             };
-
+            int num = 0;
+            foreach (var nums in model.ID)
+            {
+                num++;
+            }
+            model.Info_num = num;
             return View(model);
         }
 
