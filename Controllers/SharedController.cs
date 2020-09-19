@@ -11,6 +11,10 @@ namespace EpidemicManager.Controllers
             var session = HttpContext.Session;
             session.Remove("userId");
             session.Remove("userKind");
+            var cookies = Response.Cookies;
+            cookies.Delete("id");
+            cookies.Delete("password");
+            cookies.Delete("kind");
             return RedirectToAction("Index", "Home");
         }
     }

@@ -4,7 +4,8 @@
     var parameters = {
         id: id.val(),
         password: password.val(),
-        kind: $('input[name="kind"]:checked').val()
+        kind: $('input[name="kind"]:checked').val(),
+        rememberMe: $("input[type='radio']").attr('checked')
     }
 
     $.post('/login/login', parameters, function (result) {

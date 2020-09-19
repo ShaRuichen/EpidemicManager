@@ -10,6 +10,13 @@ namespace EpidemicManager.Controllers
         {
             path ??= string.Empty;
             HttpContext.Session.SetString("sourcePath", path);
+            var cookies = HttpContext.Request.Cookies;
+            if (cookies.TryGetValue("id", out var id))
+            {
+                var password = cookies["password"];
+                var kind = cookies["kind"];
+                Login(id, password, kind, null);
+            }
             return View();
         }
 
@@ -24,7 +31,7 @@ namespace EpidemicManager.Controllers
         }
 
         [HttpPost]
-        public JsonResult Login(string id, string password, string kind)
+        public JsonResult Login(string id, string password, string kind, string rememberMe)
         {
             var person = kind switch
             {
@@ -57,6 +64,13 @@ namespace EpidemicManager.Controllers
             }
             var originPath = session.GetString("sourcePath");
             var path = originPath.StartsWith("/") ? originPath : "/" + originPath;
+            if (rememberMe == "checked")
+            {
+                var cookies = Response.Cookies;
+                cookies.Append("id", id);
+                cookies.Append("password", password);
+                cookies.Append("kind", kind);
+            }
             return Json(new
             {
                 isSucceeded = true,
@@ -73,6 +87,15 @@ namespace EpidemicManager.Controllers
             Sql.Execute("INSERT INTO people VALUES(@0, @1, @2, @3, @4, @5)", id, name, address,
                 tel, sex, password);
             return true;
+        }
+
+        [HttpPost]
+        public void Logout()
+        {
+            var cookies = Response.Cookies;
+            cookies.Delete("id");
+            cookies.Delete("password");
+            cookies.Delete("kind");
         }
 
         [HttpPost]
