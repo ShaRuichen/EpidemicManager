@@ -28,10 +28,10 @@ namespace EpidemicManager.Controllers
 
         public IActionResult Read(string id)
         {
-            if (id != null)
-            {
-                Sql.Execute("INSERT INTO people VALUES(@0, 'name', 'address', 'tel', 'sex', 'password')", id);
-            }
+            //if (id != null)
+            //{
+            //    Sql.Execute("INSERT INTO people VALUES(@0, 'name', 'address', 'tel', 'sex', 'password')", id);
+            //}
             var ID = Sql.Read("SELECT ID FROM travel_info");
             var Date = Sql.Read("SELECT date FROM travel_info");
             var Time = Sql.Read("SELECT time FROM travel_info");
@@ -74,17 +74,25 @@ namespace EpidemicManager.Controllers
             return View(model);
         }
 
-        public IActionResult PeopleAdd()
+        public IActionResult PeopleAdd(string site)
         {
             var session = HttpContext.Session;
             var userKind = session.GetString("userKind");
             var userId = session.GetString("userId");
-            var model = new QRcodeModel
+            var now = DateTime.Now;
+            var time = now.ToLongTimeString();
+            var date = now.ToString("yyyy-MM-dd");
+            if (userId != null && userKind == "people")
             {
-                ID = userId
-            };
+                Sql.Execute("INSERT INTO travel_info VALUES(@0, @1, @2, @3)", userId, date, time, site);
+            }
+            else
+            {
+                return Redirect($"/login?path=/statistics/peopleadd?site={site}");
+            }
+            ViewBag.Site = site;
 
-            return View(model);
+            return View();
         }
 
         public IActionResult PeopleAdd_info()
