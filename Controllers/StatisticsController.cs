@@ -12,13 +12,13 @@ namespace EpidemicManager.Controllers
 {
     public class StatisticsController : Controller
     {
-        
+
         public IActionResult Index()
         {
             var session = HttpContext.Session;
             var userKind = session.GetString("userKind");
             var userId = session.GetString("userId");
-            if(userId==null)
+            if (userId == null)
             {
                 return RedirectPermanent("/login?path=statistics");
             }
@@ -28,7 +28,7 @@ namespace EpidemicManager.Controllers
 
         public IActionResult Read(string id)
         {
-            if(id!=null)
+            if (id != null)
             {
                 Sql.Execute("INSERT INTO people VALUES(@0, 'name', 'address', 'tel', 'sex', 'password')", id);
             }
@@ -114,6 +114,6 @@ namespace EpidemicManager.Controllers
 
             return View(model);
         }
-        
+
     }
 }
