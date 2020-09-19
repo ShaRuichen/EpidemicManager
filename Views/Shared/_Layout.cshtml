@@ -96,7 +96,13 @@
                     }
                     else if (userKind == "manager")
                     {
-                        <li class="nav-item"><a class="nav-link" href="/Statistics/Read">行程信息</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="travelDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">行程信息</a>
+                            <div class="dropdown-menu" aria-labelledby="travelDropdown">
+                                <a class="dropdown-item" href="/Statistics/Read">查看行程信息</a>
+                                <a class="dropdown-item" href="/Statistics/ShowQRcode">出示二维码</a>
+                            </div>
+                        </li>
                         <li class="nav-item"><a class="nav-link" href="/distribution">分配物资</a></li>
                         <li class="nav-item"><a class="nav-link" href="/questionnaire/create">发放问卷</a></li>
                         <li class="nav-item"><a class="nav-link" href="/questionnaire/result">统计问卷</a></li>

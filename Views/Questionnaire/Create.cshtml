@@ -4,97 +4,97 @@
     ViewBag.Title = "创建/修改问卷";
 }
 
-<div class="text-center">
-    <h1>建立/编辑问卷</h1>
-    <a asp-area="" asp-controller="questionnaire" asp-action="index">返回问卷系统</a>
-    <h4>当前问卷</h4>
-    <div>
-        @if (Model.questionnaire.Count == 0)
-        {
-            <p style="color:blueviolet">当前问卷为空，请先创建问卷！</p>
-        }
-        else
-        {
-            @for (int i = 0; i < Model.questionnaire.Count; i++)
+    <div class="text-center">
+        <h1>建立/编辑问卷</h1>
+        <a asp-area="" asp-controller="questionnaire" asp-action="index">返回问卷系统</a>
+        <h4>当前问卷</h4>
+        <div>
+            @if (Model.questionnaire.Count == 0)
             {
-                @if (!Model.questionnaire[i].is_Bridge)
+                <p style="color:blueviolet">当前问卷为空，请先创建问卷！</p>
+            }
+            else
+            {
+                @for (int i = 0; i < Model.questionnaire.Count; i++)
                 {
-                    <p>
-                        @(i+1)
-                        <strong>.@Model.questionnaire[i].question_Content</strong>
-                        <i style="color:#FF6347">--填空</i>
-                        <br />
-                    </p>
-                    <small style="color:#87CEFA">--由管理员<i>@Model.questionnaire[i].manager_ID</i>编辑</small>
-                }
-                else
-                {
-                    <p>
-                        @(i+1)
-                        <strong>.@Model.questionnaire[i].question_Content</strong>
-                        <i style="color:#FF6347">--选择</i>
-                    </p>
-                    <ul>
-                        @for (int j = 0; j < Model.questionnaire[i].option_ID.Count; j++)
-                        {
-                            <li class="text-center">
-                                <b>@Model.questionnaire[i].option_ID[j]</b>
-                                .<i>@Model.questionnaire[i].option_Content[j]</i>
-                            </li>
-                        }
-                    </ul>
-                    <small style="color:#87CEFA">--由管理员<i>@Model.questionnaire[i].manager_ID</i>编辑</small>
+                    @if (!Model.questionnaire[i].is_Bridge)
+                    {
+                        <p>
+                            @(i+1)
+                            <strong>.@Model.questionnaire[i].question_Content</strong>
+                            <i style="color:#FF6347">--填空</i>
+                            <br />
+                        </p>
+                        <small style="color:#87CEFA">--由管理员<i>@Model.questionnaire[i].manager_ID</i>编辑</small>
+                    }
+                    else
+                    {
+                        <p>
+                            @(i+1)
+                            <strong>.@Model.questionnaire[i].question_Content</strong>
+                            <i style="color:#FF6347">--选择</i>
+                        </p>
+                        <ul>
+                            @for (int j = 0; j < Model.questionnaire[i].option_ID.Count; j++)
+                            {
+                                <li class="text-center">
+                                    <b>@Model.questionnaire[i].option_ID[j]</b>
+                                    .<i>@Model.questionnaire[i].option_Content[j]</i>
+                                </li>
+                            }
+                        </ul>
+                        <small style="color:#87CEFA">--由管理员<i>@Model.questionnaire[i].manager_ID</i>编辑</small>
+                    }
                 }
             }
-        }
-    </div>
-    <div class="nav nav-tabs justify-content-center" id="ModifyTab" role="tablist">
-        <a class="nav-link active" id="add-radio-tab" data-toggle="tab" href="#radios" role="tab"
-           aria-controls="radios" aria-selected="true">添加选择题</a>
-        <a class="nav-link" id="add-fill-tab" data-toggle="tab" href="#fills" role="tab"
-           aria-controls="fills" aria-selected="false">添加填空题</a>
-        <a class="nav-link" id="delete-tab" data-toggle="tab" href="#delete" role="tab"
-           aria-controls="delete" aria-selected="false">删除问题</a>
-    </div>
-    <div class="tab-content" id="myTabContent">
-        <div class="tab-pane fade show active" id="radios" role="tabpanel" aria-labelledby="add-radio-tab">
-            <br />
-            <p>
-                题目内容：<input type="text" id="radioContent" />
-            </p>
-            <p>设置选项：(至少设置一个)</p>
-            <ol class="text-center">
-                <li>
-                    <input type="text" id="option1" />
-                </li>
-                <li>
-                    <input type="text" id="option2" />
-                </li>
-                <li>
-                    <input type="text" id="option3" />
-                </li>
-                <li>
-                    <input type="text" id="option4" />
-                </li>
-            </ol>
-            <p id="radioErrorMessage" />
-            <p><div class="btn btn-primary" id="submitButton" onclick="addRadios()">添加</div></p>
         </div>
-        <div class="tab-pane fade" id="fills" role="tabpanel" aria-labelledby="add-fill-tab">
-            <br />
-            <p>
-                题目内容：<input type="text" id="fillContent" />
-            </p>
-            <p id="fillErrorMessage" />
-            <p><div class="btn btn-primary" id="submitButton" onclick="addFill()">添加</div></p>
+        <div class="nav nav-tabs justify-content-center" id="ModifyTab" role="tablist">
+            <a class="nav-link active" id="add-radio-tab" data-toggle="tab" href="#radios" role="tab"
+               aria-controls="radios" aria-selected="true">添加选择题</a>
+            <a class="nav-link" id="add-fill-tab" data-toggle="tab" href="#fills" role="tab"
+               aria-controls="fills" aria-selected="false">添加填空题</a>
+            <a class="nav-link" id="delete-tab" data-toggle="tab" href="#delete" role="tab"
+               aria-controls="delete" aria-selected="false">删除问题</a>
         </div>
-        <div class="tab-pane fade" id="delete" role="tabpanel" aria-labelledby="delete-tab">
-            <br />
-            <p>
-                要删除的题号：<input type="text" id="deleteId" />
-            </p>
-            <p id="deleteErrorMessage" />
-            <p><div class="btn btn-primary" id="submitButton" onclick="deleteQuestion()">删除</div></p>
-        </div>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="radios" role="tabpanel" aria-labelledby="add-radio-tab">
+                <br />
+                <p>
+                    题目内容：<input type="text" id="radioContent" />
+                </p>
+                <p>设置选项：(至少设置一个)</p>
+                <ol class="text-center">
+                    <li>
+                        <input type="text" id="option1" />
+                    </li>
+                    <li>
+                        <input type="text" id="option2" />
+                    </li>
+                    <li>
+                        <input type="text" id="option3" />
+                    </li>
+                    <li>
+                        <input type="text" id="option4" />
+                    </li>
+                </ol>
+                <p id="radioErrorMessage" />
+                <p><div class="btn btn-primary" id="submitButton" onclick="addRadios()">添加</div></p>
+            </div>
+                <div class="tab-pane fade" id="fills" role="tabpanel" aria-labelledby="add-fill-tab">
+                    <br />
+                    <p>
+                        题目内容：<input type="text" id="fillContent" />
+                    </p>
+                    <p id="fillErrorMessage" />
+                    <p><div class="btn btn-primary" id="submitButton" onclick="addFill()">添加</div></p>
+                </div>
+                <div class="tab-pane fade" id="delete" role="tabpanel" aria-labelledby="delete-tab">
+                    <br />
+                    <p>
+                        要删除的题号：<input type="text" id="deleteId" />
+                    </p>
+                    <p id="deleteErrorMessage" />
+                    <p><div class="btn btn-primary" id="submitButton" onclick="deleteQuestion()">删除</div></p>
+                </div>
+            </div>
     </div>
-</div>

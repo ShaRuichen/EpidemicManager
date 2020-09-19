@@ -25,11 +25,11 @@ namespace EpidemicManager.Models
     public class Answer
     {
         public int question_num { get; set; }
-        public string choice{ get; set; }
+        public string choice { get; set; }
         public string fillContent { get; set; }
     }
 
-    
+
     /*public class bridge
     {
         public List<string> option_ID { get; set; }

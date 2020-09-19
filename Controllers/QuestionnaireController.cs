@@ -271,7 +271,7 @@ namespace EpidemicManager.Controllers
             }
             var session = HttpContext.Session;
             var managerId = HttpContext.Session.GetString("userId");
-            if (count == 0)
+            if (count == 1)
             {
                 id = 1;
             }

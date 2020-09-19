@@ -3,3 +3,7 @@
         $('#button').html(result.name + result.num)
     })
 }
+
+function enterSite(value) {
+    $('#code').attr('src', '/QRcode?path=Statistics/PeopleAdd?site=' + value)
+}

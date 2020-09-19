@@ -3,7 +3,7 @@
     ViewBag.Ref = "questionnaire";
     ViewBag.Title = "查看问卷";
 }
-    <div>
+    <div class="text-center">
         <h1>当前问卷</h1>
         <a asp-area="" asp-controller="questionnaire" asp-action="index">返回问卷系统</a>
         <div>
@@ -20,28 +20,28 @@
                         <p>
                             @(i+1)
                             <strong>.@Model.questionnaire[i].question_Content</strong>
-                            <i style="color:red">--填空</i>
+                            <i style="color:#FF6347">--填空</i>
                             <br />
                         </p>
-                        <small style="color:blue">--由管理员<i>@Model.questionnaire[i].manager_ID</i>编辑</small>
+                        <small style="color:#87CEFA">--由管理员<i>@Model.questionnaire[i].manager_ID</i>编辑</small>
                     }
                     else
                     {
                         <p>
                             @(i+1)
                             <strong>.@Model.questionnaire[i].question_Content</strong>
-                            <i style="color:red">--选择</i>
+                            <i style="color:#FF6347">--选择</i>
                         </p>
                         <ul>
                             @for (int j = 0; j < Model.questionnaire[i].option_ID.Count; j++)
                             {
-                                <li>
+                                <li class="text-center">
                                     <b>@Model.questionnaire[i].option_ID[j]</b>
                                     .<i>@Model.questionnaire[i].option_Content[j]</i>
                                 </li>
                             }
                         </ul>
-                        <small style="color:blue">--由管理员<i>@Model.questionnaire[i].manager_ID</i>编辑</small>
+                        <small style="color:#87CEFA">--由管理员<i>@Model.questionnaire[i].manager_ID</i>编辑</small>
                     }
                 }
             }
