@@ -153,23 +153,57 @@ else
                 </div>
 
             </div>
-
-            <aside class="col-md-4 blog-sidebar">
-                <div class="p-4">
-                    <h4 class="font-italic">其他功能链接</h4>
-                    <ol class="list-unstyled mb-0">
-                        <li><a href="/travel/ShowQRcode">出示二维码</a></li>
-                        <li><a href="/donation/donatemoney">捐献金钱</a></li>
-                        <li><a href="/statistics/read_index">查看检查报告</a></li>
-                        <li><a href="/travel/show">查看行程</a></li>
-                        <li><a href="/donation/distribute">查看分配信息</a></li>
-                        <li><a href="/travel/peopleadd">添加行程</a></li>
-                        <li><a href="/communication">线上交流</a></li>
-
-                    </ol>
-                </div>
-            </aside><!-- /.blog-sidebar -->
-
+            @if (userKind == "people")
+            {
+                <aside class="col-md-4 blog-sidebar">
+                    <div class="p-4">
+                        <h4 class="font-italic">其他功能链接</h4>
+                        <ol class="list-unstyled mb-0">
+                            <li><a href="/travel/show">查看行程</a></li>
+                            <li><a href="/travel/peopleadd">添加行程</a></li>
+                            <li><a href="/travel/ShowQRcode">出示二维码</a></li>
+                            <li><a href="/donation/distribute">查看分配信息</a></li>
+                            <li><a href="/donation/donatematerial">捐献物资</a></li>
+                            <li><a href="/donation/donatemoney">捐献金钱</a></li>
+                            <li><a href="/communication">线上交流</a></li>
+                            <li><a href="/questionnaire/fill">填写问卷</a></li>
+                            <li><a href="/examine/index_patient">检查报告</a></li>
+                            <li><a href="/treatment/normcheck">治疗方案</a></li>
+                        </ol>
+                    </div>
+                </aside>
+            }
+            else if (userKind == "doctor")
+            {
+                <aside class="col-md-4 blog-sidebar">
+                    <div class="p-4">
+                        <h4 class="font-italic">其他功能链接</h4>
+                        <ol class="list-unstyled mb-0">
+                            <li><a href="/examine/read_index">查看检查报告</a></li>
+                            <li><a href="/examine/create">添加检查报告</a></li>
+                            <li><a href="/treatment">治疗方案</a></li>
+                            <li><a href="/examine/index_doctor">检查报告</a></li>
+                            <li><a href="/distribution">物资分配</a></li>
+                            <li><a href="/communication">线上交流</a></li>
+                        </ol>
+                    </div>
+                </aside>
+            }
+            else if (userKind == "manager")
+            {
+                <aside class="col-md-4 blog-sidebar">
+                    <div class="p-4">
+                        <h4 class="font-italic">其他功能链接</h4>
+                        <ol class="list-unstyled mb-0">
+                            <li><a href="/statistics/read_index">查看检查报告</a></li>
+                            <li><a href="/statistics/">添加检查报告</a></li>
+                            <li><a href="/distribution">分配物资</a></li>
+                            <li><a href="/questionnaire/create">发放问卷</a></li>
+                            <li><a href="/questionnaire/result">统计问卷</a></li>
+                        </ol>
+                    </div>
+                </aside>
+            }
         </div><!-- /.row -->
 
     </main>
