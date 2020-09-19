@@ -1,59 +1,176 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Http;
+@{
     ViewBag.Ref = "Home";
     ViewBag.Title = "主页";
+    var session = ViewContext.HttpContext.Session;
+    var userId = session.GetString("userId");
+    var userKind = session.GetString("userKind");
 }
-
-@*<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li><a class="nav-link" asp-area="" asp-controller="Communication" asp-action="Index">线上交流</a></li>
-            <li><a class="nav-link" asp-area="" asp-controller="Distribution" asp-action="Index">分配物资</a></li>
-            <li><a class="nav-link" asp-area="" asp-controller="Donation" asp-action="DonateMaterial">捐献物资</a></li>
-            <li><a class="nav-link" asp-area="" asp-controller="Donation" asp-action="DonateMoney">捐献资金</a></li>
-            <li><a class="nav-link" asp-area="" asp-controller="Donation" asp-action="Distribute">查看分配信息</a></li>
-            <li><a class="nav-link" asp-area="" asp-controller="Examine" asp-action="Index">检查</a></li>
-            <li><a class="nav-link" asp-area="" asp-controller="Login" asp-action="Index">民众/管理员/医生登录</a></li>
-            <li><a class="nav-link" asp-area="" asp-controller="Questionnaire" asp-action="Index">管理问卷</a></li>
-            <li><a class="nav-link" asp-area="" asp-controller="Questionnaire" asp-action="Fill">填写问卷</a></li>
-            <li><a class="nav-link" asp-area="" asp-controller="Report" asp-action="Index">医生读写/病人读检查报告</a></li>
-            <li><a class="nav-link" asp-area="" asp-controller="Settings" asp-action="Index">修改信息菜单</a></li>
-            <li><a class="nav-link" asp-area="" asp-controller="Shared" asp-action="Index">共享</a></li>
-            <li><a class="nav-link" asp-area="" asp-controller="Statistics" asp-action="Index">数据</a></li>
-            <li><a class="nav-link" asp-area="" asp-controller="Template" asp-action="Index">模板</a></li>
-            <li><a class="nav-link" asp-area="" asp-controller="Travel" asp-action="Index">行程信息</a></li>
-            <li><a class="nav-link" asp-area="" asp-controller="Treatment" asp-action="Distribute">医生读写/病人读治疗方案</a></li>
-        </ul>
-    </div>
-</nav>*@
-
-<div id="carouselexampleindicators" class="carousel slide" data-ride="carousel">
-        <ol class="carousel-indicators">
-            <li data-target="#carouselexampleindicators" data-slide-to="0" class="active"></li>
-            <li data-target="#carouselexampleindicators" data-slide-to="1"></li>
-            <li data-target="#carouselexampleindicators" data-slide-to="2"></li>
-            <li data-target="#carouselexampleindicators" data-slide-to="4"></li>
-        </ol>
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="./res/contains/001.jpg" class="d-block w-100" alt="..." height="800">
-            </div>
-            <div class="carousel-item">
-                <img src="./res/contains/002.jpg" class="d-block w-100" alt="..." height="800">
-            </div>
-            <div class="carousel-item">
-                <img src="./res/contains/003.jpg" class="d-block w-100" alt="..." height="800">
-            </div>
-            <div class="carousel-item">
-                <img src="./res/contains/004.jpg" class="d-block w-100" alt="..." height="800">
+@if (userId == null)
+{
+    <main role="main">
+        <div class="jumbotron">
+            <div class="container">
+                <h1 class="display-3">欢迎来到传染病管理系统</h1>
+                <p>新冠疫情来袭，如何应对这样一种突如其来的传染病，是每个身处疫情环境下人们思考的问题。利用互联网，设计这样一种系统，让信息在各个部门之间流畅传递，让防疫资源得到充分利用，因为对于这种规模的传染病来说，想要遏制其传播，检测和排查公民感染情况的能力和速度是关键。</p>
             </div>
         </div>
-        <a class="carousel-control-prev" href="#carouselexampleindicators" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carouselexampleindicators" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">next</span>
-        </a>
-</div>
 
+        <div class="container">
+            <!-- Example row of columns -->
+            <div class="row">
+                <div class="col-md-4">
+                    <h2>普通公民</h2>
+                    <p>在有相关症状或者病人（或疑似病人）接触史时，能够及时的得到检测和治疗，不仅保障了自身的人身安全，也避免了传染他人。通过问询机制，能够杜绝谣言的传播。 </p>
+
+                </div>
+                <div class="col-md-4">
+                    <h2>疫情管理人员</h2>
+                    <p>能够有效地统筹城市的疫情管理工作，通过问卷精准地获取想要的信息，节省了大量的人力物力，捐赠渠道也能缓解一些经济物资压力。 </p>
+
+                </div>
+                <div class="col-md-4">
+                    <h2>医护人员</h2>
+                    <p>减少了医护人员与病人的接触，保障医护人员的健康安全，让医护人员随时查看自己所管理的每一位病人的病情状况，避免发生遗漏或误判。</p>
+
+                </div>
+                <div class="col-md-4">
+                    <h2>病人</h2>
+                    <p>病人能够准确地了解自身的状况以及医疗方案，增加病人康复的信心。</p>
+
+                </div>
+            </div>
+
+            <hr>
+
+        </div> <!-- /container -->
+
+    </main>
+}
+else
+{
+    <div class="container">
+        <div class="jumbotron p-4 p-md-5 text-white rounded bg-dark">
+            <div class="col-md-6 px-0">
+                <h1 class="display-4 font-italic">功能简介</h1>
+                <p class="lead my-3">本文档共实现20个小功能点，共同组成了这个基于互联网的在线疫情信息管理系统，每个子系统中又含有不同但相互联系的多个功能，帮助普通人积极预防疫情、管理者高效控制疫情、医护人员有效救治病人、感染者正确配合治疗。</p>
+
+            </div>
+        </div>
+
+        <div class="row mb-auto">
+            <div class="col-md-6">
+                <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                    <div class="col p-4 d-flex flex-column position-static">
+                        <strong class="d-inline-block mb-2 text-primary">登录功能</strong>
+                        <p class="card-text mb-auto">个人用户登录系统的功能，即为用户输入自己的身份验证信息，然后通过对数据库中个人身份信息的查询，来控制用户登录系统。并且如果没有与用户匹配的信息，会跳转注册页面，引导用户注册账号。</p>
+                    </div>
+                    <div class="col-auto d-none d-lg-block">
+                        <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Login</text></svg>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                    <div class="col p-4 d-flex flex-column position-static">
+                        <strong class="d-inline-block mb-2 text-success">个人信息修改</strong>
+                        <p class="mb-auto">本功能包括用户注册账号的功能，和用户登录之后对个人信息进行修改的功能。用户登录后修改个人信息会先进行身份验证，通过后，用户可以修改个人信息的内容。</p>
+                        <a class="btn btn-secondary" href="/Settings/Index" role="button">转到该功能</a>
+                    </div>
+                    <div class="col-auto d-none d-lg-block">
+                        <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Settings</text></svg>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                    <div class="col p-4 d-flex flex-column position-static">
+                        <strong class="d-inline-block mb-2 text-success">填写问卷</strong>
+                        <p class="mb-auto">该功能是针对个人用户的功能点，用户可以在网络上接受并填写相关管理者发放的问卷，包括个人身体状况，所处位置信息以及是否出现其他问题的信息条目，问卷填写完成提交后，管理者可以通过获取问卷调查结果来更新数据库中个人的信息条目，以方便相关管理者进行管理工作。</p>
+                        <a class="btn btn-secondary" href="/Questionnaire/fill" role="button">转到该功能</a>
+                    </div>
+                    <div class="col-auto d-none d-lg-block">
+                        <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Settings</text></svg>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                    <div class="col p-4 d-flex flex-column position-static">
+                        <strong class="d-inline-block mb-2 text-success"> 线上问询</strong>
+                        <p class="mb-auto">该功能的作用是个人用户在线上提出问题并获取回答，方便小问题和紧急事件的处理。在用户登录的情况下，用户选择问题类型，和问题的一些主要信息，就能从问题数据库获取相关相关问题和回答，如果没有找到，用户可以以查询所需信息为标签发布该问题，等待相关专业医生解答。</p>
+                        <a class="btn btn-secondary" href="/Communication/Index" role="button">转到该功能</a>
+                    </div>
+                    <div class="col-auto d-none d-lg-block">
+                        <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Settings</text></svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <main role="main" class="container">
+        <div class="row">
+            <div class="col-md-8 blog-main">
+                <h3 class="pb-4 mb-4 font-italic border-bottom">
+                    其他功能
+                </h3>
+
+                <div class="blog-post">
+                    <blockquote>
+                    </blockquote>
+                    <h3>出示二维码</h3>
+                    <p>此功能是针对个人用户的功能点，用户在办理相关业务时可以出示系统生成的二维码以方便快捷地进行登录，支付等网上业务以及提供个人信息的健康码方便获取个人健康信息等。</p>
+                    <h3>捐献物资/钱</h3>
+                    <p>该功能的作用是用户以个人身份向医院和病人捐献物资或钱。在用户登录的情况下，执行该功能，需要选择捐献物品形式（物资，钱），然后根据物品形式进一步完善物品信息（物资类型，钱的金额），选择捐款对象，最后确认捐献信息。</p>
+                    <h3>查看线上答疑</h3>
+                    <p>在线上执行问询操作后，用户可以等待线上某位医生对其问题进行答疑操作，当医生给出问题信息后系统会将该问题和问题的类型、关键字存入数据库中，用户可以通过查询关键字访问数据库来查询线上答疑的结果。</p>
+                    <h3>对管理者进行增删改</h3>
+                    <p>本功能包括管理者注册账号的功能，和管理者登录之后对个人信息进行修改的功能。对于注册账号功能，管理者输入必要的个人信息，当管理者的个人信息符合要求或者由其他管理者处理同意后，在管理者个人信息的数据库中添加一个元组，记录管理者信息。在管理者登录后需要修改个人信息的时候，会先进行必要的身份验证，验证通过后，在数据库中查找管理者输入的信息，管理者可以修改个人信息的内容。</p>
+                    <h3>查看每日统计信息</h3>
+                    <p>该功能可供管理员查看每日统计信息汇总情况。管理员登录系统之后可以查看捐献者们所填写的问卷、捐献的物资清单、线上答疑情况等的信息统计，以便做出进一步的决策以及是否需要相应的更改问卷的问题。</p>
+                    <h3>检查二维码</h3>
+                    <p>该功能提供管理员查询登录者的健康二维码所包含的健康信息的途径。便于判断该登录者的健康状况。</p>
+                    <h3>查看个人行踪</h3>
+                    <p>该功能是在发现确诊病例或者疑似病例时为了追踪所发现病例的染病来源和具体的密切接触者，来查看特定人的近期的出入情况，包括具体的时间和场所。出入情况通过所扫描二维码的时间和地点进行记录。</p>
+                    <h3>发放每日问卷</h3>
+                    <p>该功能是在疫情期间管理人员为了获得民众的个人身体状况和当前所在位置等信息，编写并发放每天相关的问卷，以此记录个人的具体情况，便于进行管理和制定应对措施。</p>
+                    <h3>分配受捐物资和现金</h3>
+                    <p>该功能主要用于为在疫情期间民众向医院等相关机构捐献物资或者现金提供渠道，以此来保障抗疫期间物资以及现金的充足，能更好地把精力投入到抗疫中，通过线上捐献也可以降低传染风险。</p>
+                    <h3>对医生信息的增删改</h3>
+                    <p>这一用例主要是医生对于自己在系统中登记的信息进行增加、删除和修改，以期在医院招聘医生、医生离职以及信息发生改变时能及时地对系统中存储的信息进行修改。信息主要包括医生编号、医院、姓名、性别、科室、职称等信息。</p>
+                    <h3>线上答疑</h3>
+                    <p>医院工作人员可以通过线上答疑功能对普通民众线上问询所提出的问题进行答疑解惑，及时辟谣，避免谣言的传播，同时传递正确的有关疫情或者防疫的信息。医院工作人员登陆后，可以在界面选择线上答疑来对普通群众提出的相应问题进行回答，除了回答仍未被回答过的问题，还可以对其他医院工作人员的问题进行补充。</p>
+                    <h3>对病人信息的增删改</h3>
+                    <p>医院工作人员可以对病人对信息进行增删改操作，在有新的病人确诊后，可将该病人的基本个人信息（姓名，性别，年龄，确诊日期，联系方式等）录入到数据库中。在病人的信息发生变动时，可以实现对病人信息的修改操作，在病人痊愈或者信息录入失误时，可以实现删除某个病人信息的操作。</p>
+                    <h3>对治疗方案的增删改</h3>
+                    <p>这一功能点主要用户是医生，是医生对于患者治疗方案进行增删改查，以做到疫情期间信息管理对病人可见，同时患者的治疗历史方便医生管理。这一功能点主要要考虑医生的权限，查看，修改。对应两个关系，即关系一患者治疗方案，该关系属性有患者id，姓名，当前治疗方案（药物，手段），关系二治疗，包括时间与治疗历史</p>
+                    <h3>发布受捐物资使用情况</h3>
+                    <p>这一功能点主要用户是医生，是医生对于医院受捐物资向公众说明使用，向公众公开信息，方便信息流动与普通民众掌握。这一功能点要考虑医生的权限，增加，修改，删除，查看。也要考虑普通民众的查看权限。主要涉及两种关系，第一种关系是使用受捐品id，批号，使用单位，收到时间，使用时间，以及第二种关系，受捐品id，捐赠内容。</p>
+                    <h3>查看检查结果</h3>
+                    <p>该功能是病人在疫情期间查看自己的检测结果，检测结果由医生发布，对病人能做到信息透明，病人能够第一时间知晓自己的身体状况，对自己的身体有较好的掌握。</p>
+                    <h3>查看治疗方案</h3>
+                    <p>该功能是病人在疫情期间查看自己的治疗方案，治疗方案由医生发布，对病人能做到信息透明，病人能够第一时间知晓自己的身体状况，治疗的费用消耗，治疗的相关风险等等。</p>
+                </div>
+
+            </div>
+
+            <aside class="col-md-4 blog-sidebar">
+                <div class="p-4">
+                    <h4 class="font-italic">其他功能链接</h4>
+                    <ol class="list-unstyled mb-0">
+                        <li><a href="/travel/ShowQRcode">出示二维码</a></li>
+                        <li><a href="/donation/donatemoney">捐献金钱</a></li>
+                        <li><a href="/statistics/read_index">查看检查报告</a></li>
+                        <li><a href="/travel/show">查看行程</a></li>
+                        <li><a href="/donation/distribute">查看分配信息</a></li>
+                        <li><a href="/travel/peopleadd">添加行程</a></li>
+                        <li><a href="/communication">线上交流</a></li>
+
+                    </ol>
+                </div>
+            </aside><!-- /.blog-sidebar -->
+
+        </div><!-- /.row -->
+
+    </main>
+}
