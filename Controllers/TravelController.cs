@@ -13,17 +13,7 @@ namespace EpidemicManager.Controllers
     public class TravelController : Controller
     {
 
-        public IActionResult Index()
-        {
-            var session = HttpContext.Session;
-            var userKind = session.GetString("userKind");
-            var userId = session.GetString("userId");
-            if(userId==null)
-            {
-                return RedirectPermanent("/login?path=travel");
-            }
-            return View();
-        }
+        
         public IActionResult PeopleAdd()
         {
             var session = HttpContext.Session;
