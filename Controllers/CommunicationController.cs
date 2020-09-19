@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using EpidemicManager.Models;
-using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Data;
+using System;
+using Microsoft.AspNetCore.Http;
+using System.Web;
+
 
 namespace EpidemicManager.Controllers
 {
@@ -19,15 +22,15 @@ namespace EpidemicManager.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult user(UserCommunitionMobel user)
+        public IActionResult user_(UserCommunitionMobel user)
         {
             UserCommunitionMobel user_info = new UserCommunitionMobel();
-            user_info.user_name = Request.Form["user_name"];
-            user_info.user_idNumber = Request.Form["user_idNumber"];
-            string date = DateTime.Now.ToString("yyyy-MM-dd");
+            //user_info.user_name = Request.Form["user_name"];
+            user_info.user_id = Request.Form["user_id"];
+            string time = DateTime.Now.ToString("yyyy-MM-dd");
             user_info.question_id = Convert.ToInt32(Request.Form["question_id"]);
             user_info.question_content = Request.Form["question_content"];
-            Sql.Execute("INSERT INTO user_communication(user_name,user_idNumber,date,question_id,question_content)  VALUES(@0,@1,@2,@3,@4)", user_info.user_name, user_info.user_idNumber, date, user_info.question_id, user_info.question_content);
+            Sql.Execute("INSERT INTO question(user_id,time,question_id,detail)  VALUES(@0,@1,@2,@3)", user_info.user_id, time, user_info.question_id, user_info.question_content);
             return RedirectToAction("Index");
         }
         [HttpGet]
@@ -37,7 +40,7 @@ namespace EpidemicManager.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult doctor(DocCommunicationMobel doctor)
+        public IActionResult doctor_(DocCommunicationMobel doctor)
         {
             DocCommunicationMobel doc_info = new DocCommunicationMobel();
             doc_info.question_type = Request.Form["question_type"];
@@ -55,7 +58,7 @@ namespace EpidemicManager.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult check(CheckMobel check)
+        public IActionResult check_(CheckMobel check)
         {
             CheckMobel check_info = new CheckMobel();
             check_info.user_name = Request.Form["user_name"];
