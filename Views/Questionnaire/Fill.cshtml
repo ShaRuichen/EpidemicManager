@@ -37,7 +37,7 @@
                                 @for (int j = 0; j < Model.questionnaire[i].option_ID.Count; j++)
                                 {
                                     <label>
-                                        @Html.RadioButtonFor(m=>m.answers[i].choice,j+1,new { Name = "answers[" + i + "].choice" })
+                                        @Html.RadioButtonFor(m => m.answers[i].choice, j + 1, new { Name = "answers[" + i + "].choice" })
                                         <b>@Model.questionnaire[i].option_ID[j]</b>
                                         .<i>@Model.questionnaire[i].option_Content[j]</i>
                                     </label>

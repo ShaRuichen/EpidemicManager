@@ -1,7 +1,7 @@
 
 function click12() {
     $.post('/Treatment/Click2', {  pat_id: document.getElementById("patient_id").value, med: document.getElementById("medicine").value, detail: document.getElementById("detail").value }, function (result) {
-        if (result == 1) { alert("插入完成")}
+        if (result == 1) { alert("插入完成"); window.location.href = "/home"; }
         else if (result == 0) {
             alert("您未登录或身份受限");
             window.location.href="../Login/Index";
